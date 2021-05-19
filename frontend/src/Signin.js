@@ -15,6 +15,10 @@ class App extends Component{
 
     }
 
+    googlesignin() {
+        window.open('http://localhost:4000/auth/google','_self');
+    }
+
 
 
     signin = async () => {
@@ -89,17 +93,7 @@ class App extends Component{
             <Button variant='contained' onClick={this.signin}>Signin</Button>
  <br />
        <h2>OR</h2> 
-           <GoogleLogin 
-           
-            clientid=""
-            buttonText="Sign in with Google"
-            // onSuccess={this.googleResponse}
-            // onFailure={this.googleResponse}
-            cookiePolicy={'single-host-origin'}
-            />
-            <Link to='/signup' className='link_signup'>
-            <h4>SignUp</h4>
-            </Link>
+         <Button variant='contained' onClick={this.googlesignin}>Sign in with google</Button>
 
 
            

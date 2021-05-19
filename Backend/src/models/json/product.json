@@ -1,47 +1,42 @@
 {
-    "username":{
+    "Title":{
         "type":"String",
         "required":true,
         "unique":true,
         "index":true
     },
-    "firstname":{
+    "discription":{
         "type":"String",
         "required":true
     },
-    "lastname":{
+    "price":{
         "type":"String",
         "required":true
     },
-    "email":{
-        "type":"String",
-        "required":true,
-        "unique":true
-    },
-    "mobile":{
-        "type":"String",
-        "required":true,
-        "unique":true
-    },
-    "password":{
+    "seller":{
         "type":"String",
         "required":true
     },
-    "gstno":{
+    "expiryDate":{
+        "type":"String",
+        "required":true
+
+    },
+    "DiscountedPrice":{
+        "type":"String"
+    },
+    "categoryTag":{
         "type":"String",
         "require":true,
         "unique":true
     },
-    "IsActivated":{
+    "Rating":{
         "type":"string"
     },
-    "IsOauth":{
-        "type":"string"
+    "NoOfUserRated":{
+        "type":"String"
     },
-    "Type":{
-        "type":"string"
-    },
-    "CoinAmt":{
-        "type":"string"
+    "CoinValue":{
+        "type":"String"
     }
 }

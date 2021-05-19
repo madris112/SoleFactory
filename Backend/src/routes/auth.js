@@ -4,13 +4,15 @@ const router = new express.Router();
 const passport = require('passport');
 
 
+
+
 //authorize with google
 router.get('/auth/google', passport.authenticate('google',{scope: ['email', 'profile']}));
 
 
 router.get('/auth/google/callback', passport.authenticate('google'), (req, res) =>{
 
-    res.redirect('/home');
+    res.redirect('http://localhost:3000/home');
 
     // if(req.user){
     //     res.send({
