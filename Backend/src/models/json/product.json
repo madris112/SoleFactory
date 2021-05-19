@@ -5,7 +5,7 @@
         "unique":true,
         "index":true
     },
-    "discription":{
+    "description":{
         "type":"String",
         "required":true
     },
