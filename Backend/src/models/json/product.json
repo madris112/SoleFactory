@@ -1,42 +1,42 @@
 {
     "Title":{
-        "type":"String",
-        "required":true,
-        "unique":true,
-        "index":true
+        "type"    : "String",
+        "required": true,
+        "unique"  : true,
+        "index"   : true
     },
     "description":{
-        "type":"String",
-        "required":true
+        "type"    : "String",
+        "required": true
     },
     "price":{
-        "type":"String",
-        "required":true
+        "type"    : "String",
+        "required": true
     },
     "seller":{
-        "type":"String",
-        "required":true
+        "type"    : "String",
+        "required": true
     },
     "expiryDate":{
-        "type":"String",
-        "required":true
+        "type"    : "String",
+        "required": true
 
     },
     "DiscountedPrice":{
-        "type":"String"
+        "type": "String"
     },
     "categoryTag":{
-        "type":"String",
-        "require":true,
-        "unique":true
+        "type"   : "String",
+        "require": true,
+        "unique" : true
     },
     "Rating":{
-        "type":"string"
+        "type": "string"
     },
     "NoOfUserRated":{
-        "type":"String"
+        "type": "String"
     },
     "CoinValue":{
-        "type":"String"
+        "type": "String"
     }
 }

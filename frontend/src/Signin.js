@@ -21,21 +21,31 @@ class App extends Component{
 
 
 
-    signin = async () => {
+    signin () {
     const requestOptions = {
         method : "POST",
-        headers: { "Content-Type": "application/json" },headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body : JSON.stringify({
-            username : this.state.username,
-            password : this.state.password,
+            // username : this.state.username,
+            // password : this.state.password,
+            username : "sfgsdg",
+            password : "asdsadasd",
             
         })
 
     }
 
-    let response =await fetch("http://localhost:3000/api/",requestOptions)
-    let res = await response.json()
-    console.log(res)
+    try {
+        let response = fetch("http://localhost:4000/auth/signin",requestOptions)
+        console.log(response);
+        
+    } catch (error) {
+
+        console.log("hum har jagah hai" + error);
+        
+    }
+
+    
     
     
     
