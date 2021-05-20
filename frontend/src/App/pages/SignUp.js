@@ -12,8 +12,9 @@ function SignUp() {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [gstno, setGSTNo] = useState("");
-  const [NGOId, setNGOId] = useState("");
+  const [isNGO, setIsNGO] = useState(0);
+  const [gstno, setGSTNo] = useState("0");
+  const [NGOId, setNGOId] = useState("0");
 
   function handleClick(e){
     e.preventDefault();
@@ -24,10 +25,11 @@ function SignUp() {
       email: email,
       mobile: mobile,
       password: password,
+      isngo: isNGO,
       gstno: gstno,
       ngoid: NGOId
     };
-
+    console.log(userInput)
     const header = {
       "Content-Type":"application/json"
     };
@@ -108,23 +110,44 @@ function SignUp() {
                 onChange={e=>setPassword(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group className="form-elem">
-                <Form.Control 
-                type="number" 
-                placeholder="GST Number"
-                value={gstno}
-                onChange={e=>setGSTNo(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group className="form-elem">
-                <Form.Control 
-                type="text" 
-                placeholder="NGO Id"
-                value={NGOId}
-                onChange={e=>setNGOId(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group className="form-elem"></Form.Group>
+              <Row>
+                <Col xs={6}>
+                  <Form.Check 
+                  type="radio"
+                  label="Wholeseller"
+                  checked={!isNGO}
+                  onChange={e=>setIsNGO(0)}
+                  />
+                </Col>
+                <Col xs={6}>
+                <Form.Check 
+                  type="radio"
+                  label="NGO"
+                  checked={isNGO}
+                  onChange={e=>setIsNGO(1)}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={6}>
+                  <Form.Control 
+                  type="number" 
+                  placeholder="GST Number"
+                  value={gstno}
+                  onChange={e=>setGSTNo(e.target.value)}
+                  disabled={isNGO}
+                  ></Form.Control>
+                </Col>
+                <Col xs={6}>
+                  <Form.Control 
+                  type="text" 
+                  placeholder="NGO Id"
+                  value={NGOId}
+                  onChange={e=>setNGOId(e.target.value)}
+                  disabled={!isNGO}
+                  ></Form.Control>
+                </Col>
+              </Row>
               <Form.Group className="form-elem">
                 <Button type="submit" className="full-button" onClick={handleClick}>SignUp</Button>
               </Form.Group>
