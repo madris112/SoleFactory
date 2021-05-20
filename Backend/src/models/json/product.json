@@ -2,11 +2,18 @@
     "Title":{
         "type"    : "String",
         "required": true,
-        "unique"  : true,
         "index"   : true
     },
     "description":{
         "type"    : "String",
+        "required": true
+    },
+    "brand":{
+        "type"    : "string",
+        "required": true
+    },
+    "Quantity" : {
+        "type"    : "string",
         "required": true
     },
     "price":{
@@ -27,8 +34,7 @@
     },
     "categoryTag":{
         "type"   : "String",
-        "require": true,
-        "unique" : true
+        "require": true
     },
     "Rating":{
         "type": "string"
