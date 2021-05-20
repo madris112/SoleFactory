@@ -4,6 +4,10 @@ const product = require('../models/product');
 
 console.log("hi");
 
+router.post('/product/search',(req, res)=>{
+    console.log("pahucha");
+});
+
 router.post('/createProduct', function (req, res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     console.log(req.body.title);

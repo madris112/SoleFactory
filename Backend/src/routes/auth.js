@@ -11,7 +11,7 @@ router.post('/auth/signin',
       
 
       if(req.user) {
-          res.cookie("user","rand").status(200).send({
+          res.status(200).send({
               message    : "login succesful!",
               redirect   : "/home",
               successcode: "1",
