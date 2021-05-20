@@ -2,6 +2,7 @@ const express       = require('express');
 const bodyparser    = require('body-parser');
 const cookieSession = require('cookie-session');
 const authRoute     = require('./routes/auth');
+const product       = require('./routes/allproduct');
 const mongoose      = require('mongoose');
 const passport      = require('passport');
 const cors          = require('cors');
@@ -36,6 +37,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(authRoute);
+app.use(product);
 
 
 

@@ -9,13 +9,13 @@ import axios from 'axios'
 function ProductForm() {
   const [brand, setBrand] = useState("");
   const [title, setTitle] = useState("");
-  const [name, setName] = useState("");
+  const [seller, setSeller] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [categoryTag, setCategory] = useState("");
   const [price, setPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [discprice, setDiscprice] = useState("");
-  const [expirydate, setExpiry] = useState("");
+  const [Quantity, setQuantity] = useState("");
+  const [discountedPrice, setDiscprice] = useState("");
+  const [expiryDate, setExpiry] = useState("");
 
 
 
@@ -23,22 +23,23 @@ function ProductForm() {
     e.preventDefault();
     var userInput = {
       brand: brand,
-      name: name,
+      seller: seller,
       title: title,
       description: description,
-      category: category,
+      categoryTag: categoryTag,
       price: price,
-      quantity: quantity,
-      discprice: discprice,
-      expirydate: expirydate,
+      Quantity: Quantity,
+      discountedPrice: discountedPrice,
+      expiryDate: expiryDate,
 
     }
+     console.log(userInput)
 
     const header = {
       "Content-Type":"application/json"
     };
 
-     axios.post('http://localhost:4000/', userInput , { header})
+     axios.post('http://localhost:4000/createProduct', userInput , { header})
         .then(response => console.log(JSON.stringify(response.data.message)));
   }
 
@@ -67,8 +68,8 @@ function ProductForm() {
                 <Form.Control 
                 type        = "text"
                 placeholder = "name"
-                value       = {name}
-                onChange    = {e=>setName(e.target.value)}
+                value       = {seller}
+                onChange    = {e=>setSeller(e.target.value)}
                 ></Form.Control>
              
 
@@ -122,27 +123,28 @@ function ProductForm() {
                 <Form.Control 
                 type        = "text"
                 placeholder = "Quantity"
-                value       = {quantity}
+                value       = {Quantity}
                 onChange    = {e=>setQuantity(e.target.value)}
                 ></Form.Control>
               </Form.Group>
 
               <Form.Group className = "form-elem">
                 <Form.Label>Expiry Date</Form.Label>
-                {/* <Form.Control 
-                type        = "text"
+                <Form.Control 
+                type        = "date"
+                dateFormat  = "dd/MM/yyyy"
                 placeholder = "Expiry date"
-                value       = {expirydate}
+                value       = {expiryDate}
                 onChange    = {e=>setExpiry(e.target.value)}
-                ></Form.Control> */}
+                ></Form.Control>
 
                
               </Form.Group>
-               <DatePicker
-              selected    ={expirydate}
+               {/* <DatePicker
+              selected    ={expiryDate}
               onChange    = {e=> setExpiry(e)}
               dateFormat  = 'dd/MM/yyyy'
-               />
+               /> */}
 
               
 
@@ -151,7 +153,7 @@ function ProductForm() {
                 <Form.Control 
                 type        = "text"
                 placeholder = "Discounted price"
-                value       = {discprice}
+                value       = {discountedPrice}
                 onChange    = {e=>setDiscprice(e.target.value)}
                 ></Form.Control>
               </Form.Group>

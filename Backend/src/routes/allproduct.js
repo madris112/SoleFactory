@@ -2,8 +2,11 @@ const express = require('express');
 const router  = new express.Router();
 const product = require('../models/product');
 
+console.log("hi");
+
 router.post('/createProduct', function (req, res){
     res.setHeader("Access-Control-Allow-Origin", "*");
+    console.log(req.body.title);
     try {
         product.findOne({
             Title: req.body.title,
@@ -12,7 +15,7 @@ router.post('/createProduct', function (req, res){
     
                 coinvalue = parseInt(req.body.price);
                 coinvalue = coinvalue / 10;
-    
+                  
                 
                 try {
                     product.create({
