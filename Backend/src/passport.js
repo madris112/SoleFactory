@@ -39,8 +39,9 @@ passport.use(new LocalStrategy({
                      gstno    : req.body.gstno
                     }).then((docs) => {
                         console.log(docs);
+                        return done(null, docs);
                     });
-                    return done(null, newuser);
+                    
                 } catch (error) {
                     console.log('Error Occured in CATCH' + error);
                 }
@@ -98,7 +99,7 @@ passport.use(new GoogleStrategy({
                         return cb(null, newuser);
                     } catch (error) {
 
-                        console.log('creating user document failed[passport.js : 101] :' error);
+                        console.log('creating user document failed[passport.js : 101] :' + error);
                         
                     }
                 } else{

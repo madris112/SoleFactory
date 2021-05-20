@@ -3,6 +3,7 @@ import './SignUp.css';
 import {Button, Container, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 function SignUp() {
   const [userName, setUserName] = useState("");
@@ -16,7 +17,7 @@ function SignUp() {
 
   function handleClick(e){
     e.preventDefault();
-    var req = {
+    const userInput = {
       username : userName,
       firstname : firstName,
       lastname: lastName,
@@ -25,8 +26,15 @@ function SignUp() {
       password: password,
       gstno: gstno,
       ngoid: NGOId
-    }
-    console.log(req);
+    };
+
+    const header = {
+      "Content-Type":"application/json"
+    };
+
+     axios.post('http://localhost:4000/auth/signin', userInput , { header})
+        .then(response => console.log(JSON.stringify(response.data.message)));
+
   }
 
   return (
