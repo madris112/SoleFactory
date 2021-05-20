@@ -6,10 +6,14 @@ const User           = require('./models/user');
 const sha            = require('sha256');
 
 passport.serializeUser((user, done) => {
-  done(null, user.username);
+ console.log("in serializeUser");
+    done(null, user.username);
+    
 });
 
 passport.deserializeUser((user_name, done) => {
+
+    console.log("deserialized called");
 
     const getuser = User.findOne({
         username: user_name
@@ -24,13 +28,15 @@ passport.use(new LocalStrategy({
   },
   function(req,username,password,done){
 
+      
+
       console.log("passport function");
     try {
         User.findOne({username: username,}).then((doc) => {
             if (!doc) {
                 try {
                      const newuser = User.create({
-                     username : username,
+                     username : req.body.username,
                      firstname: req.body.firstname,
                      lastname : req.body.lastname,
                      email    : req.body.email,
@@ -38,7 +44,7 @@ passport.use(new LocalStrategy({
                      password : sha(req.body.password),
                      gstno    : req.body.gstno
                     }).then((docs) => {
-                        console.log(docs);
+                        // console.log(docs);
                         return done(null, docs);
                     });
                     
@@ -47,7 +53,7 @@ passport.use(new LocalStrategy({
                 }
             } else{
                 console.log("passportjs: doc found");
-                console.log(doc);
+                // console.log(doc);
               const pass = doc.password;
               if(pass === sha(password))
                 return done(null, doc);

@@ -8,8 +8,19 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 
+import { useEffect } from 'react';
 
 function Home() {
+
+  useEffect(() => {
+
+    const header = {
+      "Content-Type":"Application/json",
+      "Access-Control-Allow-Credentials": true
+    }
+    axios.get('http://localhost:4000/check',{header,withCredentials: true})
+    .then(response=> console.log(JSON.stringify(response.data.message)));
+  },[]);
  
 
   

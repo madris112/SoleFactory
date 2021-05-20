@@ -20,8 +20,10 @@ function Login() {
       "Content-Type":"application/json"
     };
 
+    console.log(userInput);
+
      axios.post('http://localhost:4000/auth/signin', userInput , { header})
-        .then(response => console.log(JSON.stringify(response.data.message)));
+        .then(response => console.log(JSON.stringify(response.data.user)));
   }
 
   function googlesignin() {

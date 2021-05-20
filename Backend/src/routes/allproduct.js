@@ -13,7 +13,7 @@ router.post('/createProduct', function (req, res){
         }).then((doc) => {
             if (!doc) {
     
-                coinvalue = parseInt(req.body.price);
+                let coinvalue = parseInt(req.body.price);
                 coinvalue = coinvalue / 10;
                   
                 
@@ -57,7 +57,7 @@ router.post('/createProduct', function (req, res){
                     }).then((doc) => {
                         if (!doc) {
 
-                                    coinvalue = parseInt(req.body.price);
+                                    let coinvalue = parseInt(req.body.price);
                                     coinvalue = coinvalue / 10;
     
                 

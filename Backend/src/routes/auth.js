@@ -6,17 +6,21 @@ const passport = require('passport');
 
 //local passport
 router.post('/auth/signin', 
-  passport.authenticate('local', { failureRedirect: 'http://localhost:3000/' }),
-  function(req, res) {
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      try {
-          res.status(200).send({
-          message: "yes I am back"
-      });
+  passport.authenticate('local', { failureRedirect: 'http://localhost:3000/',}),
+  function(req, res,next) {
+      
+
+      if(req.user) {
+          res.cookie("user","rand").status(200).send({
+              message    : "login succesful!",
+              redirect   : "/home",
+              successcode: "1",
+              user       : req.user,
+              cookies    : req.cookies
+          });
           
-      } catch (error) {
-          console.log(error);
       }
+
       
   });
 
@@ -28,19 +32,18 @@ router.get('/auth/google', passport.authenticate('google',{scope: ['email', 'pro
 router.get('/auth/google/callback', passport.authenticate('google'), (req, res) =>{
 
     res.redirect('http://localhost:3000/home');
-
-    // if(req.user){
-    //     res.send({
-    //         req.user,
-    //         succode:"1"
-    //     });
-    // }
-    // else{
-
-    //     res.send(401);
-   // }    
+  
 
 });
+
+
+
+router.get('/auth/login-success',(req, res, next) =>{
+  console.log(req.session);
+  res.status(200).send({
+    message: "done",
+  });
+})
 
 
 module.exports = router;
