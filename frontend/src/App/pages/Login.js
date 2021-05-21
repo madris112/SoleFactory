@@ -1,10 +1,11 @@
 import {React, useState} from 'react'
 import './Login.css';
-import {Button, Container, Form, Col, Row} from 'react-bootstrap';
+import {Button, Container, Form, Col, Row, Image} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GoogleButton from 'react-google-button'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
+import loginimage from './login.jpg'
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -51,7 +52,7 @@ function Login() {
   return (
     <div className = "fixed-bg">
       <Container fluid>
-        <Row className = "justify-content-center" style = {{paddingTop: "10%"}}>
+        <Row className = "justify-content-center" style = {{paddingTop: "5%"}}>
         <Col xs        = {10} sm                        = {7} md = {3}  className = "container-bg">
             {/* Login/SignUp choose */}
             <Row>
@@ -66,7 +67,12 @@ function Login() {
                 </Link>
               </Col>
             </Row>
-
+            <Row>
+                  <Col>
+                     <Image src={loginimage} fluid/> 
+                  </Col>
+            </Row>
+  
             {/* Form */}
             <Form>
               <Form.Group className = "form-elem">
@@ -95,9 +101,16 @@ function Login() {
                 >Login</Button>
               </Form.Group>
               <Form.Group className = "form-elem">
+              <Container fluid>
+              <Row>
+                 <Col></Col>
+                 <Col><GoogleButton onClick={googlesignin}/></Col>
+                 <Col></Col>
+              </Row>
               
-              <GoogleButton
-                 onClick={googlesignin}/>
+              
+              </Container>
+              
               
               
               
