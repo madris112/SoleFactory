@@ -27,7 +27,7 @@ router.post('/product/search', async (req, res) => {
     else
         products = await product.find({brand:search})
     console.log(products)
-    return res.status(200).json({ data: products })
+    return res.status(200).json(products)
   } catch(error) {
     console.log("i have a search error: " + error);
   }
