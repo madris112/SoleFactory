@@ -7,17 +7,31 @@ import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
+import test from "./test.jpeg"
+import gucci from "./guccibelt.jpeg"
+import CounterInput from 'react-bootstrap-counter';
 
 import { useEffect } from 'react';
 
-function Home() {
+function ProductDescription() {
   
 const [searchname, setSearchName] = useState("");
+const [Quantity, setQuantity] = useState(0);
 
+  
+  function increment(e){
+    e.preventDefault();
+    
+    setQuantity((parseInt(Quantity)+1));
 
+  }
 
+  function decrement(e){
+    e.preventDefault();
+    
+    setQuantity(Math.max(0,parseInt(Quantity)-1));
 
-
+  }
 
   function handleClick(e){
     e.preventDefault();
@@ -119,8 +133,77 @@ let redirectLink = '';
    
    </div>
 
+      <Container className="prod">
+     
+          <Row>
+              <Col style={{padding: "0px"}}>
+                <img 
+                fluid 
+                src={gucci} alt="" 
+                width="400"
+        height="450"/>
+              </Col>
+              <Col style={{padding: "0px"}}>
+                <h1><strong>Gucci Belt</strong></h1>
+                <p>By Gucci</p>
+                <br/>
+                <h5>About the Product</h5>
+                <h6>Most luxurious belt</h6>
+                <br/>
+
+                <br/>
+
+                <h2><span>&#8377; 31000</span></h2><br/>
+                
+                {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
+                <div >
+                
+                 
+                 <Row inline>
+                <Col xs={1}>
+                <Button variant="dark" size="lg" onClick={increment}>
+                    +
+                 </Button>
+                 </Col>
+                 <Col xs={2}>
+                  <Form.Control 
+                  type="text" 
+                  disabled
+                  value={Quantity}
+                  placeholder="0"
+                //   value={firstName}
+                //   onChange={e=>setFirstName(e.target.value)}
+                  ></Form.Control>
+                </Col>
+                <Col xs={1}>
+                  <Button variant="dark" size="lg" onClick={decrement}>
+                    -
+                 </Button>
+                </Col>
+              </Row>
+                
+                 
+              
+               
+                 </div>
+                
+    
+                <br/><br/>
+               <div className="mb-2">
+    
+                <Button variant="secondary" size="lg">
+                    Add to cart
+                 </Button>
+           </div>
+
+              </Col>
+            </Row>
+            
+      </Container>
+
+
     </div>
   )
 }
 
-export default Home;
+export default ProductDescription;
