@@ -1,6 +1,11 @@
 const express = require('express');
 const router  = new express.Router();
 const product = require('../models/product');
+const multer = require('multer');
+const path = require("path");
+
+
+
 
 console.log("hi");
 
@@ -8,33 +13,49 @@ router.post('/product/search',(req, res)=>{
     console.log("pahucha");
 });
 
-router.post('/createProduct', function (req, res){
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname,"../uploads/"))
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now().toString() +file.originalname)
+  }
+});
+
+const upload = multer({ storage: storage }).single('file')
+
+router.post('/createProduct',upload, function (req, res, next){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    console.log(req.body.title);
+    payload = JSON.parse(req.body.payload);
+    console.log(payload);
+    console.log(req.file.path);
+    
     try {
         product.findOne({
-            Title: req.body.title,
+            Title: payload.title,
         }).then((doc) => {
             if (!doc) {
     
-                let coinvalue = parseInt(req.body.price);
+                let coinvalue = parseInt(payload.price);
                 coinvalue = coinvalue / 10;
+
                   
                 
                 try {
                     product.create({
-                        Title          : req.body.title,
-                        description    : req.body.description,
-                        brand          : req.body.brand,
-                        Quantity       : req.body.Quantity,
-                        price          : req.body.price,
-                        seller         : req.body.seller,
-                        expiryDate     : req.body.expiryDate,
-                        DiscountedPrice: req.body.discountedPrice,
-                        categoryTag    : req.body.categoryTag,
+                        Title          : payload.title,
+                        description    : payload.description,
+                        brand          : payload.brand,
+                        Quantity       : payload.Quantity,
+                        price          : payload.price,
+                        seller         : payload.seller,
+                        expiryDate     : payload.expiryDate,
+                        DiscountedPrice: payload.discountedPrice,
+                        categoryTag    : payload.categoryTag,
                         Rating         : "0",
                         NoOfUserRated  : "0",
-                        Coinvalue      : coinvalue
+                        Coinvalue      : coinvalue,
+                        imgURl         : req.file.path 
         
                     }
                     ).then((docs) => {
@@ -56,29 +77,30 @@ router.post('/createProduct', function (req, res){
     
                 try {
                     product.findOne({
-                        Title : req.body.title,
-                        Seller: req.body.seller,
+                        Title : payload.title,
+                        Seller: payload.seller,
                     }).then((doc) => {
                         if (!doc) {
 
-                                    let coinvalue = parseInt(req.body.price);
+                                    let coinvalue = parseInt(payload.price);
                                     coinvalue = coinvalue / 10;
     
                 
                                     try {
                                             product.create({
-                                            Title          : req.body.title,
-                                            description    : req.body.description,
-                                            brand          : req.body.brand,
-                                            Quantity       : req.body.Quantity,
-                                            price          : req.body.price,
-                                            seller         : req.body.seller,
-                                            expiryDate     : req.body.expiryDate,
-                                            DiscountedPrice: req.body.discountedPrice,
-                                            categoryTag    : req.body.categoryTag,
+                                            Title          : payload.title,
+                                            description    : payload.description,
+                                            brand          : payload.brand,
+                                            Quantity       : payload.Quantity,
+                                            price          : payload.price,
+                                            seller         : payload.seller,
+                                            expiryDate     : payload.expiryDate,
+                                            DiscountedPrice: payload.discountedPrice,
+                                            categoryTag    : payload.categoryTag,
                                             Rating         : "0",
                                             NoOfUserRated  : "0",
-                                            Coinvalue      : coinvalue
+                                            Coinvalue      : coinvalue,
+                                            imgURL         : req.file.path  
         
                                         }
                                         ).then((docs) => {
@@ -86,7 +108,7 @@ router.post('/createProduct', function (req, res){
                                             console.log("product created successfully\n" + docs);
                                             res.status(200).send({
                                                 message: "product created successfully",
-                                            product: docs
+                                                product: docs
                                         });
                         
                     });

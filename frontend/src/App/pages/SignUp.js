@@ -45,11 +45,12 @@ let redirectLink = '';
 
         if (response.data.successcode === '1')
           localStorage.setItem('localsession', '1');
-      });
-
-    if(redirectLink==='')
+          if(redirectLink==='')
       console.log("ok called")
     if (redirectLink !== '') history.push(redirectLink);
+      });
+
+    
   }
 
   // function handleClick(e){

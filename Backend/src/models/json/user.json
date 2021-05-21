@@ -29,8 +29,7 @@
     },
     "gstno":{
         "type"   : "String",
-        "require": true,
-        "unique" : true
+        "require": true
     },
     "IsActivated":{
         "type": "string"

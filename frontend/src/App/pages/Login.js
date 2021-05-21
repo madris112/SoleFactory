@@ -31,13 +31,16 @@ function Login() {
       .then((response) => {
         console.log(JSON.stringify(response.data.message));
         redirectLink = response.data.redirect;
+        console.log(redirectLink);
         if (response.data.successcode === '1')
           localStorage.setItem('localsession', '1');
+
+        if(redirectLink==='')
+      console.log(redirectLink);
+    if (redirectLink !== '') history.push(redirectLink);  
       });
 
-    if(redirectLink==='')
-      console.log(redirectLink);
-    if (redirectLink !== '') history.push(redirectLink);
+    
   }
 
   function googlesignin() {
