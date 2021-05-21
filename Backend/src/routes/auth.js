@@ -54,10 +54,11 @@ router.get('/auth/login-success',(req, res, next) =>{
 
 router.get('/logout', function(req, res){
   req.logout();
+  console.log(req.user);
   res.status(200).send({
     message : "Logout Successful!",
     redirect: "/",
-  })
+  });
 });
 
 

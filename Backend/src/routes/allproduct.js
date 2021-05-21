@@ -1,8 +1,8 @@
 const express = require('express');
 const router  = new express.Router();
 const product = require('../models/product');
-const multer = require('multer');
-const path = require("path");
+const multer  = require('multer');
+const path    = require("path");
 
 
 
@@ -57,7 +57,7 @@ router.post('/createProduct',upload, function (req, res, next){
             if (!doc) {
     
                 let coinvalue = parseInt(payload.price);
-                coinvalue = coinvalue / 10;
+                    coinvalue = coinvalue / 10;
                 console.log(coinvalue);
 
                   
@@ -105,7 +105,7 @@ router.post('/createProduct',upload, function (req, res, next){
                         if (!doc) {
 
                                     let coinvalue = parseInt(payload.price);
-                                    coinvalue = coinvalue / 10;
+                                        coinvalue = coinvalue / 10;
     
                 
                                     try {
@@ -122,7 +122,7 @@ router.post('/createProduct',upload, function (req, res, next){
                                             Rating         : "0",
                                             NoOfUserRated  : "0",
                                             Coinvalue      : coinvalue,
-                                            imgURL         : req.file.path  
+                                            imgURL         : req.file.path
         
                                         }
                                         ).then((docs) => {
@@ -145,7 +145,7 @@ router.post('/createProduct',upload, function (req, res, next){
 
                             console.log("product already exist");
                             res.status(201).send({
-                                message:"already exist! update its value\n",
+                                message: "already exist! update its value\n",
                                 product: doc
                             });
                             
@@ -154,7 +154,7 @@ router.post('/createProduct',upload, function (req, res, next){
                 } catch (error) {
 
                     res.status(400).send({
-                        message:"something went wrong",
+                        message: "something went wrong",
                     })
                     
                 }
