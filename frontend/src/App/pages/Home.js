@@ -12,7 +12,7 @@ import cart from "./cart.svg"
 
 import { useEffect } from 'react';
 
-function Home() {
+function Home(props) {
   
 const [searchname, setSearchName] = useState("");
 const [category, setCategory] = useState("All");
@@ -159,11 +159,12 @@ let history      = useHistory();
       <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
+      <button id="toggle" onClick={props.click}>
       <img 
       src    = {cart}
       alt    = ""
       width  = "30"
-      height = "30" />
+      height = "30" /></button>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
