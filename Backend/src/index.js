@@ -10,6 +10,7 @@ const cors          = require('cors');
 const cookieParser  = require('cookie-parser');
 const User          = require('./models/user');
 const multer        = require('multer');
+const path          = require('path');
 require('./passport');  
 
 const app = express();
@@ -17,6 +18,7 @@ const app = express();
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.use(express.json());
+app.use('/upload', express.static(path.join(__dirname, './uploads')));
 
 app.use(
   cors({
