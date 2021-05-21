@@ -73,7 +73,7 @@ router.post('/createProduct',upload, function (req, res, next){
                         expiryDate     : payload.expiryDate,
                         DiscountedPrice: payload.discountedPrice,
                         categoryTag    : payload.categoryTag,
-                        imgURL         : req.file.path,
+                        imgURL         : req.file.filename,
                         CoinValue      : coinvalue,
                         Rating         : "0",
                         NoOfUserRated  : "0",
@@ -122,7 +122,7 @@ router.post('/createProduct',upload, function (req, res, next){
                                             Rating         : "0",
                                             NoOfUserRated  : "0",
                                             Coinvalue      : coinvalue,
-                                            imgURL         : req.file.path
+                                            imgURL         : req.file.filename
         
                                         }
                                         ).then((docs) => {
