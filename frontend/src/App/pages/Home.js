@@ -11,7 +11,24 @@ import cart from "./cart.svg"
 import { useEffect } from 'react';
 
 function Home() {
-  const [searchresult, setSearchResult] = useState("");
+  
+const [searchname, setSearchName] = useState("");
+
+  function handleClick(e){
+    e.preventDefault();
+    const userInput = {
+      searchname: searchname
+    }
+    const header = {
+      "Content-Type":"application/json"
+    };
+
+     axios.post('http://localhost:4000/product/search', userInput , {header} )
+        .then(response => console.log(JSON.stringify(response.data)));
+
+    console.log('searching done')
+  }
+
 
 let redirectLink = '';
   let history = useHistory();
@@ -36,22 +53,6 @@ let redirectLink = '';
         history.push(redirectLink)
     }
   }, []);
-
-  function handleClick(e){
-    e.preventDefault();
-    const data = {
-      searchparam : searchresult,
-
-    }
-     const header = {
-      "Content-Type":"Application/json",
-    }
-    axios.post('http://localhost:4000/product/search', data,{header})
-    .then(response=> console.log(JSON.stringify(response.data.message)));
-
-  }
- 
-
   
   return (
     <div >
@@ -81,10 +82,19 @@ let redirectLink = '';
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-    <Form inline div="search_bar">
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" value={searchresult} onChange = {e=>setSearchResult(e.target.value)  }/>
-      <Button variant="outline-info" onClick = {handleClick}>Search</Button>
+        
+      <Form inline div="search_bar">
+      <FormControl
+      type="text"
+      placeholder="Search"
+      className="mr-sm-2"
+      value = {searchname}
+      onChange={e=>setSearchName(e.target.value)} />
+      <Button
+      variant="outline-info"
+      onClick={handleClick}>Search</Button>
     </Form>
+
       <ReactBootStrap.Nav.Link href="/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav.Link eventKey={2} href="#memes">
         Sign Out
