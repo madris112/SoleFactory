@@ -3,6 +3,8 @@ import './Home.css';
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
+import ProductList from "./productlist"
+
 import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
@@ -14,7 +16,8 @@ function Home() {
   
 const [searchname, setSearchName] = useState("");
 const [category, setCategory] = useState("All");
-
+const [prodarray, setProdArray] = useState([]);
+  
   function logoutClick(e){
     
     console.log("clicked");
@@ -41,10 +44,7 @@ const [category, setCategory] = useState("All");
     };
 
      axios.post('http://localhost:4000/product/search', userInput , {header} )
-        .then(response =>{ 
-          console.log(JSON.stringify(response.data))
-
-        });
+        .then(response => setProdArray(response.data) );
 
     console.log('searching done')
   }
@@ -157,7 +157,7 @@ let history      = useHistory();
    <h1>Hello</h1>
    
    </div>
-
+      <ProductList arr={prodarray} />
     </div>
   )
 }
