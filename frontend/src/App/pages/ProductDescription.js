@@ -9,7 +9,6 @@ import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import test from "./test.jpeg"
 import gucci from "./guccibelt.jpeg"
-import CounterInput from 'react-bootstrap-counter';
 
 import { useEffect } from 'react';
 
