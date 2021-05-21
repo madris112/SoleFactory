@@ -2,7 +2,7 @@ import {React, useState} from 'react'
 import './SignUp.css';
 import {Button, Container, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 
 function SignUp() {
@@ -16,28 +16,64 @@ function SignUp() {
   const [gstno, setGSTNo] = useState("0");
   const [NGOId, setNGOId] = useState("0");
 
-  function handleClick(e){
+
+let redirectLink = '';
+  let history = useHistory();
+
+  function handleClick(e) {
     e.preventDefault();
     const userInput = {
-      username : userName,
-      firstname : firstName,
+      username: userName,
+      firstname: firstName,
       lastname: lastName,
       email: email,
       mobile: mobile,
       password: password,
       isngo: isNGO,
       gstno: gstno,
-      ngoid: NGOId
+      ngoid: NGOId,
     };
-    console.log(userInput)
+    console.log(userInput);
     const header = {
-      "Content-Type":"application/json"
+      'Content-Type': 'application/json',
     };
+    axios
+      .post('http://localhost:4000/auth/signin', userInput, { header })
+      .then((response) => {
+        console.log(JSON.stringify(response.data.message));
+        redirectLink = response.data.redirect;
 
-     axios.post('http://localhost:4000/auth/signin', userInput , { header})
-        .then(response => console.log(JSON.stringify(response.data.message)));
+        if (response.data.successcode === '1')
+          localStorage.setItem('localsession', '1');
+      });
 
+    if(redirectLink==='')
+      console.log("ok called")
+    if (redirectLink !== '') history.push(redirectLink);
   }
+
+  // function handleClick(e){
+  //   e.preventDefault();
+  //   const userInput = {
+  //     username : userName,
+  //     firstname : firstName,
+  //     lastname: lastName,
+  //     email: email,
+  //     mobile: mobile,
+  //     password: password,
+  //     isngo: isNGO,
+  //     gstno: gstno,
+  //     ngoid: NGOId
+  //   };
+  //   console.log(userInput)
+  //   const header = {
+  //     "Content-Type":"application/json"
+  //   };
+
+  //    axios.post('http://localhost:4000/auth/signin', userInput , { header})
+  //       .then(response => console.log(JSON.stringify(response.data.message)));
+
+  // }
 
   return (
     <div className="fixed-bg">

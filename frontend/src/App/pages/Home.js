@@ -2,14 +2,54 @@ import {React, useState} from 'react'
 import './Home.css';
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 
+import { useEffect } from 'react';
 
 function Home() {
+  const [searchresult, setSearchResult] = useState("");
+
+let redirectLink = '';
+  let history = useHistory();
+
+  useEffect(() => {
+    if (localStorage.getItem('localsession')) {
+      console.log("inside local storage");
+      if (localStorage.getItem('localsession') !== '1') history.push('/');
+    } else {
+      const header = {
+        'Content-Type': 'Application/json',
+        'Access-Control-Allow-Credentials': true,
+      };
+      axios
+        .get('http://localhost:4000/check', { header, withCredentials: true })
+        .then((response) => {
+          console.log(JSON.stringify(response.data.message));
+          redirectLink = response.data.redirect;
+        });
+
+      if(redirectLink!=='')
+        history.push(redirectLink)
+    }
+  }, []);
+
+  function handleClick(e){
+    e.preventDefault();
+    const data = {
+      searchparam : searchresult,
+
+    }
+     const header = {
+      "Content-Type":"Application/json",
+    }
+    axios.post('http://localhost:4000/product/search', data,{header})
+    .then(response=> console.log(JSON.stringify(response.data.message)));
+
+  }
  
 
   
@@ -42,8 +82,8 @@ function Home() {
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
     <Form inline div="search_bar">
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-info">Search</Button>
+      <FormControl type="text" placeholder="Search" className="mr-sm-2" value={searchresult} onChange = {e=>setSearchResult(e.target.value)  }/>
+      <Button variant="outline-info" onClick = {handleClick}>Search</Button>
     </Form>
       <ReactBootStrap.Nav.Link href="/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav.Link eventKey={2} href="#memes">

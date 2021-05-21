@@ -2,26 +2,42 @@ import {React, useState} from 'react'
 import './Login.css';
 import {Button, Container, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 
 function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  let history = useHistory();
+  let redirectLink = '';
 
-  function handleClick(e){
+
+
+  function handleClick(e) {
+    
+    
     e.preventDefault();
     var userInput = {
       username: userName,
-      password: password
-    }
-
-    const header = {
-      "Content-Type":"application/json"
+      password: password,
     };
 
-     axios.post('http://localhost:4000/auth/signin', userInput , { header})
-        .then(response => console.log(JSON.stringify(response.data.message)));
+    console.log(userInput);
+    const header = {
+      'Content-Type': 'application/json',
+    };
+    axios
+      .post('http://localhost:4000/auth/signin', userInput, { header })
+      .then((response) => {
+        console.log(JSON.stringify(response.data.message));
+        redirectLink = response.data.redirect;
+        if (response.data.successcode === '1')
+          localStorage.setItem('localsession', '1');
+      });
+
+    if(redirectLink==='')
+      console.log(redirectLink);
+    if (redirectLink !== '') history.push(redirectLink);
   }
 
   function googlesignin() {
