@@ -36,16 +36,17 @@
         "type"   : "String",
         "require": true
     },
-    "Rating":{
-        "type": "string"
-    },
-    "NoOfUserRated":{
-        "type": "String"
-    },
     "CoinValue":{
         "type": "String"
     },
     "imgURL":{
         "type":"string"
+    },
+    "Rating":{
+        "type": "string"
+    },
+    "NoOfUserRated":{
+        "type": "String"
     }
+    
 }

@@ -2,6 +2,7 @@ import {React, useState} from 'react'
 import './Login.css';
 import {Button, Container, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import GoogleButton from 'react-google-button'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 
@@ -94,7 +95,12 @@ function Login() {
                 >Login</Button>
               </Form.Group>
               <Form.Group className = "form-elem">
-              <Button     className = "full-button" onClick = {googlesignin}>Google LogIn</Button>
+              
+              <GoogleButton
+                 onClick={googlesignin}/>
+              
+              
+              
               </Form.Group>
             </Form>
           </Col>

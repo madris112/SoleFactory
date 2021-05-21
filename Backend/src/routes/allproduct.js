@@ -58,6 +58,7 @@ router.post('/createProduct',upload, function (req, res, next){
     
                 let coinvalue = parseInt(payload.price);
                 coinvalue = coinvalue / 10;
+                console.log(coinvalue);
 
                   
                 
@@ -72,10 +73,11 @@ router.post('/createProduct',upload, function (req, res, next){
                         expiryDate     : payload.expiryDate,
                         DiscountedPrice: payload.discountedPrice,
                         categoryTag    : payload.categoryTag,
+                        imgURL         : req.file.path,
+                        CoinValue      : coinvalue,
                         Rating         : "0",
                         NoOfUserRated  : "0",
-                        Coinvalue      : coinvalue,
-                        imgURl         : req.file.path 
+                        
         
                     }
                     ).then((docs) => {

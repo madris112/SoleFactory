@@ -6,7 +6,7 @@ require('../database/database');
 var productSchema = new mongoose.Schema(ProductJson);
 
 //Export the model
-module.exports = mongoose.model('finalprodtestdb', productSchema);
+module.exports = mongoose.model('prodtestdb01', productSchema);
 
 
 
