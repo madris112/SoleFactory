@@ -30,7 +30,6 @@ const [category, setCategory] = useState("All");
   }
 
   useEffect(() => {
-    console.log(category)
     const userInput = {
       searchname: category,
       category: 1
