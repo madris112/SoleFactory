@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 function Home() {
   
 const [searchname, setSearchName] = useState("");
+const [category, setCategory] = useState("All");
 
   function logoutClick(e){
     
@@ -32,7 +33,6 @@ const [searchname, setSearchName] = useState("");
   }
 
   function handleClick(e){
-    e.preventDefault();
     const userInput = {
       searchname: searchname
     }
@@ -49,6 +49,21 @@ const [searchname, setSearchName] = useState("");
     console.log('searching done')
   }
 
+  useEffect(() => {
+    console.log(category)
+    const userInput = {
+      searchname: category,
+      category: 1
+    }
+    const header = {
+      "Content-Type":"application/json"
+    };
+
+     axios.post('http://localhost:4000/product/search', userInput , {header} )
+        .then(response => console.log(JSON.stringify(response.data)));
+
+    console.log('searching done')
+  },[category])
 
 let redirectLink = '';
 let history      = useHistory();
@@ -96,11 +111,16 @@ let history      = useHistory();
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
       
-      <ReactBootStrap.NavDropdown      title = "Categories" id = "collasible-nav-dropdown">
-      <ReactBootStrap.NavDropdown.Item href  = "#action/3.1">Food n Beverages</ReactBootStrap.NavDropdown.Item>
-      <ReactBootStrap.NavDropdown.Item href  = "#action/3.2">Electronics</ReactBootStrap.NavDropdown.Item>
-      <ReactBootStrap.NavDropdown.Item href  = "#action/3.3">Body Care</ReactBootStrap.NavDropdown.Item>
-      <ReactBootStrap.NavDropdown.Item href  = "#action/3.4">Miscellaneous</ReactBootStrap.NavDropdown.Item>
+      <ReactBootStrap.NavDropdown 
+      title="Categories" 
+      id="collasible-nav-dropdown"
+      onSelect={(key) => setCategory(key)}>
+        <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Divider />
+        <ReactBootStrap.NavDropdown.Item eventKey="Food and Beverages">Food n Beverages</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item eventKey="Electronics">Electronics</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
       
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
