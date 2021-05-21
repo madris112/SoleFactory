@@ -35,11 +35,6 @@ const [prodarray, setProdArray] = useState([]);
 
   }
 
-
-
-
-
-
   function handleClick(e){
     const userInput = {
       searchname: searchname
@@ -79,7 +74,7 @@ const [prodarray, setProdArray] = useState([]);
     };
 
      axios.post('http://localhost:4000/product/search', userInput , {header} )
-        .then(response => console.log(JSON.stringify(response.data)));
+        .then(response => setProdArray(response.data));
 
     console.log('searching done')
   },[category])
