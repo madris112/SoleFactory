@@ -1,0 +1,29 @@
+.sidebar {
+    width: 350px;
+    height: 100vh;
+    background-color: #2F4050;
+    position: relative;
+    float: right;
+    /* top: 0; */
+    left: -100%;
+    
+    
+    /* right: 100%; */
+    /* color: white; */
+    /* opacity: 0.7; */
+    z-index: 200;
+    animation: slide-open 0.5s forwards;
+}
+
+@keyframes slide-open {
+    100% { left:0; }
+}
+
+.sidebar.close {
+    left: 0;
+  animation: slide-closed 1s forwards;
+}
+@keyframes slide-closed {
+    100% {right: 0;}
+}
+
