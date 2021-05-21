@@ -10,6 +10,7 @@ const cors          = require('cors');
 const cookieParser  = require('cookie-parser');
 const User          = require('./models/user');
 const multer        = require('multer');
+const path          = require('path');
 require('./passport');  
 
 const app = express();
