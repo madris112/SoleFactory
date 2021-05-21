@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import {Button, Card, CardColumns, Container} from 'react-bootstrap';
+import {Button, Card, CardColumns, Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
@@ -10,19 +10,21 @@ function ProductList(props){
   const Prod = ({ title, description, price, instock }) => {
     if (!title) return <div />;
     return (
-      <Card xs= {3}>
-        <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>
-          {description}
-          </Card.Text>
-          <Button variant="primary">Add to cart</Button>
-        </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">₹ {price}</small>
-          <small className="text-right">X {instock}</small>
-        </Card.Footer>
-      </Card>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
+        <Card>
+          <Card.Body>
+            <Card.Title>{title}</Card.Title>
+            <Card.Text>
+            {description}
+            </Card.Text>
+            <Button variant="primary">Add to cart</Button>
+          </Card.Body>
+          <Card.Footer>
+            <small className="text-muted">₹ {price}</small>
+            <small className="text-right">X {instock}</small>
+          </Card.Footer>
+        </Card>
+      </Col>
     );
 };
   if(props.arr.length == 0){
@@ -40,7 +42,8 @@ function ProductList(props){
 
   return (
     <div>
-    <CardColumns>
+    <Container>
+      <Row>
         {
           props.arr.map((data, key) => {
           return (
@@ -52,11 +55,10 @@ function ProductList(props){
                 price={data.price}
                 instock={data.Quantity}
               />
-
-
           );
         })}
-    </CardColumns>
+      </Row>
+    </Container>
     </div>
   )
 }
