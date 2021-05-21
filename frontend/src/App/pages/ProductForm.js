@@ -12,7 +12,7 @@ function ProductForm() {
   const [title, setTitle] = useState("");
   const [seller, setSeller] = useState("");
   const [description, setDescription] = useState("");
-  const [categoryTag, setCategory] = useState("");
+  const [categoryTag, setCategory] = useState("Food and Beverages");
   const [price, setPrice] = useState("");
   const [Quantity, setQuantity] = useState("");
   const [discountedPrice, setDiscprice] = useState("");
