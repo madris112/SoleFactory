@@ -5,6 +5,7 @@ import {Button, Container, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import ReactDOM from 'react-dom';
 
 function ProductForm() {
   const [brand, setBrand] = useState("");
@@ -16,6 +17,7 @@ function ProductForm() {
   const [Quantity, setQuantity] = useState("");
   const [discountedPrice, setDiscprice] = useState("");
   const [expiryDate, setExpiry] = useState("");
+  const [selectedfile, setSelectedFile] = useState({});
 
 
 
@@ -33,13 +35,19 @@ function ProductForm() {
       expiryDate: expiryDate,
 
     }
-     console.log(userInput)
+     
+
+     let formData = new FormData();
+     console.log(selectedfile);
+     formData.append('file', selectedfile);
+     formData.append('payload',JSON.stringify(userInput));
+
 
     const header = {
       "Content-Type":"application/json"
     };
 
-     axios.post('http://localhost:4000/createProduct', userInput , { header})
+     axios.post('http://localhost:4000/createProduct', formData , { header})
         .then(response => console.log(JSON.stringify(response.data.message)));
   }
 
@@ -157,6 +165,16 @@ function ProductForm() {
                 onChange    = {e=>setDiscprice(e.target.value)}
                 ></Form.Control>
               </Form.Group>
+
+              
+              <Form.Group className = "form-elem">
+                <Form.Label>Upload Image</Form.Label>
+                <Form.Control
+                type  = "file"
+                onChange    = {e=>setSelectedFile(e.target.files[0])}
+                ></Form.Control>
+              </Form.Group>
+
 
 
               

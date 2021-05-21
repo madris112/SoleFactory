@@ -9,7 +9,8 @@ const passport      = require('passport');
 const cors          = require('cors');
 const cookieParser  = require('cookie-parser');
 const User          = require('./models/user');
-require('./passport');
+const multer        = require('multer');
+require('./passport');  
 
 const app = express();
 
@@ -91,6 +92,9 @@ app.get('/check',authcheck,(req, res) => {
     message: "Authorized Access",
 
   });
+
+
+
 
 });
 

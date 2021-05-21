@@ -44,5 +44,8 @@
     },
     "CoinValue":{
         "type": "String"
+    },
+    "imgURL":{
+        "type":"string"
     }
 }
