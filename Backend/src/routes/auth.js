@@ -4,9 +4,16 @@ const router   = new express.Router();
 const passport = require('passport');
 
 
+router.get('/auth/failure',(req,res)=>{
+     res.status(200).send({
+         message: " wrong Credentials!"
+     });
+});
+
+
 //local passport
 router.post('/auth/signin', 
-  passport.authenticate('local', { failureRedirect: 'http://localhost:3000/',}),
+  passport.authenticate('local', { failureRedirect: '/auth/failure',}),
   function(req, res,next) {
       
 
@@ -44,6 +51,14 @@ router.get('/auth/login-success',(req, res, next) =>{
     message: "done",
   });
 })
+
+router.get('/logout', function(req, res){
+  req.logout();
+  res.status(200).send({
+    message : "Logout Successful!",
+    redirect: "/",
+  })
+});
 
 
 module.exports = router;

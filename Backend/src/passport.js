@@ -34,6 +34,13 @@ passport.use(new LocalStrategy({
     try {
         User.findOne({username: username,}).then((doc) => {
             if (!doc) {
+                
+                if(req.body.email == null){
+                    
+
+                    return done(null, false);
+
+                }else{
                 try {
                      const newuser = User.create({
                      username : req.body.username,
@@ -51,6 +58,7 @@ passport.use(new LocalStrategy({
                 } catch (error) {
                     console.log('Error Occured in CATCH' + error);
                 }
+            }
             } else{
                 console.log("passportjs: doc found");
                 // console.log(doc);
