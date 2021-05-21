@@ -35,6 +35,11 @@ const [prodarray, setProdArray] = useState([]);
 
   }
 
+
+
+
+
+
   function handleClick(e){
     const userInput = {
       searchname: searchname
@@ -143,6 +148,7 @@ let history      = useHistory();
       
       <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
+
       <img 
       src    = {cart}
       alt    = ""
