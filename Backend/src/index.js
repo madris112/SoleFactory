@@ -17,6 +17,7 @@ const app = express();
 app.use(bodyparser.urlencoded({ extended: true }))
 
 app.use(express.json());
+app.use('/upload', express.static(path.join(__dirname, './uploads')));
 
 app.use(
   cors({
