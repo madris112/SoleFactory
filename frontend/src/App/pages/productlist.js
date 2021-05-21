@@ -1,22 +1,40 @@
 import {React, useState} from 'react'
 import {Button, Card, CardColumns, Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './productlist.css'
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 
 function ProductList(props){
   //console.log(props.arr);
-  const Prod = ({ title, description, price, instock }) => {
+  let history = useHistory();
+  const Prod = ({ title, brand, description, price, instock }) => {
     if (!title) return <div />;
+    let data = {
+      "title": title,
+      "brand": brand,
+      "description": description,
+      "price": price,
+      "instock": instock
+    }
+    function handleClick(){
+      history.push({
+        pathname: "/productdescription",
+        state: data
+      })
+    }
+    var linkCursor;
     return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card>
           <Card.Body>
-            <Card.Title>{title}</Card.Title>
-            <Card.Text>
-            {description}
-            </Card.Text>
+            <Card.Title  
+            onClick={handleClick} 
+            className="cardHover">
+            {title}
+            </Card.Title>
+            <Card.Text>{description}</Card.Text>
             <Button variant="primary">Add to cart</Button>
           </Card.Body>
           <Card.Footer>
@@ -26,7 +44,8 @@ function ProductList(props){
         </Card>
       </Col>
     );
-};
+  };
+
   if(props.arr.length == 0){
     return(
       <Card xs= {6}>
@@ -51,6 +70,7 @@ function ProductList(props){
                 key={key}
                 //img_url={data.img_url}
                 title={data.Title}
+                brand={data.brand}
                 description={data.description}
                 price={data.price}
                 instock={data.Quantity}

@@ -11,7 +11,7 @@ import test from "./test.jpeg"
 import gucci from "./guccibelt.jpeg"
 import { useEffect } from 'react';
 
-function ProductDescription() {
+function ProductDescription(props) {
   
 const [searchname, setSearchName] = useState("");
 const [Quantity, setQuantity] = useState(0);
@@ -20,7 +20,7 @@ const [Quantity, setQuantity] = useState(0);
   function increment(e){
     e.preventDefault();
     
-    setQuantity((parseInt(Quantity)+1));
+    setQuantity(Math.min(props.location.state.instock,parseInt(Quantity)+1));
 
   }
 
@@ -142,16 +142,17 @@ let redirectLink = '';
         height="450"/>
               </Col>
               <Col style={{padding: "0px"}}>
-                <h1><strong>Gucci Belt</strong></h1>
-                <p>By Gucci</p>
+                <h1><strong>{props.location.state.title}</strong></h1>
+                <p>By {props.location.state.brand}</p>
                 <br/>
                 <h5>About the Product</h5>
-                <h6>Most luxurious belt</h6>
+                <h6>{props.location.state.description}</h6>
                 <br/>
 
                 <br/>
-
-                <h2><span>&#8377; 31000</span></h2><br/>
+                <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Price per bundle: &#8377; {props.location.state.price}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
                 
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
