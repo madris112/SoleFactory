@@ -89,7 +89,7 @@ let redirectLink = '';
                 </Link>
               </Col>
               <Col style={{padding: "0px"}}>
-                <Link to={'./'}>
+                <Link to={'./signup'}>
                   <Button className="full-button" style={{borderRadius: "0px 10px 0px 0px"}}>SignUp</Button>
                 </Link>
               </Col>
