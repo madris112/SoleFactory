@@ -4,9 +4,25 @@ const product = require('../models/product');
 
 console.log("hi");
 
-router.post('/product/search',(req, res)=>{
-    console.log("pahucha");
-});
+// product search route
+router.post('/product/search', async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  console.log(req.body.searchname);
+
+  if (req.body.searchname != null && req.body.searchname !== '') {
+    search = new RegExp(req.body.searchname, 'i')
+  } else {
+    search = new RegExp('(.*?)','i')
+  }
+  //console.log(search)
+  try {
+    const products = await product.find({brand:search})
+    console.log(products)
+    return res.status(200).json({ data: products })
+  } catch(error) {
+    console.log("i have a search error: " + error);
+  }
+})
 
 router.post('/createProduct', function (req, res){
     res.setHeader("Access-Control-Allow-Origin", "*");
