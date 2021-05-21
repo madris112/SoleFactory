@@ -14,16 +14,20 @@ router.post('/product/search', async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   console.log(req.body.searchname);
 
-  if (req.body.searchname != null && req.body.searchname !== '') {
+  if (req.body.searchname != null && req.body.searchname !== '' && req.body.searchname!=='All') {
     search = new RegExp(req.body.searchname, 'i')
   } else {
     search = new RegExp('(.*?)','i')
   }
   //console.log(search)
   try {
-    const products = await product.find({brand:search})
+    let products = null
+    if(req.body.category && req.body.searchname!=='All')
+        products = await product.find({categoryTag:search})
+    else
+        products = await product.find({brand:search})
     console.log(products)
-    return res.status(200).json({ data: products })
+    return res.status(200).json(products)
   } catch(error) {
     console.log("i have a search error: " + error);
   }
@@ -54,6 +58,7 @@ router.post('/createProduct',upload, function (req, res, next){
     
                 let coinvalue = parseInt(payload.price);
                 coinvalue = coinvalue / 10;
+                console.log(coinvalue);
 
                   
                 
@@ -68,10 +73,11 @@ router.post('/createProduct',upload, function (req, res, next){
                         expiryDate     : payload.expiryDate,
                         DiscountedPrice: payload.discountedPrice,
                         categoryTag    : payload.categoryTag,
+                        imgURL         : req.file.path,
+                        CoinValue      : coinvalue,
                         Rating         : "0",
                         NoOfUserRated  : "0",
-                        Coinvalue      : coinvalue,
-                        imgURl         : req.file.path 
+                        
         
                     }
                     ).then((docs) => {
