@@ -15,26 +15,31 @@ function Login() {
   let   history                 = useHistory();
   let   redirectLink            = '';
 
-    useEffect(() => {
-      if (localStorage.getItem('localsession') === "1") {
-        console.log("inside local storage");
-        if (localStorage.getItem('localsession') === '1') history.push('/home');
-      } else {
-        const header = {
-          'Content-Type'                    : 'Application/json',
-          'Access-Control-Allow-Credentials': true,
-        };
-        axios
-          .get('http://localhost:4000/check', { header, withCredentials: true })
-          .then((response) => {
-            console.log(JSON.stringify(response.data.message));
-            redirectLink = response.data.redirect;
-            if(response.data.message === "Authorized Access!"){
-                history.push('/home');
-            }
+   useEffect(() => {
+    if (localStorage.getItem('localsession') === "1") {
+      console.log("inside local storage");
+      if (localStorage.getItem('localsession') === '1') history.push('/home');
+    } else {
+      const header = {
+        'Content-Type'                    : 'Application/json',
+        'Access-Control-Allow-Credentials': true,
+      };
+      axios
+        .get('http://localhost:4000/check', { header, withCredentials: true })
+        .then((response) => {
+          console.log(JSON.stringify(response.data.message));
+          redirectLink = response.data.redirect;
+          if(response.data.message === "Authorized Access!"){
+              history.push('/home');
+          }
 
-          });
+        });
 
+
+      if(redirectLink!=='')
+        history.push(redirectLink)
+    }
+  }, []);
 
   function handleClick(e) {
     
