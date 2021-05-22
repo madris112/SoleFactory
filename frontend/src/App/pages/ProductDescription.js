@@ -139,7 +139,7 @@ let redirectLink = '';
                 fluid 
                 src={gucci} alt="" 
                 width="400"
-        height="450"/>
+                height="450"/>
               </Col>
               <Col style={{padding: "0px"}}>
                 <h1><strong>{props.location.state.title}</strong></h1>

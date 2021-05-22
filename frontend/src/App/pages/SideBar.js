@@ -1,6 +1,7 @@
 import {React,useState} from 'react'
 import "./SideBar.css"
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
+import { BsXCircle } from "react-icons/bs";
 
 function SideBar(props) {
 
@@ -19,9 +20,15 @@ function SideBar(props) {
     return (
        
         <div className={sidebarClass}>
-        <h2>Sidebar</h2>
-          <button id="close" onClick={closeHandler}>&times; close</button>
-           
+        <div class="mainsidebar">
+        <div style={{display:"inline-block"}}>
+        <button style ={{backgroundColor:"transparent"}} onClick={closeHandler}><BsXCircle style={{color:"white"}}/></button>
+        <h2 style={{color: 'white', marginLeft:"40%",marginTop:"5px"}}><b>Sidebar</b></h2>
+          
+        </div>
+       
+        
+        </div>  
         </div>
         
     )
