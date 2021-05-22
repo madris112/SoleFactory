@@ -109,7 +109,7 @@ let history      = useHistory();
   }, []);
   
   return (
-    <div >
+    <div width="100%">
       
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">

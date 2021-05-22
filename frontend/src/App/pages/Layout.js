@@ -28,11 +28,14 @@ function Layout() {
     return (
         <div>
            
-           {sidebar}
+            {sidebar} 
              <Home click={openHandler}/>
-           
-           
+             
         </div>
+        
+             
+           
+        
     )
 }
 
