@@ -20,7 +20,7 @@ function ProductDescription(props) {
   const [searchname, setSearchName] = useState("");
   const [Quantity, setQuantity] = useState(initQuantity);
 
-  
+  var sc = 'http://localhost:4000/upload/' + String(props.location.state.img_url);
   function increment(e){
     e.preventDefault();
     
@@ -147,7 +147,8 @@ let history = useHistory();
               <Col style={{padding: "0px"}}>
                 <img 
                 fluid 
-                src={gucci} alt="" 
+                src={sc}
+                alt="" 
                 width="400"
                 height="450"/>
               </Col>
@@ -161,8 +162,9 @@ let history = useHistory();
 
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Price per bundle: &#8377; {props.location.state.price}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.discount}</span></h6>
                 
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
