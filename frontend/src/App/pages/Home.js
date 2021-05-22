@@ -62,6 +62,7 @@ const [prodarray, setProdArray] = useState([]);
         .then(response => setProdArray(response.data) );
 
     console.log('searching done')
+    console.log(localStorage)
   },[])
   
   useEffect(() => {
@@ -99,9 +100,7 @@ let history      = useHistory();
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
           }
-          
         });
-
 
       if(redirectLink!=='')
         history.push(redirectLink)

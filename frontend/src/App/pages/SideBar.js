@@ -20,15 +20,12 @@ function SideBar(props) {
     return (
        
         <div className={sidebarClass}>
-        <div class="mainsidebar">
-        <div style={{display:"inline-block"}}>
-        <button style ={{backgroundColor:"transparent"}} onClick={closeHandler}><BsXCircle style={{color:"white"}}/></button>
-        <h2 style={{color: 'white', marginLeft:"40%",marginTop:"5px"}}><b>Sidebar</b></h2>
-          
-        </div>
-       
-        
-        </div>  
+            <div class="mainsidebar">
+                <div style={{display:"inline-block"}}>
+                    <button style ={{backgroundColor:"transparent"}} onClick={closeHandler}><BsXCircle style={{color:"white"}}/></button>
+                    <h2 style={{color: 'white', marginLeft:"40%",marginTop:"5px"}}><b>Sidebar</b></h2>
+                </div>
+            </div>  
         </div>
         
     )

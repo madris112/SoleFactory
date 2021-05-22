@@ -9,10 +9,11 @@ import * as ReactBootStrap from 'react-bootstrap'
 function ProductList(props){
   //console.log(props.arr);
   let history = useHistory();
-  const Prod = ({ img_url,title, brand, description, price, instock }) => {
+  const Prod = ({ prod_id,img_url,title, brand, description, price, instock }) => {
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
     let data = {
+      "prod_id": prod_id,
       "title": title,
       "brand": brand,
       "description": description,
@@ -37,11 +38,10 @@ function ProductList(props){
             {title}
             </Card.Title>
             <Card.Text>{description}</Card.Text>
-            <Button variant="primary">Add to cart</Button>
           </Card.Body>
           <Card.Footer>
             <small className="text-muted">₹ {price}</small>
-            <small className="text-right">X {instock}</small>
+            <small className="text-right"> X{instock}</small>
           </Card.Footer>
         </Card>
       </Col>
@@ -70,6 +70,7 @@ function ProductList(props){
           return (
               <Prod
                 key={key}
+                prod_id = {data._id}
                 img_url={data.imgURL}
                 title={data.Title}
                 brand={data.brand}

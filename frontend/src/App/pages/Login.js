@@ -32,19 +32,22 @@ function Login() {
     axios
       .post('http://localhost:4000/auth/signin', userInput, { header })
       .then((response) => {
-        console.log(JSON.stringify(response.data.message));
+        console.log(JSON.stringify(response.data.user));
         setResMsg(response.data.message);
         redirectLink = response.data.redirect;
         console.log(redirectLink);
-        if (response.data.successcode === '1')
+        if (response.data.successcode === '1'){
           localStorage.setItem('localsession', '1');
-
+          let userCart = localStorage.getItem(response.data.user.username)
+          if(userCart===null)
+            localStorage.setItem(response.data.user.username,JSON.stringify({}));
+          
+          localStorage.setItem("curUser",response.data.user.username);
+        }
         if(redirectLink==='')
-      console.log(redirectLink);
-    if (redirectLink !== '') history.push(redirectLink);  
-      });
-
-    
+          console.log(redirectLink);
+        if (redirectLink !== '') history.push(redirectLink);  
+      }); 
   }
 
   function googlesignin() {

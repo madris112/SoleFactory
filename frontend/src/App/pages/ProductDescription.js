@@ -12,9 +12,13 @@ import gucci from "./guccibelt.jpeg"
 import { useEffect } from 'react';
 
 function ProductDescription(props) {
+  let initQuantity = 0;
+  try{
+    initQuantity = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))[props.location.state.prod_id].quantity;
+  }catch{}
   
-const [searchname, setSearchName] = useState("");
-const [Quantity, setQuantity] = useState(0);
+  const [searchname, setSearchName] = useState("");
+  const [Quantity, setQuantity] = useState(initQuantity);
 
   
   function increment(e){
@@ -46,9 +50,15 @@ const [Quantity, setQuantity] = useState(0);
     console.log('searching done')
   }
 
+  function addToCart(){
+    let cartItems = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))
+    cartItems[props.location.state.prod_id] = {...props.location.state, quantity: Quantity}
+    localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify(cartItems));
+    console.log(localStorage)
+  }
 
 let redirectLink = '';
-  let history = useHistory();
+let history = useHistory();
 
   useEffect(() => {
     if (localStorage.getItem('localsession')) {
@@ -180,21 +190,11 @@ let redirectLink = '';
                  </Button>
                 </Col>
               </Row>
-                
-                 
-              
-               
                  </div>
-                
-    
                 <br/><br/>
-               <div className="mb-2">
-    
-                <Button variant="secondary" size="lg">
-                    Add to cart
-                 </Button>
-           </div>
-
+                <div className="mb-2">
+                  <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
+                </div>
               </Col>
             </Row>
             
