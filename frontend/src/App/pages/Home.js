@@ -13,10 +13,106 @@ import cart from "./cart.svg"
 import { useEffect } from 'react';
 
 function Home(props) {
+  let history = useHistory();
+  let initSearchName = ""
+  let initCategory = "All"
+  try{
+    if(props.backProp.location.state.searchname!=undefined){
+      initSearchName = props.backProp.location.state.searchname
+    }
+  }catch{}
+  try{
+    if(props.backProp.location.state.category!=undefined)
+      initCategory = props.backProp.location.state.category
+  }catch{}
+  const [searchname, setSearchName] = useState(initSearchName);
+  const [category, setCategory] = useState(initCategory);
+  const [prodarray, setProdArray] = useState([]);
   
-const [searchname, setSearchName] = useState("");
-const [category, setCategory] = useState("All");
-const [prodarray, setProdArray] = useState([]);
+  console.log(category)
+  
+  // useEffect(() => {
+  //   try{
+
+  //   }catch{
+  //     return;
+  //   }
+  //   console.log("clicked")
+  //   const userInput = {
+  //     searchname: searchname
+  //   }
+  //   const header = {
+  //     "Content-Type":"application/json"
+  //   };
+
+  //    axios.post('http://localhost:4000/product/search',userInput, {header})
+  //       .then(response => setProdArray(response.data) );
+
+  //   console.log('searching done')
+  //   console.log(localStorage)
+  // },[])
+  
+  useEffect(async() => {
+    const userInput = {
+      searchname: category,
+      category: 1
+    }
+    const header = {
+      "Content-Type":"application/json"
+    };
+
+    await axios.post('http://localhost:4000/product/search', userInput , {header} )
+        .then(response => {
+          console.log(response.data)
+          setProdArray(response.data)});
+    console.log('searching category done')
+  },[category])
+
+  useEffect(async () => {
+    if(searchname==""){
+      console.log("empty search")
+      return
+    }
+    console.log(searchname)
+    console.log("clicked")
+    const userInput = {
+      searchname: searchname
+    }
+    const header = {
+      "Content-Type":"application/json"
+    };
+
+    await axios.post('http://localhost:4000/product/search',userInput, {header})
+        .then(response => setProdArray(response.data) );
+
+    console.log('searching search bar done')
+  },[])
+  
+  let redirectLink = '';
+
+  useEffect(() => {
+    if (localStorage.getItem('localsession') === "1") {
+      console.log("inside local storage");
+      if (localStorage.getItem('localsession') !== '1') history.push('/');
+    } else {
+      const header = {
+        'Content-Type'                    : 'Application/json',
+        'Access-Control-Allow-Credentials': true,
+      };
+      axios
+        .get('http://localhost:4000/check', { header, withCredentials: true })
+        .then((response) => {
+          console.log(JSON.stringify(response.data.message));
+          redirectLink = response.data.redirect;
+          if(response.data.message === "Unauthorized Access!"){
+              history.push('/');
+          }
+        });
+
+      if(redirectLink!=='')
+        history.push(redirectLink)
+    }
+  }, []);
   
   function logoutClick(e){
     localStorage.clear();
@@ -43,65 +139,7 @@ const [prodarray, setProdArray] = useState([]);
 
     console.log('searching done')
   }
-  
-  useEffect(() => {
-    console.log("clicked")
-    const userInput = {
-      searchname: searchname
-    }
-    const header = {
-      "Content-Type":"application/json"
-    };
 
-     axios.post('http://localhost:4000/product/search',userInput, {header})
-        .then(response => setProdArray(response.data) );
-
-    console.log('searching done')
-    console.log(localStorage)
-  },[])
-  
-  useEffect(() => {
-    const userInput = {
-      searchname: category,
-      category: 1
-    }
-    const header = {
-      "Content-Type":"application/json"
-    };
-
-     axios.post('http://localhost:4000/product/search', userInput , {header} )
-        .then(response => setProdArray(response.data));
-    console.log(prodarray)
-    console.log('searching done')
-  },[category])
-
-let redirectLink = '';
-let history      = useHistory();
-
-  useEffect(() => {
-    if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
-      if (localStorage.getItem('localsession') !== '1') history.push('/');
-    } else {
-      const header = {
-        'Content-Type'                    : 'Application/json',
-        'Access-Control-Allow-Credentials': true,
-      };
-      axios
-        .get('http://localhost:4000/check', { header, withCredentials: true })
-        .then((response) => {
-          console.log(JSON.stringify(response.data.message));
-          redirectLink = response.data.redirect;
-          if(response.data.message === "Unauthorized Access!"){
-              history.push('/');
-          }
-        });
-
-      if(redirectLink!=='')
-        history.push(redirectLink)
-    }
-  }, []);
-  
   return (
     <div width="100%">
       
@@ -149,8 +187,10 @@ let history      = useHistory();
     </Form>
 
       <ReactBootStrap.Nav>
-      
-      <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
+        <Button variant = "outline-info" onClick = {logoutClick}>Orders</Button>
+      </ReactBootStrap.Nav>
+      <ReactBootStrap.Nav>
+        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
       <button id="toggle" onClick={props.click}>
