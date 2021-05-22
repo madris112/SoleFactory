@@ -29,29 +29,6 @@ function Home(props) {
   const [category, setCategory] = useState(initCategory);
   const [prodarray, setProdArray] = useState([]);
   
-  console.log(category)
-  
-  // useEffect(() => {
-  //   try{
-
-  //   }catch{
-  //     return;
-  //   }
-  //   console.log("clicked")
-  //   const userInput = {
-  //     searchname: searchname
-  //   }
-  //   const header = {
-  //     "Content-Type":"application/json"
-  //   };
-
-  //    axios.post('http://localhost:4000/product/search',userInput, {header})
-  //       .then(response => setProdArray(response.data) );
-
-  //   console.log('searching done')
-  //   console.log(localStorage)
-  // },[])
-  
   useEffect(async() => {
     const userInput = {
       searchname: category,
