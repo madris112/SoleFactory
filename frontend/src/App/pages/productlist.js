@@ -3,13 +3,11 @@ import {Button, Card, CardColumns, Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './productlist.css'
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios'
-import * as ReactBootStrap from 'react-bootstrap'
 
 function ProductList(props){
   //console.log(props.arr);
   let history = useHistory();
-  const Prod = ({ discount,img_url,title, brand, description, price, instock}) => {
+  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock}) => {
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
     let data = {
@@ -22,13 +20,14 @@ function ProductList(props){
       "price": price,
       "instock": instock
     }
+  
     function handleClick(){
       history.push({
         pathname: "/productdescription",
         state: data
       })
     }
-    var linkCursor;
+    
     return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card>
@@ -71,7 +70,6 @@ function ProductList(props){
           props.arr.map((data, key) => {
           return (
               <Prod
-                key={key}
                 prod_id = {data._id}
                 discount={data.DiscountedPrice}
                 img_url={data.imgURL}
@@ -80,6 +78,7 @@ function ProductList(props){
                 description={data.description}
                 price={data.price}
                 instock={data.Quantity}
+                key={key}
               />
           );
         })}

@@ -22,17 +22,23 @@ function ProductDescription(props) {
 
   var sc = 'http://localhost:4000/upload/' + String(props.location.state.img_url);
   function increment(e){
-    e.preventDefault();
-    
     setQuantity(Math.min(props.location.state.instock,parseInt(Quantity)+1));
-
   }
 
   function decrement(e){
-    e.preventDefault();
-    
     setQuantity(Math.max(0,parseInt(Quantity)-1));
+  }
 
+  function logoutClick(e){
+    localStorage.clear();
+    const header = {
+      "Content-Type": "application/json"
+    };
+    axios.get("http://localhost:4000/logout",{header})
+    .then(response => {console.log(JSON.stringify(response.data.message))
+          if(response.data.message === "Logout Successful!")
+            history.push('/');
+    });
   }
 
   function handleClick(e){
@@ -123,9 +129,7 @@ let history = useHistory();
     </Form>
 
       <ReactBootStrap.Nav.Link href="/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link eventKey={2} >
-        Sign Out
-      </ReactBootStrap.Nav.Link>
+      <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       <img 
       src={cart} 
       alt=""

@@ -19,9 +19,6 @@ const [category, setCategory] = useState("All");
 const [prodarray, setProdArray] = useState([]);
   
   function logoutClick(e){
-    
-    console.log("clicked");
-
     localStorage.clear();
     const header = {
       "Content-Type": "application/json"
@@ -29,10 +26,8 @@ const [prodarray, setProdArray] = useState([]);
     axios.get("http://localhost:4000/logout",{header})
     .then(response => {console.log(JSON.stringify(response.data.message))
           if(response.data.message === "Logout Successful!")
-            history.push('/');           
-    
+            history.push('/');
     });
-
   }
 
   function handleClick(e){
@@ -76,7 +71,7 @@ const [prodarray, setProdArray] = useState([]);
 
      axios.post('http://localhost:4000/product/search', userInput , {header} )
         .then(response => setProdArray(response.data));
-
+    console.log(prodarray)
     console.log('searching done')
   },[category])
 
