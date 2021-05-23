@@ -10,3 +10,16 @@
     background-color: rgb(196, 125, 34);
     
 }
+
+.coin_display {
+    size: 12px;
+   margin-right: 10px;
+  margin-top: 2px;
+    color: white;
+    align-items: center;
+    
+    margin-left: 10px;
+}
+.after_search {
+    display: flex;
+}
