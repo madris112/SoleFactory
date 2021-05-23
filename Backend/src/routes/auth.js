@@ -62,5 +62,26 @@ router.get('/logout', function(req, res){
   });
 });
 
+router.get('/getuser', function(req,res){
+  console.log(req.query.usrname);
+   user.findOne({
+         username: req.query.usrname,
+     }).then((doc) => {
+         if (!doc) {
+             res.status(200).send({
+                 message:"user not found!"
+
+             })
+         } else{
+
+             res.status(200).send({
+                 retuser: doc
+             })
+             
+         }
+     });
+
+  });
+
 
 module.exports = router;

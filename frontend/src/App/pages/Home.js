@@ -13,6 +13,10 @@ import cart from "./cart.svg"
 import { useEffect } from 'react';
 
 function Home(props) {
+
+const [ngo, setngo] = useState("false");
+
+
   let history = useHistory();
   let initSearchName = ""
   let initCategory = "All"
@@ -71,6 +75,24 @@ function Home(props) {
     if (localStorage.getItem('localsession') === "1") {
       console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
+
+      const header = {
+        'Content-Type'                    : 'Application/json',
+        'Access-Control-Allow-Credentials': true,
+      };
+      let x=localStorage.getItem('username');
+      console.log(x);
+      axios
+        .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
+        .then((response) => {
+          console.log(JSON.stringify(response.data.retuser));
+          if(response.data.retuser.Type==='1'){
+            setngo("true");
+
+          }
+        }
+    );
+
     } else {
       const header = {
         'Content-Type'                    : 'Application/json',
@@ -79,10 +101,12 @@ function Home(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
+          console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
+
           }
         });
 
@@ -162,10 +186,8 @@ function Home(props) {
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
-
-      <ReactBootStrap.Nav>
-        <Button variant = "outline-info" onClick = {logoutClick}>Orders</Button>
-      </ReactBootStrap.Nav>
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
+      
       <ReactBootStrap.Nav>
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>

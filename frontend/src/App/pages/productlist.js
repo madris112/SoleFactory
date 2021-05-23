@@ -32,7 +32,7 @@ function ProductList(props){
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card>
           <Card.Body>
-            <Card.Img variant="top" src= {sc} style = {{height: "200px"}}/>
+            <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
             <Card.Title  
             onClick={handleClick} 
             className="cardHover">

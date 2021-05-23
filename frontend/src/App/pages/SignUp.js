@@ -42,6 +42,7 @@ let redirectLink = '';
       .then((response) => {
         console.log(JSON.stringify(response.data.message));
         console.log(response.data.user);
+        localStorage.setItem('username', response.data.user.username);
         redirectLink = response.data.redirect;
 
         if (response.data.successcode === '1')
