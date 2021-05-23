@@ -2,3 +2,8 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.smiley {
+    display: flex;
+    float: right;
+}
