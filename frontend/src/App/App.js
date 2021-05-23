@@ -7,6 +7,7 @@ import Home from "./pages/Home"
 import ProductForm from "./pages/ProductForm"
 import ProductDescription from "./pages/ProductDescription"
 import SideBar from "./pages/Layout"
+import OrderHistory from "./pages/OrderHistory"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/productform" component={ProductForm} />
         <Route path="/productdescription" component={ProductDescription} />
         <Route path="/sidebar" component={SideBar} />
+        <Route path="/orderhistory" component={OrderHistory} />
     </Switch>
   )
 }
