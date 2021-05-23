@@ -41,15 +41,27 @@ passport.use(new LocalStrategy({
                     return done(null, false);
 
                 }else{
+
+                    let coinval = "0";
+
+                    if(req.body.isngo === "1"){
+
+                        coinval = "100";
+                    }
                 try {
                      const newuser = User.create({
-                     username : req.body.username,
-                     firstname: req.body.firstname,
-                     lastname : req.body.lastname,
-                     email    : req.body.email,
-                     mobile   : req.body.mobile,
-                     password : sha(req.body.password),
-                     gstno    : req.body.gstno
+                     username   : req.body.username,
+                     firstname  : req.body.firstname,
+                     lastname   : req.body.lastname,
+                     email      : req.body.email,
+                     mobile     : req.body.mobile,
+                     password   : sha(req.body.password),
+                     gstno      : req.body.gstno,
+                     ngoid      : req.body.ngoid,
+                     IsActivated: "1",
+                     IsOauth    : "0",
+                     Type       : req.body.isngo,
+                     CoinAmt    : coinval
                     }).then((docs) => {
                         // console.log(docs);
                         return done(null, docs);
@@ -57,6 +69,7 @@ passport.use(new LocalStrategy({
                     
                 } catch (error) {
                     console.log('Error Occured in CATCH' + error);
+                    return done(null,false);         
                 }
             }
             } else{
@@ -98,13 +111,18 @@ passport.use(new GoogleStrategy({
                     try {
 
                         const nweuser = User.create({
-               username : profile.id,
-               firstname: profile.name.givenName,
-               lastname : profile.name.familyName,
-               email    : profile.emails[0].value,
-               mobile   : "0000000000",
-               password : sha(profile.id + profile.name.givenName),
-               gstno    : "currentGst"
+                        username   : profile.id,
+                        firstname  : profile.name.givenName,
+                        lastname   : profile.name.familyName,
+                        email      : profile.emails[0].value,
+                        mobile     : "0000000000",
+                        password   : sha(profile.id + profile.name.givenName),
+                        gstno      : "currentGst",
+                        ngoid      : "0",
+                        IsActivated: "0",
+                        IsOauth    : "1",
+                        Type       : "0",
+                        CoinAmt    : "0",
                         }).then((docs) => {
                             console.log(docs);
                             

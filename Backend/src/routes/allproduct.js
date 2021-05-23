@@ -170,5 +170,43 @@ router.post('/createProduct',upload, function (req, res, next){
     }
 });
 
+// router.post('/buy/order',(req,res) =>{
+
+//     let productArray = JSON.parse(req.body.array);
+//     for(let product of productArray){
+//         ProductModel.findById({ 
+//             product.id
+//         }, (err, doc) => {
+//            if(err){
+//                console.log(`Error: ` + err)
+//            } else{
+//              if(!doc){
+//                  console.log("Product Does Not exist");
+//                  res.status(400).send({
+//                      message:"No such product"
+//                  })
+//              } else{
+
+//                  let newQuantity = parseInt(doc.Quantity);
+//                  let change_value = parseInt(product.quantity);
+//                  newQuantity = newQuantity - change_value;
+
+//                  ProductModel.updateOne({ 
+//                      _id: doc.id
+//                  }, {
+//                      Quantity: newQuantity
+//                  }
+//                  }, (err) => {
+//                     if(err){
+//                         console.log(`Updating product error: ` + err)
+//                     }
+//                  });
+               
+//              }
+//            }
+//         });
+//     }
+
+// });
 module.exports = router;
 

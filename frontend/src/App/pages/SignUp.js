@@ -41,6 +41,7 @@ let redirectLink = '';
       .post('http://localhost:4000/auth/signin', userInput, { header })
       .then((response) => {
         console.log(JSON.stringify(response.data.message));
+        console.log(response.data.user);
         redirectLink = response.data.redirect;
 
         if (response.data.successcode === '1')

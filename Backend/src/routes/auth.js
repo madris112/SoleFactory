@@ -15,7 +15,8 @@ router.get('/auth/failure',(req,res)=>{
 router.post('/auth/signin', 
   passport.authenticate('local', { failureRedirect: '/auth/failure',}),
   function(req, res,next) {
-      
+
+       
 
       if(req.user) {
           res.status(200).send({
