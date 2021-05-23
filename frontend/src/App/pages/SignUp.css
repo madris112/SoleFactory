@@ -1,7 +1,7 @@
 .fixed-bg{
     display: fixed;
     background-color: #c7c8c9;
-    height: 100%;
+    height: 100vh;
     width: 100%;
   }
   

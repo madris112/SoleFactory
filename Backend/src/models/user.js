@@ -6,4 +6,4 @@ require('../database/database');
 var userSchema = new mongoose.Schema(userjson);
 
 //Export the model
-module.exports = mongoose.model('Userinfo', userSchema);
+module.exports = mongoose.model('InfoUser', userSchema);

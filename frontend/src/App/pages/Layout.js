@@ -2,7 +2,7 @@ import {React,useState}from 'react'
 import SideBar from "./SideBar"
 import Home from "./Home"
 
-function Layout() {
+function Layout(props) {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -29,7 +29,7 @@ function Layout() {
         <div>
            
             {sidebar} 
-             <Home click={openHandler}/>
+             <Home click={openHandler} backProp={props}/>
              
         </div>
         

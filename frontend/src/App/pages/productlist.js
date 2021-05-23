@@ -3,29 +3,31 @@ import {Button, Card, CardColumns, Container, Row, Col} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './productlist.css'
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios'
-import * as ReactBootStrap from 'react-bootstrap'
 
 function ProductList(props){
   //console.log(props.arr);
   let history = useHistory();
-  const Prod = ({ img_url,title, brand, description, price, instock }) => {
+  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock}) => {
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
     let data = {
+      "prod_id": prod_id,
+      "discount": discount,
+      "img_url": img_url,
       "title": title,
       "brand": brand,
       "description": description,
       "price": price,
       "instock": instock
     }
+  
     function handleClick(){
       history.push({
         pathname: "/productdescription",
         state: data
       })
     }
-    var linkCursor;
+    
     return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card>
@@ -37,11 +39,10 @@ function ProductList(props){
             {title}
             </Card.Title>
             <Card.Text>{description}</Card.Text>
-            <Button variant="primary">Add to cart</Button>
           </Card.Body>
           <Card.Footer>
-            <small className="text-muted">₹ {price}</small>
-            <small className="text-right">X {instock}</small>
+            <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+            <small className="text-right">    x {instock} units</small>
           </Card.Footer>
         </Card>
       </Col>
@@ -69,13 +70,15 @@ function ProductList(props){
           props.arr.map((data, key) => {
           return (
               <Prod
-                key={key}
+                prod_id = {data._id}
+                discount={data.DiscountedPrice}
                 img_url={data.imgURL}
                 title={data.Title}
                 brand={data.brand}
                 description={data.description}
                 price={data.price}
                 instock={data.Quantity}
+                key={key}
               />
           );
         })}

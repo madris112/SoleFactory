@@ -13,58 +13,23 @@ import cart from "./cart.svg"
 import { useEffect } from 'react';
 
 function Home(props) {
-  
-const [searchname, setSearchName] = useState("");
-const [category, setCategory] = useState("All");
-const [prodarray, setProdArray] = useState([]);
-  
-  function logoutClick(e){
-    
-    console.log("clicked");
-
-    localStorage.clear();
-    const header = {
-      "Content-Type": "application/json"
-    };
-    axios.get("http://localhost:4000/logout",{header})
-    .then(response => {console.log(JSON.stringify(response.data.message))
-          if(response.data.message === "Logout Successful!")
-            history.push('/');           
-    
-    });
-
-  }
-
-  function handleClick(e){
-    const userInput = {
-      searchname: searchname
+  let history = useHistory();
+  let initSearchName = ""
+  let initCategory = "All"
+  try{
+    if(props.backProp.location.state.searchname!=undefined){
+      initSearchName = props.backProp.location.state.searchname
     }
-    const header = {
-      "Content-Type": "application/json"
-    };
-
-     axios.post('http://localhost:4000/product/search', userInput , {header} )
-        .then(response => setProdArray(response.data) );
-
-    console.log('searching done')
-  }
+  }catch{}
+  try{
+    if(props.backProp.location.state.category!=undefined)
+      initCategory = props.backProp.location.state.category
+  }catch{}
+  const [searchname, setSearchName] = useState(initSearchName);
+  const [category, setCategory] = useState(initCategory);
+  const [prodarray, setProdArray] = useState([]);
   
-  useEffect(() => {
-    console.log("clicked")
-    const userInput = {
-      searchname: searchname
-    }
-    const header = {
-      "Content-Type":"application/json"
-    };
-
-     axios.post('http://localhost:4000/product/search',userInput, {header})
-        .then(response => setProdArray(response.data) );
-
-    console.log('searching done')
-  },[])
-  
-  useEffect(() => {
+  useEffect(async() => {
     const userInput = {
       searchname: category,
       category: 1
@@ -73,14 +38,34 @@ const [prodarray, setProdArray] = useState([]);
       "Content-Type":"application/json"
     };
 
-     axios.post('http://localhost:4000/product/search', userInput , {header} )
-        .then(response => setProdArray(response.data));
-
-    console.log('searching done')
+    await axios.post('http://localhost:4000/product/search', userInput , {header} )
+        .then(response => {
+          console.log(response.data)
+          setProdArray(response.data)});
+    console.log('searching category done')
   },[category])
 
-let redirectLink = '';
-let history      = useHistory();
+  useEffect(async () => {
+    if(searchname==""){
+      console.log("empty search")
+      return
+    }
+    console.log(searchname)
+    console.log("clicked")
+    const userInput = {
+      searchname: searchname
+    }
+    const header = {
+      "Content-Type":"application/json"
+    };
+
+    await axios.post('http://localhost:4000/product/search',userInput, {header})
+        .then(response => setProdArray(response.data) );
+
+    console.log('searching search bar done')
+  },[])
+  
+  let redirectLink = '';
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
@@ -99,15 +84,39 @@ let history      = useHistory();
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
           }
-          
         });
-
 
       if(redirectLink!=='')
         history.push(redirectLink)
     }
   }, []);
   
+  function logoutClick(e){
+    localStorage.clear();
+    const header = {
+      "Content-Type": "application/json"
+    };
+    axios.get("http://localhost:4000/logout",{header})
+    .then(response => {console.log(JSON.stringify(response.data.message))
+          if(response.data.message === "Logout Successful!")
+            history.push('/');
+    });
+  }
+
+  function handleClick(e){
+    const userInput = {
+      searchname: searchname
+    }
+    const header = {
+      "Content-Type": "application/json"
+    };
+
+     axios.post('http://localhost:4000/product/search', userInput , {header} )
+        .then(response => setProdArray(response.data) );
+
+    console.log('searching done')
+  }
+
   return (
     <div width="100%">
       
@@ -155,8 +164,10 @@ let history      = useHistory();
     </Form>
 
       <ReactBootStrap.Nav>
-      
-      <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
+        <Button variant = "outline-info" onClick = {logoutClick}>Orders</Button>
+      </ReactBootStrap.Nav>
+      <ReactBootStrap.Nav>
+        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
       <button id="toggle" onClick={props.click}>
