@@ -1,4 +1,4 @@
-import {React,useState} from 'react'
+import {React,useState,useEffect} from 'react'
 import Home from './Home'
 import {Button,Card, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -11,28 +11,27 @@ import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import guccibelt from "./guccibelt.jpeg"
 
-import { useEffect } from 'react';
-
-
 function Cart(props) {
-    let history = useHistory();
+  const [currentCart, setCurrentCart] = useState({})
+  useEffect(() => {
+    setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))) 
+  },[])
+  let history = useHistory();
 
-    const [searchname, setSearchName] = useState("");
-    const [category, setCategory] = useState("");
-    useEffect(() => {
-        if(category!=""){
-            let data = {"category":category}
-            history.push({
-            pathname: "/home",
-            state: data
-        })
-        return;
-        }
-    },[category])
+  const [searchname, setSearchName] = useState("");
+  const [category, setCategory] = useState("");
+  useEffect(() => {
+      if(category!=""){
+          let data = {"category":category}
+          history.push({
+          pathname: "/home",
+          state: data
+      })
+      return;
+      }
+  },[category])
+
   function logoutClick(e){
-    
-    console.log("clicked");
-
     localStorage.clear();
     const header = {
       "Content-Type": "application/json"
@@ -56,37 +55,6 @@ function Cart(props) {
       return;
     }
   }
-  
-//   useEffect(() => {
-//     console.log("clicked")
-//     const userInput = {
-//       searchname: searchname
-//     }
-//     const header = {
-//       "Content-Type":"application/json"
-//     };
-
-//      axios.post('http://localhost:4000/product/search',userInput, {header})
-//         .then(response => setProdArray(response.data) );
-
-//     console.log('searching done')
-//   },[])
-  
-//   useEffect(() => {
-//     const userInput = {
-//       searchname: category,
-//       category: 1
-//     }
-//     const header = {
-//       "Content-Type":"application/json"
-//     };
-
-//      axios.post('http://localhost:4000/product/search', userInput , {header} )
-//         .then(response => setProdArray(response.data));
-
-//     console.log('searching done')
-//   },[category])
-
   let redirectLink = '';
 
   useEffect(() => {
@@ -114,6 +82,13 @@ function Cart(props) {
         history.push(redirectLink)
     }
   }, []);
+
+  function confirmBuy(){
+    //BACKEND connection
+    setCurrentCart({})
+    localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
+    
+  }
     return (
         <div>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -159,48 +134,49 @@ function Cart(props) {
       onClick = {handleClick}>Search</Button>
     </Form>
 
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav>
-      
-      <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
+        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
-      
-      <Link to= "/cart" style={{backgroundColor: "white"}}>
-      <img 
-      src    = {cart}
-      alt    = ""
-      width  = "30"
-      height = "30" /></Link>
-
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
  <h2 className="your_orders"><strong>Your Orders</strong></h2>
  </div>
-
  <div className="whole_page">
     <Container >
-      <Row className="row_orders">
-        <Col style={{padding: "0px"}}>
-          <img className="img_row"
-          fluid 
-          src={guccibelt} alt="" 
-          width="150"
-          height="120"/>
-        </Col>
-        <Col style={{padding: "5px"}}><br/>
-          <h4><strong>Gucci Belt</strong></h4>
-          <p>By Gucci </p>
-          <h5>Quantity: 5</h5>
-        </Col>
-        <Col className="row_price">
-          <h3><strong>
-          ₹ 1000</strong></h3><br/>
-          <button lg color="secondary">Buy it Again</button>
-        </Col>
-      </Row>
+  {
+    Object.keys(currentCart).map((data,key) => {
+      if(currentCart[data].quantity==0)
+        return;
+      return(
+        <Row className="row_orders">
+          <Col style={{padding: "0px"}}>
+            <img className="img_row"
+            fluid 
+            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt="" 
+            width="150"
+            height="120"/>
+          </Col>
+          <Col style={{padding: "5px"}}><br/>
+            <h4><strong>{currentCart[data].title}</strong></h4>
+            <p>By {currentCart[data].brand} </p>
+            <h5>Quantity: {currentCart[data].quantity}</h5>
+          </Col>
+          <Col className="row_price">
+            <h3><strong>Your total for this item: {currentCart[data].price * currentCart[data].quantity}</strong></h3><br/>
+            <button lg color="secondary">Buy it Again</button>
+          </Col>
+        </Row>
+      )
+    })
+  }
+    <Button variant="primary" onClick={confirmBuy}>Buy All</Button>
     </Container>
-  </div>
+  </div> 
+
+
 </div>
         
     )

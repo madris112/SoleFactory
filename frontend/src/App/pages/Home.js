@@ -13,21 +13,18 @@ import cart from "./cart.svg"
 import { useEffect } from 'react';
 
 function Home(props) {
-
-const [ngo, setngo] = useState("false");
-
-
+  const [ngo, setngo] = useState("false");
   let history = useHistory();
   let initSearchName = ""
   let initCategory = "All"
   try{
-    if(props.backProp.location.state.searchname!=undefined){
-      initSearchName = props.backProp.location.state.searchname
+    if(props.location.state.searchname!=undefined){
+      initSearchName = props.location.state.searchname
     }
   }catch{}
   try{
-    if(props.backProp.location.state.category!=undefined)
-      initCategory = props.backProp.location.state.category
+    if(props.location.state.category!=undefined)
+      initCategory = props.location.state.category
   }catch{}
   const [searchname, setSearchName] = useState(initSearchName);
   const [category, setCategory] = useState(initCategory);
@@ -192,12 +189,12 @@ const [ngo, setngo] = useState("false");
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
-      <button id="toggle" onClick={props.click}>
+      <Link to= "/cart" style={{backgroundColor: "white"}}>
       <img 
       src    = {cart}
       alt    = ""
       width  = "30"
-      height = "30" /></button>
+      height = "30" /></Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>

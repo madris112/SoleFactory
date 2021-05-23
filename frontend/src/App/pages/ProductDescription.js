@@ -140,19 +140,17 @@ function ProductDescription(props) {
       onClick = {handleClick}>Search</Button>
     </Form>
 
-      <ReactBootStrap.Nav>
-        <Button variant = "outline-info" onClick = {history.push({pathname: "/orderhistory"})}>Orders</Button>
-      </ReactBootStrap.Nav>
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav>
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
-      <button id="toggle" onClick={props.click}>
+      <Link to= "/cart" style={{backgroundColor: "white"}}>
       <img 
       src    = {cart}
       alt    = ""
       width  = "30"
-      height = "30" /></button>
+      height = "30" /></Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
