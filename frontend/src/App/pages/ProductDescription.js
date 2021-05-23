@@ -141,7 +141,7 @@ function ProductDescription(props) {
     </Form>
 
       <ReactBootStrap.Nav>
-        <Button variant = "outline-info" onClick = {logoutClick}>Orders</Button>
+        <Button variant = "outline-info" onClick = {history.push({pathname: "/orderhistory"})}>Orders</Button>
       </ReactBootStrap.Nav>
       <ReactBootStrap.Nav>
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>

@@ -86,7 +86,7 @@ const [ngo, setngo] = useState("false");
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           console.log(JSON.stringify(response.data.retuser));
-          if(response.data.retuser.Type==='1'){
+          if(response.data.retuser && response.data.retuser.Type==='1'){
             setngo("true");
 
           }
