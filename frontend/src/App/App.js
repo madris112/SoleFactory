@@ -7,6 +7,7 @@ import ProductForm from "./pages/ProductForm"
 import ProductDescription from "./pages/ProductDescription"
 import OrderHistory from "./pages/OrderHistory"
 import Cart from "./pages/Cart"
+import InfoCompleteForm from "./pages/infoCompleteForm"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/productdescription" component={ProductDescription} />
         <Route path="/orderhistory" component={OrderHistory} />
         <Route path="/cart" component={Cart} />
+        <Route path="/completeForm" component={InfoCompleteForm} />
     </Switch>
   )
 }

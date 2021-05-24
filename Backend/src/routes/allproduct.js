@@ -1,9 +1,9 @@
-const express = require('express');
-const router  = new express.Router();
-const product = require('../models/product');
+const express    = require('express');
+const router     = new express.Router();
+const product    = require('../models/product');
 const orderModel = require('../models/orderhistory');
-const multer  = require('multer');
-const path    = require("path");
+const multer     = require('multer');
+const path       = require("path");
 
 
 
@@ -179,10 +179,7 @@ router.post('/order',(req,res) =>{
     
     
     ProdArray = JSON.parse(req.body.inventory);
-    holder = req.body.userordered;
-    console.log(req.body.userordered);
-    console.log(holder);
-    
+    holder    = req.body.userordered;
     
     for(const item in ProdArray){
 
@@ -199,14 +196,10 @@ router.post('/order',(req,res) =>{
                     console.log("No such Product exist");
                 } else{
 
-                    let order = doc;
-                    reducedQuantity = NewQuantity;
-                    NewQuantity = order.Quantity - NewQuantity;
+                    let order           = doc;
+                        reducedQuantity = NewQuantity;
+                        NewQuantity     = order.Quantity - NewQuantity;
 
-                    console.log(order);
-                    console.log(NewQuantity);
-                    
-                    
 
                         product.updateOne({ 
                             _id: item
@@ -230,11 +223,14 @@ router.post('/order',(req,res) =>{
     
                             }).then((docs) => {
     
-                                console.log(docs);
+                                console.log("producted added succesfully");
                                 
                             });
                         } catch (error) {
-                            console.error("creating order try catch" + error)
+                            console.error("creating order try catch" + error);
+                            res.status(400).send({
+                                message: "Try Again!"
+                            });
                         }
                     
                     
@@ -243,19 +239,59 @@ router.post('/order',(req,res) =>{
             });
         } catch (error) {
             console.error("finding product catch");
+            res.status(400).send({
+                message: "try again"
+            });
         }
 
         
 
-        
-
-    
-
-    
-        
-    
     }
 
+    res.status(200).send({
+        message: "order placed successfully"
+    });
+
 });
+
+router.get('/gethistory',async(req,res)=>{
+    curruser = req.query.username;
+
+    try {
+        docs = await orderModel.find({ 
+            user: curruser
+        }).sort({_id:-1});
+
+
+        // console.log(docs);
+        var finalOrderInfo = [];
+        for(prod in docs){
+            
+            
+            item = await product.findOne({
+                _id:docs[prod].productId,
+            })
+
+            
+
+            if(item){
+                
+                current = {
+                    product: item,
+                    history: docs[prod]
+                }
+
+                finalOrderInfo.push(current);
+
+            }
+        }
+        res.status(200).send({
+            History: finalOrderInfo
+        });
+    } catch (error) {
+        console.error(error)
+    }
+
+})
 module.exports = router;
 

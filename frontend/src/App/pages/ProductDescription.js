@@ -76,6 +76,10 @@ function ProductDescription(props) {
     });
   }
 
+  function buyfunction(){
+     
+  }
+
   function handleClick(e){
     if(searchname!=""){
       let data = {"searchname":searchname}
@@ -218,6 +222,7 @@ function ProductDescription(props) {
                 <br/><br/>
                 <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
+                  <Button variant="outlined" onClick={buyfunction}> buy</Button>
                 </div>
               </Col>
             </Row>

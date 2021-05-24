@@ -13,6 +13,7 @@ import guccibelt from "./guccibelt.jpeg"
 
 function Cart(props) {
   const [currentCart, setCurrentCart] = useState({})
+  const [message , setMessage] = useState(null)
   useEffect(() => {
     setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))) 
   },[])
@@ -85,6 +86,20 @@ function Cart(props) {
 
   function confirmBuy(){
     //BACKEND connection
+    let inventory = localStorage.getItem(localStorage.getItem("curUser"));
+     let requestoptions = {
+       inventory: inventory,
+       userordered: localStorage.getItem("curUser")
+     }
+     console.log(inventory);
+     const header = {
+      "Content-Type": "application/json"
+    };
+     axios.post("http://localhost:4000/order",requestoptions,{header})
+     .then(response => {
+       console.log(response.data.message)
+       setMessage(response.data.message);
+    });
     setCurrentCart({})
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
     
@@ -143,6 +158,7 @@ function Cart(props) {
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
  <h2 className="your_orders"><strong>Your Orders</strong></h2>
+ <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
  </div>
  <div className="whole_page">
     <Container >

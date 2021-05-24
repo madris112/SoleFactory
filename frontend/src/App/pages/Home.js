@@ -98,7 +98,11 @@ const [coins, setcoins] = useState(null);
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
+          
+          if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
+            history.push('/completeForm');
           }
+        }
         }
     );
 
@@ -112,6 +116,9 @@ const [coins, setcoins] = useState(null);
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
+          if(response.data.user.IsAuthorized === '0'){
+            history.push('/completeForm');
+          }
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
