@@ -15,20 +15,23 @@ import { useEffect } from 'react';
 
 
 function Cart(props) {
-    let history = useHistory();
+  let history = useHistory();
 
-    const [searchname, setSearchName] = useState("");
-    const [category, setCategory] = useState("");
-    useEffect(() => {
-        if(category!=""){
-            let data = {"category":category}
-            history.push({
-            pathname: "/home",
-            state: data
-        })
-        return;
-        }
-    },[category])
+  const [searchname, setSearchName] = useState("");
+  const [category, setCategory] = useState("");
+  const [orderHistory, setOrderHistory] = useState([])
+
+  useEffect(() => {
+      if(category!=""){
+          let data = {"category":category}
+          history.push({
+          pathname: "/home",
+          state: data
+      })
+      return;
+      }
+  },[category])
+
   function logoutClick(e){
     
     console.log("clicked");
@@ -57,35 +60,12 @@ function Cart(props) {
     }
   }
   
-//   useEffect(() => {
-//     console.log("clicked")
-//     const userInput = {
-//       searchname: searchname
-//     }
-//     const header = {
-//       "Content-Type":"application/json"
-//     };
-
-//      axios.post('http://localhost:4000/product/search',userInput, {header})
-//         .then(response => setProdArray(response.data) );
-
-//     console.log('searching done')
-//   },[])
-  
-//   useEffect(() => {
-//     const userInput = {
-//       searchname: category,
-//       category: 1
-//     }
-//     const header = {
-//       "Content-Type":"application/json"
-//     };
-
-//      axios.post('http://localhost:4000/product/search', userInput , {header} )
-//         .then(response => setProdArray(response.data));
-
-//     console.log('searching done')
-//   },[category])
+  useEffect(() => {
+    axios.get("http://localhost:4000/gethistory",{params:{username:localStorage.getItem("curUser")}})
+      .then(response => {
+        setOrderHistory(response.data.History)
+      })
+  },[])
 
   let redirectLink = '';
 
@@ -180,25 +160,33 @@ function Cart(props) {
 
  <div className="whole_page">
     <Container >
-      <Row className="row_orders">
-        <Col style={{padding: "0px"}}>
-          <img className="img_row"
-          fluid 
-          src={guccibelt} alt="" 
-          width="150"
-          height="120"/>
-        </Col>
-        <Col style={{padding: "5px"}}><br/>
-          <h4><strong>Gucci Belt</strong></h4>
-          <p>By Gucci </p>
-          <h5>Quantity: 5</h5>
-        </Col>
-        <Col className="row_price">
-          <h3><strong>
-          ₹ 1000</strong></h3><br/>
-          <button lg color="secondary">Buy it Again</button>
-        </Col>
-      </Row>
+  {
+    orderHistory.map((data,key) => {
+      {console.log(data)}
+      if(data.history.Quantity==0)
+        return;
+      return(
+        <Row className="row_orders">
+          <Col style={{padding: "0px"}}>
+            <img className="img_row"
+            fluid 
+            src={'http://localhost:4000/upload/' + data.product.imgURL} alt="" 
+            width="150"
+            height="120"/>
+          </Col>
+          <Col style={{padding: "5px"}}><br/>
+            <h4><strong>{data.product.Title}</strong></h4>
+            <p>By {data.product.brand} </p>
+            <h5>Quantity: {data.history.Quantity}</h5>
+          </Col>
+          <Col className="row_price">
+            <h3><strong>Your total for this item was: {data.history.price * data.history.Quantity}</strong></h3><br/>
+            <button lg color="secondary">Buy it Again</button>
+          </Col>
+        </Row>
+      )
+    })
+  }
     </Container>
   </div>
 </div>

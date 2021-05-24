@@ -92,7 +92,8 @@ function ProductDescription(props) {
 
   function addToCart(){
     let cartItems = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))
-    cartItems[props.location.state.prod_id] = {...props.location.state, quantity: Quantity}
+    if(cartItems!=null)
+      cartItems[props.location.state.prod_id] = {...props.location.state, quantity: Quantity}
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify(cartItems));
     console.log(localStorage)
   }

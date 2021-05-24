@@ -45,11 +45,17 @@ let redirectLink = '';
         localStorage.setItem('username', response.data.user.username);
         redirectLink = response.data.redirect;
 
-        if (response.data.successcode === '1')
+        if (response.data.successcode === '1'){
           localStorage.setItem('localsession', '1');
-          if(redirectLink==='')
-      console.log("ok called")
-    if (redirectLink !== '') history.push(redirectLink);
+          let userCart = localStorage.getItem(response.data.user.username)
+          if(userCart===null)
+            localStorage.setItem(response.data.user.username,JSON.stringify({}));
+          
+          localStorage.setItem("curUser",response.data.user.username);
+        }
+        if(redirectLink==='')
+          console.log("ok called")
+        if (redirectLink !== '') history.push(redirectLink);
       });
 
     
