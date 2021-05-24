@@ -18,6 +18,7 @@ function ProductForm() {
   const [discountedPrice, setDiscprice] = useState("");
   const [expiryDate, setExpiry] = useState("");
   const [selectedfile, setSelectedFile] = useState({});
+  const [message, setMessage] = useState(null);
 
 
 
@@ -48,7 +49,9 @@ function ProductForm() {
     };
 
      axios.post('http://localhost:4000/createProduct', formData , { header})
-        .then(response => console.log(JSON.stringify(response.data.message)));
+        .then(response => {console.log(JSON.stringify(response.data.message))
+            setMessage(response.data.message);
+        });
   }
 
   
@@ -184,6 +187,7 @@ function ProductForm() {
                 className = "full-button"
                 onClick   = {handleClick}
                 >Submit</Button>
+                <h6 style={{color:"green"}}>{message}</h6>
               </Form.Group>
               
             </Form>

@@ -11,22 +11,22 @@ const path       = require("path");
 console.log("hi");
 
 // product search route
-router.post('/product/search', async (req, res) => {
+router.get('/product/search', async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  console.log(req.body.searchname);
+  console.log("inside get product search" + req.query.searchname);
 
-  if (req.body.searchname != null && req.body.searchname !== '' && req.body.searchname!=='All') {
-    search = new RegExp(req.body.searchname, 'i')
+  if (req.query.searchname != null && req.query.searchname !== '' && req.query.searchname!=='All') {
+    search = new RegExp(req.query.searchname, 'i')
   } else {
     search = new RegExp('(.*?)','i')
   }
   //console.log(search)
   try {
     let products = null
-    if(req.body.category && req.body.searchname!=='All')
-        products = await product.find({categoryTag:search})
+    if(req.query.category && req.query.searchname!=='All')
+        products = await product.find({categoryTag:search}).sort({_id:-1})
     else
-        products = await product.find({brand:search})
+        products = await product.find({brand:search}).sort({_id:-1})
     // console.log(products)
     return res.status(200).json(products)
   } catch(error) {

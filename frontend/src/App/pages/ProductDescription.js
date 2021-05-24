@@ -9,6 +9,7 @@ import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import test from "./test.jpeg"
 import gucci from "./guccibelt.jpeg"
+import { FaCartPlus } from "react-icons/fa";
 
 function ProductDescription(props) {
   let history = useHistory();
@@ -147,21 +148,13 @@ function ProductDescription(props) {
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
-      <Link to= "/cart" style={{backgroundColor: "white"}}>
-      <img 
-      src    = {cart}
-      alt    = ""
-      width  = "30"
-      height = "30" /></Link>
+      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
 
-   <div className = "back_home">
-   <h1>Hello</h1>
-   
-   </div>
+
 
       <Container className="prod">
      

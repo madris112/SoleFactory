@@ -9,6 +9,7 @@ import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
+import { FaCartPlus } from "react-icons/fa";
 
 import { useEffect } from 'react';
 
@@ -44,7 +45,7 @@ const [coins, setcoins] = useState(null);
       "Content-Type":"application/json"
     };
 
-    await axios.post('http://localhost:4000/product/search', userInput , {header} )
+    await axios.get('http://localhost:4000/product/search', {header,params:{searchname:category,category:1}} )
         .then(response => {
           console.log(response.data)
           setProdArray(response.data)});
@@ -218,23 +219,15 @@ if(ngo==="false"){
       <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>
 
     
-     
-<button>
-      <img 
-      src    = {cart}
-      alt    = ""
-      width  = "30"
-      height = "30" /></button>
+     <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
 
 
-   <div className = "back_home">
-   <h1>Hello</h1>
    
-   </div>
       <ProductList arr={prodarray} />
     </div>
   )
