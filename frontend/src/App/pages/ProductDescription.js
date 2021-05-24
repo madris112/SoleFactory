@@ -140,19 +140,17 @@ function ProductDescription(props) {
       onClick = {handleClick}>Search</Button>
     </Form>
 
-      <ReactBootStrap.Nav>
-        <Button variant = "outline-info" onClick = {logoutClick}>Orders</Button>
-      </ReactBootStrap.Nav>
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.Nav>
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav>
 
-      <button id="toggle" onClick={props.click}>
+      <Link to= "/cart" style={{backgroundColor: "white"}}>
       <img 
       src    = {cart}
       alt    = ""
       width  = "30"
-      height = "30" /></button>
+      height = "30" /></Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
@@ -186,7 +184,7 @@ function ProductDescription(props) {
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.discount}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
                 
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
@@ -194,9 +192,10 @@ function ProductDescription(props) {
                  
                  <Row inline>
                 <Col xs={1}>
-                <Button variant="dark" size="lg" onClick={increment}>
-                    +
+                <Button variant="dark" size="lg" onClick={decrement}>
+                    -
                  </Button>
+                
                  </Col>
                  <Col xs={2}>
                   <Form.Control 
@@ -209,9 +208,10 @@ function ProductDescription(props) {
                   ></Form.Control>
                 </Col>
                 <Col xs={1}>
-                  <Button variant="dark" size="lg" onClick={decrement}>
-                    -
+                <Button variant="dark" size="lg" onClick={increment}>
+                    +
                  </Button>
+                  
                 </Col>
               </Row>
                  </div>
