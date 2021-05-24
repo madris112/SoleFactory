@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = new express.Router();
 const product = require('../models/product');
+const orderModel = require('../models/orderhistory');
 const multer  = require('multer');
 const path    = require("path");
 
@@ -26,7 +27,7 @@ router.post('/product/search', async (req, res) => {
         products = await product.find({categoryTag:search})
     else
         products = await product.find({brand:search})
-    console.log(products)
+    // console.log(products)
     return res.status(200).json(products)
   } catch(error) {
     console.log("i have a search error: " + error);
@@ -170,43 +171,91 @@ router.post('/createProduct',upload, function (req, res, next){
     }
 });
 
-// router.post('/buy/order',(req,res) =>{
 
-//     let productArray = JSON.parse(req.body.array);
-//     for(let product of productArray){
-//         ProductModel.findById({ 
-//             product.id
-//         }, (err, doc) => {
-//            if(err){
-//                console.log(`Error: ` + err)
-//            } else{
-//              if(!doc){
-//                  console.log("Product Does Not exist");
-//                  res.status(400).send({
-//                      message:"No such product"
-//                  })
-//              } else{
 
-//                  let newQuantity = parseInt(doc.Quantity);
-//                  let change_value = parseInt(product.quantity);
-//                  newQuantity = newQuantity - change_value;
+router.post('/order',(req,res) =>{
+    console.log("inside order");
+    
+    
+    
+    ProdArray = JSON.parse(req.body.inventory);
+    holder = req.body.userordered;
+    console.log(req.body.userordered);
+    console.log(holder);
+    
+    
+    for(const item in ProdArray){
 
-//                  ProductModel.updateOne({ 
-//                      _id: doc.id
-//                  }, {
-//                      Quantity: newQuantity
-//                  }
-//                  }, (err) => {
-//                     if(err){
-//                         console.log(`Updating product error: ` + err)
-//                     }
-//                  });
-               
-//              }
-//            }
-//         });
-//     }
+        var NewQuantity = ProdArray[item].quantity;
 
-// });
+        
+        
+ 
+        try {
+            product.findOne({
+                _id: item,
+            }).then((doc) => {
+                if (!doc) {
+                    console.log("No such Product exist");
+                } else{
+
+                    let order = doc;
+                    reducedQuantity = NewQuantity;
+                    NewQuantity = order.Quantity - NewQuantity;
+
+                    console.log(order);
+                    console.log(NewQuantity);
+                    
+                    
+
+                        product.updateOne({ 
+                            _id: item
+                        }, {
+                         Quantity: NewQuantity
+                        }
+                        , (err) => {
+                               if(err){
+                                   console.log(`Error: ` + err)
+                               }
+                        });
+
+                        
+                        try {
+                            orderModel.create({
+                                productId: item,
+                                user     : req.body.userordered,
+                                Quantity : reducedQuantity,
+                                price    : ProdArray[item].price
+    
+    
+                            }).then((docs) => {
+    
+                                console.log(docs);
+                                
+                            });
+                        } catch (error) {
+                            console.error("creating order try catch" + error)
+                        }
+                    
+                    
+                    
+                }
+            });
+        } catch (error) {
+            console.error("finding product catch");
+        }
+
+        
+
+        
+
+    
+
+    
+        
+    
+    }
+
+});
 module.exports = router;
 

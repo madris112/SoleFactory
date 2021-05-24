@@ -74,6 +74,7 @@ app.use(product);
 
 const authcheck = (req,res,next) => {
   console.log("called");
+  // console.log(req.user);
   if(!req.user){
     console.log(req.user);
     res.status(200).send({
@@ -89,9 +90,11 @@ app.get('/check',authcheck,(req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
   console.log("check also called");
+  
 
   res.status(200).send({
     message: "Authorized Access",
+    // user:req.user,
 
   });
 
