@@ -60,9 +60,14 @@ function Login() {
         console.log(JSON.stringify(response.data.user));
         setResMsg(response.data.message);
         redirectLink = response.data.redirect;
+        localStorage.setItem('username', response.data.user.username);
+
         console.log(redirectLink);
         if (response.data.successcode === '1'){
           localStorage.setItem('localsession', '1');
+          console.log("lety see");
+          console.log(response.data.user.username);
+
           let userCart = localStorage.getItem(response.data.user.username)
           if(userCart===null)
             localStorage.setItem(response.data.user.username,JSON.stringify({}));
