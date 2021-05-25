@@ -223,7 +223,7 @@ if(ngo==="false"){
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile(not functional)</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
@@ -299,12 +299,11 @@ if(ngo==="false"){
         
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      /*<ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>*/
       <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile(not functional)</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
@@ -326,6 +325,7 @@ if(ngo==="false"){
    
    </div>
       <ProductList arr={prodarray} />
+        <Foot />
     </div>
   )
 
