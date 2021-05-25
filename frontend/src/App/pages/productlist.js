@@ -92,7 +92,9 @@ function ProductList(props){
     }
 
     if(ngo==="true"){
-
+        if(instock == 0){
+          return null
+        }
          return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card onClick={handleClick} 
@@ -121,6 +123,9 @@ function ProductList(props){
     );
 
     }else{
+        if(instock == 0){
+          return null
+        }
          return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card onClick={handleClick} 
