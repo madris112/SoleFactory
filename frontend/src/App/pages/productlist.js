@@ -105,7 +105,7 @@ function ProductList(props){
             className="cardHover">
             {title}
             </Card.Title>
-            <Card.Text>{description}</Card.Text>
+            <Card.Text>{brand}</Card.Text>
           </Card.Body>
           <Card.Footer>
           
@@ -136,7 +136,7 @@ function ProductList(props){
             className="cardHover">
             {title}
             </Card.Title>
-            <Card.Text>{description}</Card.Text>
+            <Card.Text>{brand}</Card.Text>
           </Card.Body>
           <Card.Footer>
           
