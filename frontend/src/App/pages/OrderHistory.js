@@ -94,6 +94,9 @@ function Cart(props) {
         history.push(redirectLink)
     }
   }, []);
+  
+  var nameofuser = localStorage.getItem('curUser');
+  if(!nameofuser)nameofuser="hi";
     return (
         <div>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -139,11 +142,18 @@ function Cart(props) {
       onClick = {handleClick}>Search</Button>
     </Form>
 
-      <ReactBootStrap.Nav>
+//       <ReactBootStrap.Nav>
       
-      <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
-      </ReactBootStrap.Nav>
-      
+//       <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
+//       </ReactBootStrap.Nav>
+            <ReactBootStrap.NavDropdown
+      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      id="collasible-nav-dropdown"
+      onSelect={(key) => setCategory(key)}>
+        <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Divider />
+        <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
+      </ReactBootStrap.NavDropdown>
       <Link to= "/cart" style={{backgroundColor: "white"}}>
       <img 
       src    = {cart}
