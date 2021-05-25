@@ -4,6 +4,7 @@ import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import ProductList from "./productlist"
+import Foot from "./footer"
 import coin from "./coin.png"
 import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
@@ -157,7 +158,8 @@ const [coins, setcoins] = useState(null);
 
     console.log('searching done')
   }
-
+var nameofuser = localStorage.getItem('curUser');
+if(!nameofuser)nameofuser="hi";
 // console.log(ngo);
 if(ngo==="false"){
    return (
@@ -216,7 +218,15 @@ if(ngo==="false"){
         
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>
+      /*<ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>*/
+      <ReactBootStrap.NavDropdown
+      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      id="collasible-nav-dropdown"
+      onSelect={(key) => setCategory(key)}>
+        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile(not functional)</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Divider />
+        <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
+      </ReactBootStrap.NavDropdown>
 
     
      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
@@ -289,7 +299,15 @@ if(ngo==="false"){
         
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>
+      /*<ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>*/
+      <ReactBootStrap.NavDropdown
+      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      id="collasible-nav-dropdown"
+      onSelect={(key) => setCategory(key)}>
+        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile(not functional)</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Divider />
+        <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
+      </ReactBootStrap.NavDropdown>
 
       <Link to= "/cart" style={{backgroundColor: "white"}}>
       <img 
