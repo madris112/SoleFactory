@@ -2,7 +2,7 @@ import {React, useState} from 'react'
 import './Home.css';
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory , useLocation } from 'react-router-dom';
 import ProductList from "./productlist"
 import Foot from "./footer"
 import coin from "./coin.png"
@@ -16,62 +16,97 @@ import { useEffect } from 'react';
 
 function Home(props) {
 
-const [ngo, setngo] = useState("false");
-const [coins, setcoins] = useState(null);
-
-
-
+  const [searchname, setSearchName] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [prodarray, setProdArray] = useState([]);
+  const [navselected, setNavSelected] = useState(null);
+  const [ngo, setngo] = useState("false");
+  const [coins, setcoins] = useState(null);
   let history = useHistory();
   let initSearchName = ""
   let initCategory = "All"
+
+  const {search} = useLocation();
+  const searchParams = new URLSearchParams(search);
+  let FirstQuery = null;
+  if(searchParams.get('searchname'))
+    FirstQuery = searchParams.get('searchname');
+  let SecondQuery = null
+  let ThirdQuery = null
+  if(searchParams.get('category'))
+    SecondQuery = searchParams.get('category');
+
+
+
+
+
+  
   try{
+    console.log(typeof(props.location.state.searchname));
     if(props.location.state.searchname!=undefined){
       initSearchName = props.location.state.searchname
+      FirstQuery= props.location.state.searchname
+      
+      
     }
   }catch{}
   try{
-    if(props.location.state.category!=undefined)
-      initCategory = props.location.state.category
+    console.log("ye wala " + props.location.state.category)
+    if(props.location.state.category!=undefined){
+      
+      ThirdQuery = props.location.state.category
+    }
   }catch{}
-  const [searchname, setSearchName] = useState(initSearchName);
-  const [category, setCategory] = useState(initCategory);
-  const [prodarray, setProdArray] = useState([]);
+  
   
   useEffect(async() => {
-    const userInput = {
-      searchname: category,
-      category: 1
-    }
-    const header = {
-      "Content-Type":"application/json"
-    };
+    // const userInput = {
+    //   searchname: category,
+    //   category: 1
+    // }
+    // const header = {
+    //   "Content-Type":"application/json"
+    // };
 
-    await axios.get('http://localhost:4000/product/search', {header,params:{searchname:category,category:1}} )
-        .then(response => {
-          console.log(response.data)
-          setProdArray(response.data)});
-    console.log('searching category done')
+    // await axios.get('http://localhost:4000/product/search', {header,params:{searchname:category,category:1}} )
+    //     .then(response => {
+    //       console.log(response.data)
+    //       setProdArray(response.data)});
+    // console.log('searching category done')
+
+    console.log(category);
+    
+    if(category!==null || ThirdQuery){
+    let query = null;
+    
+    if(category!==null)
+    query = "?searchname="+category+"&category=1";
+    if(ThirdQuery!==null)
+    query = "?searchname="+ThirdQuery+"&category=1";
+
+    history.push(`/home${query}`)
+    }
+
   },[category])
 
+
   useEffect(async () => {
-    if(searchname==""){
-      console.log("empty search")
-      return
-    }
+    
     console.log(searchname)
-    console.log("clicked")
+    console.log("clicked + FirstQuery")
     const userInput = {
       searchname: searchname
     }
+    console.log("searchinf first query" + FirstQuery);
     const header = {
       "Content-Type":"application/json"
     };
 
-    await axios.post('http://localhost:4000/product/search',userInput, {header})
+    await axios.get('http://localhost:4000/product/search', {params:{searchname:FirstQuery,category:SecondQuery},header})
         .then(response => setProdArray(response.data) );
 
     console.log('searching search bar done')
-  },[])
+  },[FirstQuery])
   
   let redirectLink = '';
 
@@ -152,11 +187,16 @@ const [coins, setcoins] = useState(null);
     const header = {
       "Content-Type": "application/json"
     };
+    let query = null;
+    if(searchname!=null)
+    query = "?searchname="+searchname;
 
-     axios.post('http://localhost:4000/product/search', userInput , {header} )
-        .then(response => setProdArray(response.data) );
+    history.push(`/home${query}`)
 
-    console.log('searching done')
+    //  axios.get('http://localhost:4000/product/search', {header} )
+    //     .then(response => setProdArray(response.data) );
+
+    // console.log('searching done')
   }
 var nameofuser = localStorage.getItem('curUser');
 if(!nameofuser)nameofuser="hi";

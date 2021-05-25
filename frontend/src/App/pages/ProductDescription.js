@@ -81,13 +81,21 @@ function ProductDescription(props) {
 
   function handleClick(e){
     if(searchname!=""){
-      let data = {"searchname":searchname}
-      history.push({
+    let data = {"searchname":searchname}
+    
+    let query = null;
+    if(searchname!="")
+    query = "?searchname="+searchname;
+
+    console.log("cart" + data);
+    
+    history.push({
         pathname: "/home",
         state: data
       })
-      return;
-    }
+
+    
+  }
   }
 
   function addToCart(){

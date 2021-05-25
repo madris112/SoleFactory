@@ -14,13 +14,16 @@ import guccibelt from "./guccibelt.jpeg"
 function Cart(props) {
   const [currentCart, setCurrentCart] = useState({})
   const [message , setMessage] = useState(null)
+  const [searchname, setSearchName] = useState("");
+  const [category, setCategory] = useState("");
+  let history = useHistory();
+  
   useEffect(() => {
     setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))) 
   },[])
-  let history = useHistory();
+  
 
-  const [searchname, setSearchName] = useState("");
-  const [category, setCategory] = useState("");
+  
   useEffect(() => {
       if(category!=""){
           let data = {"category":category}
@@ -47,14 +50,23 @@ function Cart(props) {
   }
 
   function handleClick(e){
-    if(searchname!=""){
-      let data = {"searchname":searchname}
-      history.push({
+  if(searchname!=""){
+    let data = {"searchname":searchname}
+    
+    let query = null;
+    if(searchname!="")
+    query = "?searchname="+searchname;
+
+    console.log("cart" + data);
+    
+    history.push({
         pathname: "/home",
         state: data
       })
-      return;
-    }
+
+    
+  }
+    
   }
   let redirectLink = '';
 
