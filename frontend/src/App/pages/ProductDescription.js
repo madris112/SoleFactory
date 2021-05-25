@@ -97,7 +97,8 @@ function ProductDescription(props) {
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify(cartItems));
     console.log(localStorage)
   }
-
+  var nameofuser = localStorage.getItem('curUser');
+  if(!nameofuser)nameofuser="hi"
   return (
     <div >
       
@@ -145,10 +146,17 @@ function ProductDescription(props) {
     </Form>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav>
-        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
-      </ReactBootStrap.Nav>
-
+//       <ReactBootStrap.Nav>
+//         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
+//       </ReactBootStrap.Nav>
+        <ReactBootStrap.NavDropdown
+        title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+        id="collasible-nav-dropdown"
+        onSelect={(key) => setCategory(key)}>
+          <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+          <ReactBootStrap.NavDropdown.Divider />
+          <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
+        </ReactBootStrap.NavDropdown>
       <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
