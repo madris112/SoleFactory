@@ -258,7 +258,7 @@ if(ngo==="false"){
         
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      /*<ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link>*/
+      {/* <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link> */}
       <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
@@ -279,6 +279,7 @@ if(ngo==="false"){
 
    
       <ProductList arr={prodarray} />
+      <Foot />
     </div>
   )
 
