@@ -325,7 +325,7 @@ if(ngo==="false"){
    
    </div>
       <ProductList arr={prodarray} />
-        <Foot />
+        <Foot/>
     </div>
   )
 
