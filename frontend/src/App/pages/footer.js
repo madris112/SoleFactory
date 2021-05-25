@@ -88,7 +88,7 @@ const Foot = () => (
   </ul>
 
   <div class="legal">
-    <p>Amazon Hackathon 2.0</p>
+    {/* <p>Amazon Hackathon 2.0</p> */}
 
     <div class="legal__links">
       <span>Made with <span class="heart">♥</span> by Bit Predators</span>

@@ -19,6 +19,7 @@ function ProductForm() {
   const [expiryDate, setExpiry] = useState("");
   const [selectedfile, setSelectedFile] = useState({});
   const [message, setMessage] = useState(null);
+  const [ngo, setngo] = useState("false");
 
 
 
