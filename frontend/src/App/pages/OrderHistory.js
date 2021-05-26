@@ -10,6 +10,7 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import guccibelt from "./guccibelt.jpeg"
+import { FaCartPlus } from "react-icons/fa";
 
 import { useEffect } from 'react';
 
@@ -33,7 +34,7 @@ function Cart(props) {
   },[category])
 
   function logoutClick(e){
-    
+
     console.log("clicked");
 
     localStorage.clear();
@@ -43,8 +44,8 @@ function Cart(props) {
     axios.get("http://localhost:4000/logout",{header})
     .then(response => {console.log(JSON.stringify(response.data.message))
           if(response.data.message === "Logout Successful!")
-            history.push('/');           
-    
+            history.push('/');
+
     });
 
   }
@@ -59,7 +60,7 @@ function Cart(props) {
       return;
     }
   }
-  
+
   useEffect(() => {
     axios.get("http://localhost:4000/gethistory",{params:{username:localStorage.getItem("curUser")}})
       .then(response => {
@@ -86,7 +87,7 @@ function Cart(props) {
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
           }
-          
+
         });
 
 
@@ -94,14 +95,14 @@ function Cart(props) {
         history.push(redirectLink)
     }
   }, []);
-  
+
   var nameofuser = localStorage.getItem('curUser');
   if(!nameofuser)nameofuser="hi";
     return (
         <div>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -112,9 +113,9 @@ function Cart(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -124,12 +125,12 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -142,10 +143,6 @@ function Cart(props) {
       onClick = {handleClick}>Search</Button>
     </Form>
 
-//       <ReactBootStrap.Nav>
-      
-//       <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
-//       </ReactBootStrap.Nav>
             <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
@@ -154,12 +151,8 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      <Link to= "/cart" style={{backgroundColor: "white"}}>
-      <img 
-      src    = {cart}
-      alt    = ""
-      width  = "30"
-      height = "30" /></Link>
+      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
@@ -179,8 +172,8 @@ function Cart(props) {
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
             <img className="img_row"
-            fluid 
-            src={'http://localhost:4000/upload/' + data.product.imgURL} alt="" 
+            fluid
+            src={'http://localhost:4000/upload/' + data.product.imgURL} alt=""
             width="150"
             height="120"/>
           </Col>
@@ -200,7 +193,7 @@ function Cart(props) {
     </Container>
   </div>
 </div>
-        
+
     )
 }
 
