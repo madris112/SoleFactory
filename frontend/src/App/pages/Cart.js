@@ -224,7 +224,7 @@ function Cart(props) {
   }
     
     <h1>Your total is: {totalAmount}</h1>
-    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<=0}>Buy All</Button>
+    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
     {popup ? (
       <Portal >
@@ -232,7 +232,7 @@ function Cart(props) {
         {payWithCoin ?
           <div>
             <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
-            <h1>You need to pay: {numberOfCoins}Coins and {Math.max(totalAmount-numberOfCoins*100,0)}Rupees</h1>
+            <h1>You need to pay: {numberOfCoins}Coins and {Math.max(totalAmount-numberOfCoins*10,0)}Rupees</h1>
           </div>
         :
           <div>
