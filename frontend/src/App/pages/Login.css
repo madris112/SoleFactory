@@ -114,7 +114,7 @@
 
 #solefactory{
   animation-name:factory;
-  animation-duration:0.3s ;
+  animation-duration:0.8s ;
   animation-direction: forwards;
 
 }
@@ -128,7 +128,7 @@
 
 .ani-bike{
   animation-name:bike;
-  animation-duration:1.5s ;
+  animation-duration:2.0s ;
   animation-direction: forwards;
 
 }

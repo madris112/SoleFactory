@@ -11,7 +11,6 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
-
 import { useEffect } from 'react';
 
 function Home(props) {
@@ -44,45 +43,33 @@ function Home(props) {
 
 
 
-  
+
   try{
     console.log(typeof(props.location.state.searchname));
     if(props.location.state.searchname!=undefined){
       initSearchName = props.location.state.searchname
       FirstQuery= props.location.state.searchname
-      
-      
+
+
     }
   }catch{}
   try{
     console.log("ye wala " + props.location.state.category)
     if(props.location.state.category!=undefined){
-      
+
       ThirdQuery = props.location.state.category
     }
   }catch{}
-  
-  
-  useEffect(async() => {
-    // const userInput = {
-    //   searchname: category,
-    //   category: 1
-    // }
-    // const header = {
-    //   "Content-Type":"application/json"
-    // };
 
-    // await axios.get('http://localhost:4000/product/search', {header,params:{searchname:category,category:1}} )
-    //     .then(response => {
-    //       console.log(response.data)
-    //       setProdArray(response.data)});
-    // console.log('searching category done')
+
+  useEffect(async() => {
+    
 
     console.log(category);
-    
+
     if(category!==null || ThirdQuery){
     let query = null;
-    
+
     if(category!==null)
     query = "?searchname="+category+"&category=1";
     if(ThirdQuery!==null)
@@ -95,7 +82,7 @@ function Home(props) {
 
 
   useEffect(async () => {
-    
+
     console.log(searchname)
     console.log("clicked + FirstQuery")
     const userInput = {
@@ -111,7 +98,7 @@ function Home(props) {
 
     console.log('searching search bar done')
   },[FirstQuery])
-  
+
   let redirectLink = '';
 
   useEffect(() => {
@@ -139,7 +126,7 @@ function Home(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-          
+
           if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
             history.push('/completeForm');
           }
@@ -157,7 +144,9 @@ function Home(props) {
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
-          if(response.data.user && response.data.user.IsAuthorized === '0'){
+
+          if(response.data.user && response.data.user.IsActivated === '0'){
+
             history.push('/completeForm');
           }
           redirectLink = response.data.redirect;
@@ -171,7 +160,7 @@ function Home(props) {
         history.push(redirectLink)
     }
   }, []);
-  
+
   function logoutClick(e){
     localStorage.clear();
     const header = {
@@ -208,11 +197,15 @@ if(!nameofuser)nameofuser="hi";
 if(ngo==="false"){
   
    return (
-    <div width="100%" height="100%" >
-      
+
+   
+    
+    <div width="100%">
+
+
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -223,9 +216,9 @@ if(ngo==="false"){
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title= "Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title= "Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -235,12 +228,12 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -252,15 +245,15 @@ if(ngo==="false"){
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
- 
-   
+
+
      {/* <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div> */}
 
-        
+
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link> */}
@@ -268,12 +261,12 @@ if(ngo==="false"){
       title= {nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-    
+
      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
 
@@ -282,7 +275,7 @@ if(ngo==="false"){
 </ReactBootStrap.Navbar>
 
 
-   
+
       <ProductList arr={prodarray} />
       <Foot />
     </div>
@@ -291,10 +284,10 @@ if(ngo==="false"){
 }else{
   return (
     <div width="100%">
-      
+
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -305,9 +298,9 @@ if(ngo==="false"){
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -317,12 +310,12 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -334,45 +327,40 @@ if(ngo==="false"){
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
- 
-   
+
+
      <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div>
 
-        
+
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
+
            <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
+
+      
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
 
-
-   <div className = "back_home">
-   <h1>Hello</h1>
-   
-   </div>
       <ProductList arr={prodarray} />
         <Foot/>
     </div>
   )
-
-    
-
 }
 }
 

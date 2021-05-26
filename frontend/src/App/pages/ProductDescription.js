@@ -18,7 +18,7 @@ function ProductDescription(props) {
   try{
     initQuantity = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))[props.location.state.prod_id].quantity;
   }catch{}
-  
+
   const [Quantity, setQuantity] = useState(initQuantity);
   const [searchname, setSearchName] = useState("");
   const [category, setCategory] = useState("");
@@ -146,19 +146,19 @@ function ProductDescription(props) {
   function handleClick(e){
     if(searchname!=""){
     let data = {"searchname":searchname}
-    
+
     let query = null;
     if(searchname!="")
     query = "?searchname="+searchname;
 
     console.log("cart" + data);
-    
+
     history.push({
         pathname: "/home",
         state: data
       })
 
-    
+
   }
   }
 
@@ -175,10 +175,10 @@ function ProductDescription(props) {
   if(ngo==="false"){
   return (
     <div >
-      
+
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -189,9 +189,9 @@ function ProductDescription(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -201,12 +201,12 @@ function ProductDescription(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -220,6 +220,7 @@ function ProductDescription(props) {
     </Form>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
+
       
 //       
         <ReactBootStrap.NavDropdown
@@ -362,6 +363,9 @@ function ProductDescription(props) {
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       
 //       
+
+
+
         <ReactBootStrap.NavDropdown
         title={nameofuser}
         id="collasible-nav-dropdown"
@@ -379,13 +383,13 @@ function ProductDescription(props) {
 
 
       <Container className="prod">
-     
+
           <Row>
               <Col style={{padding: "0px"}}>
-                <img 
-                fluid 
+                <img
+                fluid
                 src={sc}
-                alt="" 
+                alt=""
                 width="400"
                 height="450"/>
               </Col>
@@ -402,21 +406,21 @@ function ProductDescription(props) {
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
-                
+
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
-                
-                 
+
+
                  <Row inline>
                 <Col xs={1}>
                 <Button variant="dark" size="lg" onClick={decrement}>
                     -
                  </Button>
-                
+
                  </Col>
                  <Col xs={2}>
-                  <Form.Control 
-                  type="text" 
+                  <Form.Control
+                  type="text"
                   disabled
                   value={Quantity}
                   placeholder="0"
@@ -428,7 +432,7 @@ function ProductDescription(props) {
                 <Button variant="dark" size="lg" onClick={increment}>
                     +
                  </Button>
-                  
+
                 </Col>
               </Row>
                  </div>
@@ -439,7 +443,7 @@ function ProductDescription(props) {
                 <h6 style={{color:"green"}}>{msg}</h6>
               </Col>
             </Row>
-            
+
       </Container>
 
 
