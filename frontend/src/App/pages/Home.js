@@ -272,7 +272,7 @@ if(ngo==="false"){
 
 }else{
   return (
-    <div width="100%">
+    <div width="100%" style={{overflowX: 'hidden'}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">

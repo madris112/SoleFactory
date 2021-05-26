@@ -99,7 +99,7 @@ function Cart(props) {
   var nameofuser = localStorage.getItem('curUser');
   if(!nameofuser)nameofuser="hi";
     return (
-        <div>
+        <div style={{overflowX: 'hidden'}}>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
       <img
