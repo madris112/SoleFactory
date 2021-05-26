@@ -123,7 +123,7 @@ function ProductList(props){
     );
 
     }else{
-        if(instock == 0){
+        if(instock <= 0){
           return null
         }
          return (

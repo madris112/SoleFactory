@@ -347,18 +347,10 @@ if(ngo==="false"){
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
 
-
-   <div className = "back_home">
-   <h1>Hello</h1>
-
-   </div>
       <ProductList arr={prodarray} />
         <Foot/>
     </div>
   )
-
-
-
 }
 }
 

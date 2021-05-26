@@ -1,6 +1,7 @@
 import {React,useState,useEffect} from 'react'
 import Home from './Home'
-import {Button,Card, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
+import Portal from './Portal'
+import {Button,Card, Container, FormControl, Form, Col, Row, ToggleButton} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import ProductList from "./productlist"
@@ -16,14 +17,17 @@ function Cart(props) {
   const [message , setMessage] = useState(null)
   const [searchname, setSearchName] = useState("");
   const [category, setCategory] = useState("");
+  const [popup, setPopUp] = useState(0);
+  const [payWithCoin, setPayWithCoin] = useState(0);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(0)
+  let totalAmount = 0;
+  let numberOfCoins = 0;
   let history = useHistory();
   
   useEffect(() => {
-    setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))) 
+    setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser"))))
   },[])
-  
 
-  
   useEffect(() => {
       if(category!=""){
           let data = {"category":category}
@@ -93,6 +97,7 @@ function Cart(props) {
 
       if(redirectLink!=='')
         history.push(redirectLink)
+ 
     }
   }, []);
 
@@ -102,6 +107,9 @@ function Cart(props) {
      let requestoptions = {
        inventory: inventory,
        userordered: localStorage.getItem("curUser")
+     }
+     if(paymentConfirmed){
+       requestoptions = {...requestoptions, coinsUsed: payWithCoin?numberOfCoins:0}
      }
      console.log(inventory);
      const header = {
@@ -120,6 +128,7 @@ function Cart(props) {
   if(!nameofuser)nameofuser="hi"
     return (
         <div>
+          {console.log(popup)}
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
       <img 
@@ -164,9 +173,9 @@ function Cart(props) {
     </Form>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-//       <ReactBootStrap.Nav>
-//         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
-//       </ReactBootStrap.Nav>
+       <ReactBootStrap.Nav>
+        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
+       </ReactBootStrap.Nav>
       <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
@@ -183,11 +192,15 @@ function Cart(props) {
  <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
  </div>
  <div className="whole_page">
+  {console.log(currentCart)}
     <Container >
   {
     Object.keys(currentCart).map((data,key) => {
       if(currentCart[data].quantity==0)
         return;
+      totalAmount += currentCart[data].price * currentCart[data].quantity
+      numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
+      console.log("items")
       return(
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
@@ -210,11 +223,32 @@ function Cart(props) {
       )
     })
   }
-    <Button variant="primary" onClick={confirmBuy}>Buy All</Button>
+    
+    <h1>Your total is: {totalAmount}</h1>
+    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<=0}>Buy All</Button>
     </Container>
+    {popup ? (
+      <Portal >
+        <h1>Your total is: {totalAmount}</h1>
+        {payWithCoin ?
+          <div>
+            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
+            <h1>You need to pay: {numberOfCoins}Coins and {Math.max(totalAmount-numberOfCoins*100,0)}Rupees</h1>
+          </div>
+        :
+          <div>
+            {localStorage.getItem("ngo") ? 
+            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
+            : null
+            }
+            <h1>You need to pay: {totalAmount}Rupees</h1>
+          </div>}
+        <Button onClick={() => {setPopUp(0);setPaymentConfirmed(1);confirmBuy();}}>Pay</Button>
+        <Button onClick={() => setPopUp(0)}>Cancel</Button>
+      </Portal>
+    ) : null
+      }
   </div> 
-
-
 </div>
         
     )
