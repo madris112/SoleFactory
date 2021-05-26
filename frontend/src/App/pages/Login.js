@@ -8,7 +8,7 @@ import axios from 'axios'
 import loginimage from './blackwave.png'
 import { useEffect } from 'react';
 import { FaUserAlt } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle ,FaKey} from "react-icons/fa";
 import mainimg from'./orgbike.png'
 
 
@@ -205,7 +205,7 @@ function Login() {
               </Form.Group>
               <Form.Group className = "form-elem">
                 <InputGroup id="inputgrp">
-                <FaUserAlt style={{marginLeft:"20px" ,marginTop:"7px"}}/>
+                <FaKey style={{marginLeft:"20px" ,marginTop:"7px"}}/>
                 <Form.Control 
                 id="username"
                 type        = "password"
