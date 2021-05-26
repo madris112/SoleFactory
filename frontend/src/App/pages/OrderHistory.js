@@ -211,6 +211,7 @@ function Cart(props) {
       onClick = {handleClick}>Search</Button>
     </Form>
 
+
        {/* <ReactBootStrap.Nav>
       
        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>

@@ -20,14 +20,18 @@ function Cart(props) {
   const [searchname, setSearchName] = useState("");
   const [category, setCategory] = useState("");
 
+
   const [ngo, setngo] = useState("false");
   const [coins, setcoins] = useState(null);
   
+
+
   const [popup, setPopUp] = useState(0);
   const [payWithCoin, setPayWithCoin] = useState(0);
   const [paymentConfirmed, setPaymentConfirmed] = useState(0)
   let totalAmount = 0;
   let numberOfCoins = 0;
+
   let history = useHistory();
 
   useEffect(() => {
@@ -96,6 +100,7 @@ function Cart(props) {
     }
   }, []);
   
+
 
 
   useEffect(() => {
