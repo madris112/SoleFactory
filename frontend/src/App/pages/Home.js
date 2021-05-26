@@ -21,6 +21,10 @@ function Home(props) {
   const [navselected, setNavSelected] = useState(null);
   const [ngo, setngo] = useState("false");
   const [coins, setcoins] = useState(null);
+  // const [finalval, setfinalval] = useState("");
+
+  // setfinalval("Hi "+ {nameofuser});
+
   let history = useHistory();
   let initSearchName = ""
   let initCategory = "All"
@@ -140,7 +144,11 @@ function Home(props) {
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
+
+
           if(response.data.user && response.data.user.IsActivated === '0'){
+
+
             history.push('/completeForm');
           }
           redirectLink = response.data.redirect;
@@ -189,8 +197,13 @@ var nameofuser = localStorage.getItem('curUser');
 if(!nameofuser)nameofuser="hi";
 // console.log(ngo);
 if(ngo==="false"){
+  
    return (
+
+   
+    
     <div width="100%">
+
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -247,7 +260,7 @@ if(ngo==="false"){
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link> */}
       <ReactBootStrap.NavDropdown
-      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      title= {nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
@@ -272,7 +285,9 @@ if(ngo==="false"){
 
 }else{
   return (
+
     <div width="100%" style={{overflowX: 'hidden'}}>
+
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -328,7 +343,7 @@ if(ngo==="false"){
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.NavDropdown
-      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      title={nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
@@ -336,12 +351,13 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <Link to= "/cart" style={{backgroundColor: "white"}}>
-      <img
-      src    = {cart}
-      alt    = ""
-      width  = "30"
-      height = "30" /></Link>
+
+
+           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+
+
+      
+
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
