@@ -40,25 +40,25 @@ function Home(props) {
 
 
 
-  
+
   try{
     console.log(typeof(props.location.state.searchname));
     if(props.location.state.searchname!=undefined){
       initSearchName = props.location.state.searchname
       FirstQuery= props.location.state.searchname
-      
-      
+
+
     }
   }catch{}
   try{
     console.log("ye wala " + props.location.state.category)
     if(props.location.state.category!=undefined){
-      
+
       ThirdQuery = props.location.state.category
     }
   }catch{}
-  
-  
+
+
   useEffect(async() => {
     // const userInput = {
     //   searchname: category,
@@ -75,10 +75,10 @@ function Home(props) {
     // console.log('searching category done')
 
     console.log(category);
-    
+
     if(category!==null || ThirdQuery){
     let query = null;
-    
+
     if(category!==null)
     query = "?searchname="+category+"&category=1";
     if(ThirdQuery!==null)
@@ -91,7 +91,7 @@ function Home(props) {
 
 
   useEffect(async () => {
-    
+
     console.log(searchname)
     console.log("clicked + FirstQuery")
     const userInput = {
@@ -107,7 +107,7 @@ function Home(props) {
 
     console.log('searching search bar done')
   },[FirstQuery])
-  
+
   let redirectLink = '';
 
   useEffect(() => {
@@ -135,7 +135,7 @@ function Home(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-          
+
           if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
             history.push('/completeForm');
           }
@@ -167,7 +167,7 @@ function Home(props) {
         history.push(redirectLink)
     }
   }, []);
-  
+
   function logoutClick(e){
     localStorage.clear();
     const header = {
@@ -204,10 +204,10 @@ if(!nameofuser)nameofuser="hi";
 if(ngo==="false"){
    return (
     <div width="100%">
-      
+
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -218,9 +218,9 @@ if(ngo==="false"){
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title= "Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title= "Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -230,12 +230,12 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -247,15 +247,15 @@ if(ngo==="false"){
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
- 
-   
+
+
      {/* <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div> */}
 
-        
+
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link> */}
@@ -263,12 +263,12 @@ if(ngo==="false"){
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-    
+
      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
 
@@ -277,7 +277,7 @@ if(ngo==="false"){
 </ReactBootStrap.Navbar>
 
 
-   
+
       <ProductList arr={prodarray} />
       <Foot />
     </div>
@@ -286,10 +286,10 @@ if(ngo==="false"){
 }else{
   return (
     <div width="100%">
-      
+
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -300,9 +300,9 @@ if(ngo==="false"){
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -312,12 +312,12 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -329,28 +329,28 @@ if(ngo==="false"){
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
- 
-   
+
+
      <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div>
 
-        
+
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
       <Link to= "/cart" style={{backgroundColor: "white"}}>
-      <img 
+      <img
       src    = {cart}
       alt    = ""
       width  = "30"
@@ -363,14 +363,14 @@ if(ngo==="false"){
 
    <div className = "back_home">
    <h1>Hello</h1>
-   
+
    </div>
       <ProductList arr={prodarray} />
         <Foot/>
     </div>
   )
 
-    
+
 
 }
 }
