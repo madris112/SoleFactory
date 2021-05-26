@@ -12,7 +12,7 @@ const Foot = () => (
     <address>
       Indore:Raipur:Patna:Shivpuri<br />
 
-      <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+      <a class="footer__btn" href="mailto:tanishq.malu.18@gmail.com">Email Us</a>
     </address>
   </div>
 
@@ -73,7 +73,7 @@ const Foot = () => (
 
       <ul class="nav__ul">
         <li>
-          <a href="#">Linked In</a>
+          <a href="https://linkedin/in/tanishqmalu">Linked In</a>
         </li>
 
         <li>
