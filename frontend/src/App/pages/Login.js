@@ -9,7 +9,7 @@ import loginimage from './blackwave.png'
 import { useEffect } from 'react';
 import { FaUserAlt } from "react-icons/fa";
 import { FaGoogle ,FaKey} from "react-icons/fa";
-import mainimg from'./orgbike.png'
+import mainimg from'./wbgbike.png'
 
 
 function Login() {
@@ -162,21 +162,22 @@ function Login() {
     //     </Row>
     //   </Container>
     // </div>
-
+    
     <div class="logindiv">
-    <Container fluid id="overall-container">
+    <img class="ani-bike" src={mainimg} style={{position: "absolute",height:"80px",opacity:"0",top:"55%",zIndex:"100"}}/>
+    <Container sm={1} fluid id="overall-container">
       
         <Row fluid id="row">
           <Col>
-          {/* <div class="top-div">
-          <img src={mainimg} style={{height:"80%",width:"60%",margintop:"20%"}}/>
-          </div> */}
+          
             <div id="left-container">
             <div style={{fontSize:"5vw",color:"white",position:"relative"}} id="solefactory">SoleFactory</div>
             <br/>
             
             <h6 style={{color:"white"}}>One Stop Solution</h6>
-            <Button id="lorem-button">SignUp</Button>
+            <Link   to        = {'./signup'}>
+            <Button id="lorem-button" >SignUp</Button>
+            </Link>
             
             </div>
       
@@ -230,13 +231,13 @@ function Login() {
               <Row>
                  
                  <Col >
-                 <Button id="button"><FaGoogle/> Signin With Google</Button>
+                 <Button id="button" onClick={googlesignin}><FaGoogle/> Signin With Google</Button>
                  
                  </Col>
                  
               </Row>
               
-              <img class="ani-bike" src={mainimg} style={{position: "absolute",height:"80px",right:-200,zIndex:"100"}}/>
+              
               </Container>
               
               
