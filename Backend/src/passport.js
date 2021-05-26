@@ -51,9 +51,11 @@ passport.use(new LocalStrategy({
 
                 }else{
 
-                    let coinval = "0";
+                    coinval = "0";
+                    
 
-                    if(req.body.isngo === "1"){
+                    if(req.body.isngo == "1"){
+                        
 
                         coinval = "100";
                     }
