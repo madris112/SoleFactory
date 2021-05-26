@@ -116,15 +116,19 @@ function Home(props) {
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
+            localStorage.setItem("ngo","false");
+            localStorage.setItem("coins","0");
           console.log(JSON.stringify(response.data.retuser));
           console.log(JSON.stringify(response.data.retuser.Type));
           console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
+            localStorage.setItem("ngo","true");
             console.log("hello");
             var y=response.data.retuser.CoinAmt;
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
+            localStorage.setItem("coins",response.data.retuser.CoinAmt);
           }
 
           if(response.data.retuser &&response.data.retuser.IsActivated === "0"){

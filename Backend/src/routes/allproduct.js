@@ -4,7 +4,7 @@ const product    = require('../models/product');
 const orderModel = require('../models/orderhistory');
 const multer     = require('multer');
 const path       = require("path");
-
+const User       = require('../models/user');
 const requestIp = require('request-ip');
 const productCount = require('../models/productCount');
 const productCountIpDetails = require('../models/productCountIpDetails');
@@ -255,6 +255,34 @@ router.post('/order',(req,res) =>{
 
     ProdArray = JSON.parse(req.body.inventory);
     holder    = req.body.userordered;
+    
+    User.findOne({
+        username: req.body.userordered,
+    }).then((doc) => {
+        if (!doc) {
+            console.log("Something Fishy : orders find one");
+        } else{
+
+            current = doc.CoinAmt;
+            remainingCnt = parseInt(current) - parseInt(req.body.coinsUsed);
+            console.log(req.body.coinsUsed);
+            changedamt = remainingCnt.toString();
+            console.log(req.body);
+              User.updateOne({ 
+                username: req.body.userordered
+            }, {
+                CoinAmt: changedamt
+            }
+            , (err) => {
+                    if(err){
+                        console.log(`Error: ` + err)
+                    }
+            });
+            
+        }
+    });
+
+  
 
     for(const item in ProdArray){
 

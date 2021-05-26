@@ -186,7 +186,7 @@ function Cart(props) {
      if(paymentConfirmed){
        requestoptions = {...requestoptions, coinsUsed: payWithCoin?numberOfCoins:0}
      }
-     console.log(inventory);
+     console.log(requestoptions);
      const header = {
       "Content-Type": "application/json"
     };
