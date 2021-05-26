@@ -15,13 +15,20 @@ passport.deserializeUser((user_name, done) => {
 
     console.log("deserialized called");
 
-    const getuser = User.findOne({
-        username: user_name
+    User.findOne({
+        username: user_name,
+    }).then((doc) => {
+        if (!doc) {
+            console.log("something went wrong")
+        } else{
+            
+            done(null,doc);
+        }
     });
 
 
 
-    done(null, getuser);
+    
 
 });
 
@@ -44,9 +51,11 @@ passport.use(new LocalStrategy({
 
                 }else{
 
-                    let coinval = "0";
+                    coinval = "0";
+                    
 
-                    if(req.body.isngo === "1"){
+                    if(req.body.isngo == "1"){
+                        
 
                         coinval = "100";
                     }
@@ -112,7 +121,7 @@ passport.use(new GoogleStrategy({
                 if (!doc) {
                     try {
 
-                        const nweuser = User.create({
+                        User.create({
                         username   : profile.id,
                         firstname  : profile.name.givenName,
                         lastname   : profile.name.familyName,
@@ -127,13 +136,14 @@ passport.use(new GoogleStrategy({
                         CoinAmt    : "0",
                         }).then((docs) => {
                             console.log(docs);
+                            return cb(null, docs);
                             
                         });
 
-                        return cb(null, newuser);
+                        
                     } catch (error) {
 
-                        console.log('creating user document failed[passport.js : 101] :' + error);
+                        console.log('creating user document failed[passport.js : 143] :' + error);
                         
                     }
                 } else{
