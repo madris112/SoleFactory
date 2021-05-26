@@ -15,13 +15,20 @@ passport.deserializeUser((user_name, done) => {
 
     console.log("deserialized called");
 
-    const getuser = User.findOne({
-        username: user_name
+    User.findOne({
+        username: user_name,
+    }).then((doc) => {
+        if (!doc) {
+            console.log("something went wrong")
+        } else{
+            
+            done(null,doc);
+        }
     });
 
 
 
-    done(null, getuser);
+    
 
 });
 

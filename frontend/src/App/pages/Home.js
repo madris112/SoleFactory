@@ -11,7 +11,6 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
-
 import { useEffect } from 'react';
 
 function Home(props) {
@@ -60,19 +59,7 @@ function Home(props) {
 
 
   useEffect(async() => {
-    // const userInput = {
-    //   searchname: category,
-    //   category: 1
-    // }
-    // const header = {
-    //   "Content-Type":"application/json"
-    // };
-
-    // await axios.get('http://localhost:4000/product/search', {header,params:{searchname:category,category:1}} )
-    //     .then(response => {
-    //       console.log(response.data)
-    //       setProdArray(response.data)});
-    // console.log('searching category done')
+    
 
     console.log(category);
 
@@ -153,7 +140,7 @@ function Home(props) {
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
-          if(response.data.user.IsAuthorized === '0'){
+          if(response.data.user && response.data.user.IsActivated === '0'){
             history.push('/completeForm');
           }
           redirectLink = response.data.redirect;

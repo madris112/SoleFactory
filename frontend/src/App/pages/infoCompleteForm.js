@@ -33,15 +33,10 @@ let redirectLink = '';
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
-        //   setUserName(response.data.user.username)
-        //   setFirstName(response.data.user.firstname)
-        //   setLastName(response.data.user.lastname)
-          
-        //   redirectLink = response.data.redirect;
-        //   if(response.data.message === "Unauthorized Access!"){
-        //       history.push('/');
-
-        //   }
+          setUserName(response.data.user.username);
+          setFirstName(response.data.user.firstname);
+          setLastName(response.data.user.lastname);
+        
         });
 
       if(redirectLink!=='')
@@ -67,8 +62,9 @@ let redirectLink = '';
     const header = {
       'Content-Type': 'application/json',
     };
+    console.log("input" + userInput);
     axios
-      .post('http://localhost:4000/check', userInput, { header })
+      .post('http://localhost:4000/update', userInput, { header })
       .then((response) => {
         console.log(JSON.stringify(response.data.message));
         console.log(response.data.user);
@@ -82,30 +78,7 @@ let redirectLink = '';
     
   }
 
-  // function handleClick(e){
-  //   e.preventDefault();
-  //   const userInput = {
-  //     username : userName,
-  //     firstname : firstName,
-  //     lastname: lastName,
-  //     email: email,
-  //     mobile: mobile,
-  //     password: password,
-  //     isngo: isNGO,
-  //     gstno: gstno,
-  //     ngoid: NGOId
-  //   };
-  //   console.log(userInput)
-  //   const header = {
-  //     "Content-Type":"application/json"
-  //   };
 
-  
-
-  //    axios.post('http://localhost:4000/auth/signin', userInput , { header})
-  //       .then(response => console.log(JSON.stringify(response.data.message)));
-
-  // }
 
   return (
     <div className="fixed-bg">
@@ -116,14 +89,7 @@ let redirectLink = '';
 
             {/* Form */}
             <Form>
-              <Form.Group className="form-elem">
-                <Form.Control 
-                type="text" 
-                placeholder="Username" 
-                value={userName}
-                onChange={e=>setUserName(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
+            <br/>
               <Row>
                 <Col xs={6}>
                   <Form.Control 

@@ -20,19 +20,7 @@ app.use(bodyparser.urlencoded({ extended: true }))
 app.use(express.json());
 app.use('/upload', express.static(path.join(__dirname, './uploads')));
 
-app.use(
-  cors({
-    origin     : "http://localhost:3000",            // allow to server to accept request from different origin
-    methods    : "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true                                // allow session cookie from browser to pass through
-  })
-);
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-//     res.header("Access-Control-Allow-Headers", "Content-Type");
-//     next();// Unhandled 'error' event
-// });
+
 
 app.use(
   cookieSession({
@@ -75,6 +63,7 @@ app.use(product);
 const authcheck = (req,res,next) => {
   console.log("called");
   // console.log(req.user);
+ 
   if(!req.user){
     console.log(req.user);
     res.status(200).send({
@@ -94,7 +83,7 @@ app.get('/check',authcheck,(req, res) => {
 
   res.status(200).send({
     message: "Authorized Access",
-    // user:req.user,
+    user:req.user,
 
   });
 
