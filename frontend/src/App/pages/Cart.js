@@ -28,7 +28,6 @@ function Cart(props) {
   const [paymentConfirmed, setPaymentConfirmed] = useState(0)
   let totalAmount = 0;
   let numberOfCoins = 0;
-
   let history = useHistory();
 
   useEffect(() => {
@@ -199,10 +198,10 @@ function Cart(props) {
   if(!nameofuser)nameofuser="hi"
   if(ngo==="false"){
     return (
-        <div>
+        <div style={{overflowX: 'hidden'}}>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -213,9 +212,9 @@ function Cart(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -225,12 +224,12 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -265,17 +264,21 @@ function Cart(props) {
  <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
  </div>
  <div className="whole_page">
+  {console.log(currentCart)}
     <Container >
   {
     Object.keys(currentCart).map((data,key) => {
       if(currentCart[data].quantity==0)
         return;
+      totalAmount += currentCart[data].price * currentCart[data].quantity
+      numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
+      console.log("items")
       return(
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
             <img className="img_row"
-            fluid 
-            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt="" 
+            fluid
+            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt=""
             width="150"
             height="120"/>
           </Col>
@@ -292,13 +295,34 @@ function Cart(props) {
       )
     })
   }
-    <Button variant="primary" onClick={confirmBuy}>Buy All</Button>
+    
+    <h1>Your total is: {totalAmount}</h1>
+    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
+    {popup ? (
+      <Portal >
+        <h1>Your total is: {totalAmount}</h1>
+        {payWithCoin ?
+          <div>
+            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
+            <h1>You need to pay: {numberOfCoins}Coins and {Math.max(totalAmount-numberOfCoins*10,0)}Rupees</h1>
+          </div>
+        :
+          <div>
+            {localStorage.getItem("ngo") ? 
+            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
+            : null
+            }
+            <h1>You need to pay: {totalAmount}Rupees</h1>
+          </div>}
+        <Button onClick={() => {setPopUp(0);setPaymentConfirmed(1);confirmBuy();}}>Pay</Button>
+        <Button onClick={() => setPopUp(0)}>Cancel</Button>
+      </Portal>
+    ) : null
+      }
   </div> 
-
-
 </div>
-        
+
     )
   }else{
 

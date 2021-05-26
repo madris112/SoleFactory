@@ -1,7 +1,7 @@
 const express  = require('express');
-const user     = require('../models/user');
-const router   = new express.Router();
 const passport = require('passport');
+const router   = new express.Router();
+const user     = require('../models/user');
 
 
 router.get('/auth/failure',(req,res)=>{
@@ -81,7 +81,41 @@ router.get('/getuser', function(req,res){
          }
      });
 
-  });
+});
+
+router.post("/update",(req, res)=>{
+
+  console.log(req.body);
+  console.log("inside update");
+  try {
+
+    user.updateOne({ 
+        username: req.body.username,
+    }, {
+        firstname: req.body.firstname,
+        lastname : req.body.lastname,
+        mobile   : req.body.mobile,
+        gstno    : req.body.gstno,
+        ngoid    : req.body.ngoid,
+        IsActivated: "1"
+    }
+    , (err) => {
+       if(err){
+           res.status(400).send({
+             message:"something went wrong",
+           });
+       }
+    });
+
+    res.status(200).send({
+      message:"Information updated successfully",
+      redirect:"/home"
+    })
+    
+  } catch (error) {
+    
+  }
+})
 
 
 module.exports = router;

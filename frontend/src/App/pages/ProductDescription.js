@@ -174,7 +174,7 @@ function ProductDescription(props) {
   if(!nameofuser)nameofuser="hi"
   if(ngo==="false"){
   return (
-    <div >
+    <div style={{overflowX: 'hidden'}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -221,8 +221,6 @@ function ProductDescription(props) {
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
 
-      
-//       
         <ReactBootStrap.NavDropdown
         title={nameofuser}
         id="collasible-nav-dropdown"
@@ -240,13 +238,13 @@ function ProductDescription(props) {
 
 
       <Container className="prod">
-     
+
           <Row>
               <Col style={{padding: "0px"}}>
-                <img 
-                fluid 
+                <img
+                fluid
                 src={sc}
-                alt="" 
+                alt=""
                 width="400"
                 height="450"/>
               </Col>
@@ -263,21 +261,21 @@ function ProductDescription(props) {
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
-                
+
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
-                
-                 
+
+
                  <Row inline>
                 <Col xs={1}>
                 <Button variant="dark" size="lg" onClick={decrement}>
                     -
                  </Button>
-                
+
                  </Col>
                  <Col xs={2}>
-                  <Form.Control 
-                  type="text" 
+                  <Form.Control
+                  type="text"
                   disabled
                   value={Quantity}
                   placeholder="0"
@@ -289,7 +287,7 @@ function ProductDescription(props) {
                 <Button variant="dark" size="lg" onClick={increment}>
                     +
                  </Button>
-                  
+
                 </Col>
               </Row>
                  </div>
@@ -300,7 +298,7 @@ function ProductDescription(props) {
                 <h6 style={{color:"green"}}>{msg}</h6>
               </Col>
             </Row>
-            
+
       </Container>
 
 
