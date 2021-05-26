@@ -34,7 +34,7 @@ function ProductList(props){
             // console.log(parseInt(y));
             // setcoins(response.data.retuser.CoinAmt);
           }
-          
+
           // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
           //   history.push('/completeForm');
           // }
@@ -83,8 +83,21 @@ function ProductList(props){
       "instock": instock,
       "coinval": coinval,
     }
-  
+
     function handleClick(){
+
+      const userInput = {
+      prodid: prod_id
+    }
+    const header = {
+      "Content-Type": "application/json"
+    };
+
+     axios.post('http://localhost:4000/product/counter',userInput, { header } )
+        .then(response => {var newcnt =  response.data} );
+
+    console.log('countcheck done')
+
       history.push({
         pathname: "/productdescription",
         state: data
@@ -97,7 +110,7 @@ function ProductList(props){
         }
          return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
-        <Card onClick={handleClick} 
+        <Card onClick={handleClick}
             className="cardHover">
           <Card.Body>
             <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
@@ -108,15 +121,15 @@ function ProductList(props){
             <Card.Text>{brand}</Card.Text>
           </Card.Body>
           <Card.Footer>
-          
+
           <div>
             <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             <small className="text-right">    x {instock} units</small></div>
             <div className="smiley">
-            <h4>{coinval} </h4> 
+            <h4>{coinval} </h4>
             <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
             </div>
-            
+
           </Card.Footer>
         </Card>
       </Col>
@@ -128,7 +141,7 @@ function ProductList(props){
         }
          return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
-        <Card onClick={handleClick} 
+        <Card onClick={handleClick}
             className="cardHover">
           <Card.Body>
             <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
@@ -139,12 +152,12 @@ function ProductList(props){
             <Card.Text>{brand}</Card.Text>
           </Card.Body>
           <Card.Footer>
-          
+
           <div>
             <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             <small className="text-right">    x {instock} units</small></div>
-            
-            
+
+
           </Card.Footer>
         </Card>
       </Col>
@@ -168,7 +181,7 @@ function ProductList(props){
   var tempexpiryarray = [];
   var tempnonexpiryarray = [];
 
-  var expfinalarray = []; 
+  var expfinalarray = [];
 
   for(let key in props.arr){
     const curDate = new Date().toLocaleDateString();
