@@ -225,7 +225,7 @@ if(ngo==="false"){
   <ReactBootStrap.Nav             className     = "mr-auto">
       
       <ReactBootStrap.NavDropdown 
-      title="Categories" 
+      title= "Categories" 
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
