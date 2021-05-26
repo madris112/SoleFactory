@@ -17,13 +17,13 @@ function Cart(props) {
   const [searchname, setSearchName] = useState("");
   const [category, setCategory] = useState("");
   let history = useHistory();
-  
-  useEffect(() => {
-    setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))) 
-  },[])
-  
 
-  
+  useEffect(() => {
+    setCurrentCart(JSON.parse(localStorage.getItem(localStorage.getItem("curUser"))))
+  },[])
+
+
+
   useEffect(() => {
       if(category!=""){
           let data = {"category":category}
@@ -43,8 +43,8 @@ function Cart(props) {
     axios.get("http://localhost:4000/logout",{header})
     .then(response => {console.log(JSON.stringify(response.data.message))
           if(response.data.message === "Logout Successful!")
-            history.push('/');           
-    
+            history.push('/');
+
     });
 
   }
@@ -52,21 +52,21 @@ function Cart(props) {
   function handleClick(e){
   if(searchname!=""){
     let data = {"searchname":searchname}
-    
+
     let query = null;
     if(searchname!="")
     query = "?searchname="+searchname;
 
     console.log("cart" + data);
-    
+
     history.push({
         pathname: "/home",
         state: data
       })
 
-    
+
   }
-    
+
   }
   let redirectLink = '';
 
@@ -87,7 +87,7 @@ function Cart(props) {
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
           }
-          
+
         });
 
 
@@ -114,7 +114,7 @@ function Cart(props) {
     });
     setCurrentCart({})
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
-    
+
   }
   var nameofuser = localStorage.getItem('curUser');
   if(!nameofuser)nameofuser="hi"
@@ -122,7 +122,7 @@ function Cart(props) {
         <div>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -133,9 +133,9 @@ function Cart(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -145,12 +145,12 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -164,9 +164,7 @@ function Cart(props) {
     </Form>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-//       <ReactBootStrap.Nav>
-//         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
-//       </ReactBootStrap.Nav>
+
       <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
@@ -192,8 +190,8 @@ function Cart(props) {
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
             <img className="img_row"
-            fluid 
-            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt="" 
+            fluid
+            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt=""
             width="150"
             height="120"/>
           </Col>
@@ -212,11 +210,11 @@ function Cart(props) {
   }
     <Button variant="primary" onClick={confirmBuy}>Buy All</Button>
     </Container>
-  </div> 
+  </div>
 
 
 </div>
-        
+
     )
 }
 

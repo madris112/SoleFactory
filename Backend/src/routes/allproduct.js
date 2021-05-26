@@ -5,10 +5,85 @@ const orderModel = require('../models/orderhistory');
 const multer     = require('multer');
 const path       = require("path");
 
-
+const requestIp = require('request-ip');
+const productCount = require('../models/productCount');
+const productCountIpDetails = require('../models/productCountIpDetails');
 
 
 console.log("hi");
+
+// router.post('/product/counter', function(req, res) {
+// //   try{
+// // productCountIpDetails.create({prodid: "hii", ip: "goo"});
+// // } catch(e){
+// //   console.log(e)
+// // }
+//   //console.log("heythere");
+//   prodid = req.body.prodid
+//   console.log(prodid)
+//   const ip = requestIp.getClientIp(req);
+//
+//   productCountIpDetails.findOne({prodid: prodid, ip: ip}, function(err, result) {
+//     //console.log(result)
+//     if (err) throw err;
+//     else {
+//       if(!result){
+//         console.log("not result: " + prodid)
+//         productCountIpDetails.create({prodid: prodid, ip: ip});
+//         productCount.findOne({prodid: prodid},function(e,rest){
+//           if(e) throw e;
+//           else {
+//             if(rest){
+//               rest.cnt++;
+//             } else {
+//               productCount.create({prodid: prodid, cnt: 1})
+//             }
+//           }
+//         })
+//         return res.status(200).json(1);
+//       } else {
+//         return res.status(200).json(0);
+//       }
+//     }
+//   })
+// })
+
+router.post('/product/counter', function(req, res) {
+  prodid = req.body.prodid
+  console.log(prodid)
+  const ip = requestIp.getClientIp(req);
+
+  productCountIpDetails.findOne({prodid: prodid, ip: ip}, function(err, result) {
+    if (err) throw err;
+    else {
+      if(!result){
+        productCountIpDetails.create({prodid: prodid, ip: ip});
+        productCount.findOne({prodid: prodid},function(e,rest){
+          if(e) throw e;
+          else {
+            if(rest){
+              var x = rest.cnt;
+              x     = x+1;
+              productCount.updateOne({prodid: prodid},{cnt: x}, function (err, docs) {
+                  if (err){
+                    console.log(err)
+                  }
+                  else{
+                    console.log("Updated Docs : ", docs);
+                  }
+                });
+            } else {
+              productCount.create({prodid: prodid, cnt: 1})
+            }
+          }
+        })
+        return res.status(200).json(1);
+      } else {
+        return res.status(200).json(0);
+      }
+    }
+  })
+})
 
 // product search route
 router.get('/product/search', async (req, res) => {
@@ -50,19 +125,19 @@ router.post('/createProduct',upload, function (req, res, next){
     payload = JSON.parse(req.body.payload);
     console.log(payload);
     console.log(req.file.path);
-    
+
     try {
         product.findOne({
             Title: payload.title,
         }).then((doc) => {
             if (!doc) {
-    
+
                 let coinvalue = parseInt(payload.price);
                     coinvalue = coinvalue / 10;
                 console.log(coinvalue);
 
-                  
-                
+
+
                 try {
                     product.create({
                         Title          : payload.title,
@@ -78,17 +153,17 @@ router.post('/createProduct',upload, function (req, res, next){
                         CoinValue      : coinvalue,
                         Rating         : "0",
                         NoOfUserRated  : "0",
-                        
-        
+
+
                     }
                     ).then((docs) => {
-        
+
                         console.log("product created successfully\n" + docs);
                         res.status(200).send({
                             message: "product created successfully",
                             product: docs
                         });
-                        
+
                     });
                 } catch (error) {
                     console.error("creating a new product failure : " + error)
@@ -97,7 +172,7 @@ router.post('/createProduct',upload, function (req, res, next){
                     })
                 }
             } else{
-    
+
                 try {
                     product.findOne({
                         Title : payload.title,
@@ -107,8 +182,8 @@ router.post('/createProduct',upload, function (req, res, next){
 
                                     let coinvalue = parseInt(payload.price);
                                         coinvalue = coinvalue / 10;
-    
-                
+
+
                                     try {
                                             product.create({
                                             Title          : payload.title,
@@ -124,16 +199,16 @@ router.post('/createProduct',upload, function (req, res, next){
                                             NoOfUserRated  : "0",
                                             Coinvalue      : coinvalue,
                                             imgURL         : req.file.filename
-        
+
                                         }
                                         ).then((docs) => {
-        
+
                                             console.log("product created successfully\n" + docs);
                                             res.status(200).send({
                                                 message: "product created successfully",
                                                 product: docs
                                         });
-                        
+
                     });
                 } catch (error) {
                     console.error("creating a new product failure : " + error)
@@ -141,7 +216,7 @@ router.post('/createProduct',upload, function (req, res, next){
                         message: "Failed Try Again !"
                     })
                 }
-                            
+
                         } else{
 
                             console.log("product already exist");
@@ -149,7 +224,7 @@ router.post('/createProduct',upload, function (req, res, next){
                                 message: "already exist! update its value\n",
                                 product: doc
                             });
-                            
+
                         }
                     });
                 } catch (error) {
@@ -157,10 +232,10 @@ router.post('/createProduct',upload, function (req, res, next){
                     res.status(400).send({
                         message: "something went wrong",
                     })
-                    
+
                 }
-                
-                
+
+
             }
         });
     } catch (error) {
@@ -175,19 +250,19 @@ router.post('/createProduct',upload, function (req, res, next){
 
 router.post('/order',(req,res) =>{
     console.log("inside order");
-    
-    
-    
+
+
+
     ProdArray = JSON.parse(req.body.inventory);
     holder    = req.body.userordered;
-    
+
     for(const item in ProdArray){
 
         var NewQuantity = ProdArray[item].quantity;
 
-        
-        
- 
+
+
+
         try {
             product.findOne({
                 _id: item,
@@ -201,7 +276,7 @@ router.post('/order',(req,res) =>{
                         NewQuantity     = order.Quantity - NewQuantity;
 
 
-                        product.updateOne({ 
+                        product.updateOne({
                             _id: item
                         }, {
                          Quantity: NewQuantity
@@ -212,19 +287,19 @@ router.post('/order',(req,res) =>{
                                }
                         });
 
-                        
+
                         try {
                             orderModel.create({
                                 productId: item,
                                 user     : req.body.userordered,
                                 Quantity : reducedQuantity,
                                 price    : ProdArray[item].price
-    
-    
+
+
                             }).then((docs) => {
-    
+
                                 console.log("producted added succesfully");
-                                
+
                             });
                         } catch (error) {
                             console.error("creating order try catch" + error);
@@ -232,9 +307,9 @@ router.post('/order',(req,res) =>{
                                 message: "Try Again!"
                             });
                         }
-                    
-                    
-                    
+
+
+
                 }
             });
         } catch (error) {
@@ -244,7 +319,7 @@ router.post('/order',(req,res) =>{
             });
         }
 
-        
+
 
     }
 
@@ -258,7 +333,7 @@ router.get('/gethistory',async(req,res)=>{
     curruser = req.query.username;
 
     try {
-        docs = await orderModel.find({ 
+        docs = await orderModel.find({
             user: curruser
         }).sort({_id:-1});
 
@@ -266,16 +341,16 @@ router.get('/gethistory',async(req,res)=>{
         // console.log(docs);
         var finalOrderInfo = [];
         for(prod in docs){
-            
-            
+
+
             item = await product.findOne({
                 _id:docs[prod].productId,
             })
 
-            
+
 
             if(item){
-                
+
                 current = {
                     product: item,
                     history: docs[prod]
@@ -294,4 +369,3 @@ router.get('/gethistory',async(req,res)=>{
 
 })
 module.exports = router;
-
