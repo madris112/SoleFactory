@@ -71,11 +71,13 @@ export default function Hrating(props) {
         value={value}
         precision={0.5}
         onChange={(event, newValue) => {
+
           setValue(newValue);
           findrating();
           const userInput = {
           prodid: props.location.state.prod_id,
           rate: newValue
+
         }
 
         const header = {
@@ -85,7 +87,7 @@ export default function Hrating(props) {
          axios.post('http://localhost:4000/product/rating',userInput, { header } )
             .then(response => {var newcnt =  response.data} );
 
-        }}
+        }   }
         onChangeActive={(event, newHover) => {
           setHover(newHover);
         }}

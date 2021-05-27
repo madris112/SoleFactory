@@ -10,11 +10,8 @@ import cart from "./cart.svg"
 import test from "./test.jpeg"
 import gucci from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
-
-import Hrating from "./rating"
-
 import coin from "./coin.png"
-
+import Hrating from "./rating.js"
 function ProductDescription(props) {
   let history = useHistory();
   let initQuantity = 0;
@@ -144,6 +141,8 @@ function ProductDescription(props) {
     });
   }
 
+
+
   function handleClick(e){
     if(searchname!=""){
     let data = {"searchname":searchname}
@@ -158,6 +157,8 @@ function ProductDescription(props) {
         pathname: "/home",
         state: data
       })
+
+
   }
   }
 
@@ -173,10 +174,7 @@ function ProductDescription(props) {
   if(!nameofuser)nameofuser="hi"
   if(ngo==="false"){
   return (
-
-    <div >
     <div style={{overflowX: 'hidden'}}>
-
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -191,6 +189,7 @@ function ProductDescription(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
+
       <ReactBootStrap.NavDropdown
       title="Categories"
       id="collasible-nav-dropdown"
@@ -202,9 +201,12 @@ function ProductDescription(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -216,6 +218,7 @@ function ProductDescription(props) {
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
+
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
 
 
@@ -403,6 +406,7 @@ function ProductDescription(props) {
                 <Button variant="dark" size="lg" onClick={decrement}>
                     -
                  </Button>
+
                  </Col>
                  <Col xs={2}>
                   <Form.Control
@@ -424,7 +428,8 @@ function ProductDescription(props) {
                  </div>
                 <br/><br/>
                 <div className="mb-2">
-                  <Hrating {...props}/>
+                hiiiiiiikckhdcjsdhcvjhcvdhgcv
+                  <Hrating {...props} />
                 </div>
                 <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
