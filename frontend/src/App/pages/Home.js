@@ -145,10 +145,27 @@ function Home(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          // console.log(JSON.stringify(response.data.user));
-          // console.log(JSON.stringify(response.data.message));
+          if(!localStorage.getItem('localsession')){
+            localStorage.setItem('localsession',"1");
+            localStorage.setItem("ngo","false");
+            localStorage.setItem("coins","0");
+          }
+          console.log(JSON.stringify(response.data.user));
+          console.log(JSON.stringify(response.data.message));
+          if(response.data.user && response.data.user.Type === "1"){
+            localStorage.setItem("ngo","true");
+            localStorage.setItem("coins",response.data.user.CoinAmt);
+            setngo("true");
+            setcoins(response.data.user.CoinAmt);
+          }
           if(response.data.user && response.data.user.IsActivated === '0'){
             history.push('/completeForm');
+          }
+          localStorage.setItem('username',response.data.user.username);
+          let userCart = localStorage.getItem(response.data.user.username)
+          if(userCart===null){
+            localStorage.setItem(response.data.user.username,JSON.stringify({}));
+            localStorage.setItem("curUser",response.data.user.username);
           }
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){

@@ -25,6 +25,7 @@ function App() {
         <Route path="/cart" component={Cart} />
         <Route path="/completeForm" component={InfoCompleteForm} />
         <Route path="/nearexpiry" component={NearExpiry} />
+        <Route path="/bestseller" component={Bestseller} />
     </Switch>
   )
 }

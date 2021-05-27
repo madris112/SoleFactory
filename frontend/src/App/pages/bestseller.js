@@ -3,7 +3,7 @@ import './Home.css';
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory , useLocation } from 'react-router-dom';
-import ProductList from "./productlist"
+import BestList from "./bestlist"
 import Foot from "./footer"
 import coin from "./coin.png"
 import axios from 'axios'
@@ -93,7 +93,9 @@ function Bestseller(props) {
     };
 
     await axios.get('http://localhost:4000/bestseller', {params:{searchname:FirstQuery,category:SecondQuery},header})
-        .then(response => {setProdArray(response.data)} );
+        .then(response => {
+          console.log(response.data.bestsell)
+          setProdArray(response.data.bestsell)} );
 
     // console.log('searching search bar done')
   },[FirstQuery])
@@ -245,7 +247,7 @@ if(ngo==="false"){
 
 
      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
-      <ProductList arr={prodarray} />
+      <BestList arr={prodarray} />
 
         <Foot/>
       </div>
@@ -330,7 +332,7 @@ if(ngo==="false"){
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
       <div style={{bottom:"0px",height:"100%",width:"100%"}}>
-      <ProductList arr={prodarray} />
+      <BestList arr={prodarray} />
 
         <Foot/>
       </div>

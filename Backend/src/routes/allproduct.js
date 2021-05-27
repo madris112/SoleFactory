@@ -449,7 +449,7 @@ function compare(a,b){
        return 0;
 }
 
-router.get('/bestSeller',async(req,res)=>{
+router.get('/bestseller',async(req,res)=>{
 
     console.log("inside bestseller")
 
@@ -491,7 +491,7 @@ router.get('/bestSeller',async(req,res)=>{
                 c = parseInt(ratingDetails.cnt);
             }
 
-            SortDetails =  a+ b*c;
+            SortDetails =  a + b*c;
 
             current = {
                 product: productList[item],

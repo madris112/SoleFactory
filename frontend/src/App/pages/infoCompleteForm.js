@@ -31,8 +31,8 @@ let redirectLink = '';
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          // console.log(JSON.stringify(response.data.user));
-          // console.log(JSON.stringify(response.data.message));
+          console.log(JSON.stringify(response.data.user));
+           console.log(JSON.stringify(response.data.message));
           setUserName(response.data.user.username);
           setFirstName(response.data.user.firstname);
           setLastName(response.data.user.lastname);
@@ -58,20 +58,20 @@ let redirectLink = '';
       gstno: gstno,
       ngoid: NGOId,
     };
-    // console.log(userInput);
+     console.log(userInput);
     const header = {
       'Content-Type': 'application/json',
     };
-    // console.log("input" + userInput);
+    console.log("input" + userInput);
     axios
       .post('http://localhost:4000/update', userInput, { header })
       .then((response) => {
-        // console.log(JSON.stringify(response.data.message));
-        // console.log(response.data.user);
+         console.log(JSON.stringify(response.data.message));
+        console.log(response.data.user);
         redirectLink = response.data.redirect;
 
           if(redirectLink==='')
-      // console.log("ok called")
+      console.log("ok called")
     if (redirectLink !== '') history.push(redirectLink);
       });
 
