@@ -66,36 +66,10 @@ function Cart(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-
-          // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
-          //   history.push('/completeForm');
-          // }
         }
         }
     );
 
-    } else {
-      // const header = {
-      //   'Content-Type'                    : 'Application/json',
-      //   'Access-Control-Allow-Credentials': true,
-      // };
-      // axios
-      //   .get('http://localhost:4000/check', { header, withCredentials: true })
-      //   .then((response) => {
-      //     console.log(JSON.stringify(response.data.user));
-      //     console.log(JSON.stringify(response.data.message));
-      //     if(response.data.user.IsAuthorized === '0'){
-      //       history.push('/completeForm');
-      //     }
-      //     redirectLink = response.data.redirect;
-      //     if(response.data.message === "Unauthorized Access!"){
-      //         history.push('/');
-
-      //     }
-      //   });
-
-      // if(redirectLink!=='')
-      //   history.push(redirectLink)
     }
   }, []);
 
@@ -177,7 +151,14 @@ function Cart(props) {
 
   function confirmBuy(){
     //BACKEND connection
-    let inventory = localStorage.getItem(localStorage.getItem("curUser"));
+    let inventory = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")));
+    for(let keys in inventory){
+      if(inventory[keys].nearexpiry)
+        inventory[keys].price = inventory[keys].discount
+      inventory[keys].quantity = String(inventory[keys].quantity)
+    }
+    inventory = JSON.stringify(inventory)
+
      let requestoptions = {
        inventory: inventory,
        userordered: localStorage.getItem("curUser"),
@@ -229,7 +210,7 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -274,7 +255,7 @@ function Cart(props) {
     Object.keys(currentCart).map((data,key) => {
       if(currentCart[data].quantity==0)
         return;
-      totalAmount += currentCart[data].price * currentCart[data].quantity
+      totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
       console.log("items")
       return(
@@ -292,7 +273,8 @@ function Cart(props) {
             <h5>Quantity: {currentCart[data].quantity}</h5>
           </Col>
           <Col className="row_price">
-            <h3><strong>Your total for this item: {currentCart[data].price * currentCart[data].quantity}</strong></h3><br/>
+            {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
+            <h3><strong>Your total for this item: {(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
             <button lg color="secondary">Buy it Again</button>
           </Col>
         </Row>
@@ -359,7 +341,7 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -415,7 +397,7 @@ function Cart(props) {
     Object.keys(currentCart).map((data,key) => {
       if(currentCart[data].quantity==0)
         return;
-      totalAmount += currentCart[data].price * currentCart[data].quantity
+      totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
       console.log("items")
       return(
@@ -433,7 +415,8 @@ function Cart(props) {
             <h5>Quantity: {currentCart[data].quantity}</h5>
           </Col>
           <Col className="row_price">
-            <h3><strong>Your total for this item: {currentCart[data].price * currentCart[data].quantity}</strong></h3><br/>
+          {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
+            <h3><strong>Your total for this item: {(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
             <button lg color="secondary">Buy it Again</button>
           </Col>
         </Row>
@@ -442,7 +425,7 @@ function Cart(props) {
   }
 
     <h1>Your total is: {totalAmount}</h1>
-    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<=0}>Buy All</Button>
+    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
     {popup ? (
       <Portal >

@@ -12,7 +12,7 @@ import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
 
-function Home(props) {
+function NearExpiry(props) {
 
   const [searchname, setSearchName] = useState(null);
   const [category, setCategory] = useState(null);
@@ -93,7 +93,31 @@ function Home(props) {
     };
 
     await axios.get('http://localhost:4000/product/search', {params:{searchname:FirstQuery,category:SecondQuery},header})
-        .then(response => setProdArray(response.data) );
+        .then(response => {
+          var tempexpiryarray = [];
+
+          for(let key in response.data){
+            const curDate = new Date().toLocaleDateString();
+            const expdate = new Date(response.data[key].expiryDate).toLocaleDateString();
+          
+            var initial = curDate.split(/\//);
+            var s1=[ initial[1], initial[0], initial[2] ].join('/');
+          
+            var last = expdate.split(/\//);
+            var s2=[ last[1], last[0], last[2] ].join('/');
+          
+            const a=new Date(s1);
+            const b=new Date(s2);
+            const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
+          
+            console.log(c);
+            response.data[key]["nearexpiry"] = 1;
+            if(c<15){
+              tempexpiryarray.push(response.data[key]);
+            }
+          }
+          setProdArray(tempexpiryarray)
+        } );
 
     console.log('searching search bar done')
   },[FirstQuery])
@@ -129,36 +153,9 @@ function Home(props) {
             setcoins(response.data.retuser.CoinAmt);
             localStorage.setItem("coins",response.data.retuser.CoinAmt);
           }
-
-          if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
-            history.push('/completeForm');
-          }
         }
         }
     );
-
-    } else {
-      const header = {
-        'Content-Type'                    : 'Application/json',
-        'Access-Control-Allow-Credentials': true,
-      };
-      axios
-        .get('http://localhost:4000/check', { header, withCredentials: true })
-        .then((response) => {
-          console.log(JSON.stringify(response.data.user));
-          console.log(JSON.stringify(response.data.message));
-          if(response.data.user && response.data.user.IsActivated === '0'){
-            history.push('/completeForm');
-          }
-          redirectLink = response.data.redirect;
-          if(response.data.message === "Unauthorized Access!"){
-              history.push('/');
-
-          }
-        });
-
-      if(redirectLink!=='')
-        history.push(redirectLink)
     }
   }, []);
 
@@ -196,11 +193,7 @@ var nameofuser = localStorage.getItem('curUser');
 if(!nameofuser)nameofuser="hi";
 // console.log(ngo);
 if(ngo==="false"){
-
    return (
-
-
-
    <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -229,7 +222,7 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
+      {/* <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link> */}
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -314,7 +307,7 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
+      {/* <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link> */}
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -371,4 +364,4 @@ if(ngo==="false"){
 }
 
 
-export default Home;
+export default NearExpiry;

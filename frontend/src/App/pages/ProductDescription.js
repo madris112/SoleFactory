@@ -55,36 +55,10 @@ function ProductDescription(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-
-          // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
-          //   history.push('/completeForm');
-          // }
         }
         }
     );
 
-    } else {
-      // const header = {
-      //   'Content-Type'                    : 'Application/json',
-      //   'Access-Control-Allow-Credentials': true,
-      // };
-      // axios
-      //   .get('http://localhost:4000/check', { header, withCredentials: true })
-      //   .then((response) => {
-      //     console.log(JSON.stringify(response.data.user));
-      //     console.log(JSON.stringify(response.data.message));
-      //     if(response.data.user.IsAuthorized === '0'){
-      //       history.push('/completeForm');
-      //     }
-      //     redirectLink = response.data.redirect;
-      //     if(response.data.message === "Unauthorized Access!"){
-      //         history.push('/');
-
-      //     }
-      //   });
-
-      // if(redirectLink!=='')
-      //   history.push(redirectLink)
     }
   }, []);
 
@@ -165,7 +139,8 @@ function ProductDescription(props) {
   function addToCart(){
     let cartItems = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))
     if(cartItems!=null)
-      cartItems[props.location.state.prod_id] = {...props.location.state, quantity: Quantity}
+      cartItems[props.location.state.prod_id] = {...props.location.state, quantity: Quantity, nearexpiry: (props.location.state.nearexpiry?1:0)}
+    
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify(cartItems));
     console.log(localStorage);
     setmsg("Item successfully added to cart")
@@ -202,7 +177,7 @@ function ProductDescription(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -260,8 +235,10 @@ function ProductDescription(props) {
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
+                {props.location.state.nearexpiry ? 
+                  <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
+                : null }
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></h6>
 
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
@@ -339,7 +316,7 @@ function ProductDescription(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -363,11 +340,6 @@ function ProductDescription(props) {
         {coins}</div>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-
-//
-
-
-
         <ReactBootStrap.NavDropdown
         title={nameofuser}
         id="collasible-nav-dropdown"
@@ -400,8 +372,10 @@ function ProductDescription(props) {
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
+                {props.location.state.nearexpiry ? 
+                  <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
+                : null }
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></h6>
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
                  <Row inline>
