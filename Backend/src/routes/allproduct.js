@@ -92,6 +92,40 @@ router.post('/product/rating', function(req, res) {
         })
         return res.status(200).json(1);
       } else {
+        productRating.findOne({prodid: prodid},function(e,rest){
+          if(e) throw e;
+          else {
+            if(rest){
+              // console.log("hiiiiiiiii")
+              // console.log(rate)
+              var x = rest.cnt;
+              var y= rest.rating;
+              y = (y*x);
+              y = y + rate - result.rating;
+              y = y/x;
+
+              console.log(x)
+              console.log(y)
+              productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+                  if (err){
+                    console.log(err)
+                  }
+                  else{
+                    console.log("Updated Docs : ", docs);
+                  }
+                });
+            } else {
+              productRating.create({prodid: prodid,rating: rate,cnt: 1})
+            }
+          }
+        })
+        productRatingIpDetails.updateOne({prodid: prodid, ip: ip}, {rating: rate},function(err,docs){
+          if(err){
+            console.log(err)
+          } else {
+            console.log("Updated docs: ", docs);
+          }
+        });
         return res.status(200).json(0);
       }
     }
@@ -276,7 +310,7 @@ router.post('/order',(req,res) =>{
 
     ProdArray = JSON.parse(req.body.inventory);
     holder    = req.body.userordered;
-    
+
     User.findOne({
         username: req.body.userordered,
     }).then((doc) => {
@@ -289,7 +323,7 @@ router.post('/order',(req,res) =>{
             console.log(req.body.coinsUsed);
             changedamt = remainingCnt.toString();
             console.log(req.body);
-              User.updateOne({ 
+              User.updateOne({
                 username: req.body.userordered
             }, {
                 CoinAmt: changedamt
@@ -299,11 +333,11 @@ router.post('/order',(req,res) =>{
                         console.log(`Error: ` + err)
                     }
             });
-            
+
         }
     });
 
-  
+
 
     for(const item in ProdArray){
 

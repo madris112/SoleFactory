@@ -195,6 +195,7 @@ function Cart(props) {
     });
     setCurrentCart({})
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
+    // window.location.reload(true);
 
   }
   var nameofuser = localStorage.getItem('curUser');

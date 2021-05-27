@@ -262,8 +262,8 @@ function Profile() {
                                   <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Other Details</h6>
                                   <div class="row">
                                       <div class="col-sm-6">
-                                          <p class="m-b-10 f-w-600">GST No.</p>
-                                          <h6 class="text-muted f-w-400">{userdetails.gstno}</h6>
+                                          <p class="m-b-10 f-w-600">{userdetails.Type == '1'? ("Ngo id") :("Gst NO.")}</p>
+                                          <h6 class="text-muted f-w-400">{userdetails.Type == '1'? userdetails.ngoid : userdetails.gstno}</h6>
                                       </div>
                                       {
                                         userdetails.Type =='1' ? (

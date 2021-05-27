@@ -294,6 +294,9 @@ function ProductDescription(props) {
                  </div>
                 <br/><br/>
                 <div className="mb-2">
+                  <Hrating {...props} />
+                </div>
+                <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
                 </div>
                 <h6 style={{color:"green"}}>{msg}</h6>
@@ -428,7 +431,6 @@ function ProductDescription(props) {
                  </div>
                 <br/><br/>
                 <div className="mb-2">
-                hiiiiiiikckhdcjsdhcvjhcvdhgcv
                   <Hrating {...props} />
                 </div>
                 <div className="mb-2">

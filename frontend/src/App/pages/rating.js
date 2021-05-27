@@ -32,6 +32,7 @@ export default function Hrating(props) {
   const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
   const [prodrating, setProdRating] = useState(initrate);
+
   useEffect(() => {
     console.log("rating starts")
     const userInput = {
@@ -86,7 +87,7 @@ export default function Hrating(props) {
 
          axios.post('http://localhost:4000/product/rating',userInput, { header } )
             .then(response => {var newcnt =  response.data} );
-
+            window.location.reload(true)
         }   }
         onChangeActive={(event, newHover) => {
           setHover(newHover);
@@ -95,7 +96,7 @@ export default function Hrating(props) {
       {value !== null && <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>}
 
     </div>
-    <div> Current Rating <strong>{prodrating.toFixed(2)}</strong> out of <strong>5</strong><br/></div>
+    <div> Current Rating <strong>{prodrating?prodrating.toFixed(2):0}</strong> out of <strong>5</strong><br/></div>
     </>
   );
 }

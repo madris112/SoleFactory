@@ -260,7 +260,7 @@ if(ngo==="false"){
       <ReactBootStrap.NavDropdown
       title= {nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
+      >
         <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
