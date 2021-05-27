@@ -22,15 +22,15 @@ const Foot = () => (
 
       <ul class="nav__ul">
         <li>
-          <a href="#">Linked In</a>
+          <a href="https://www.linkedin.com/in/madhur-malpani-818646196/" target="_blank">Linked In</a>
         </li>
 
         <li>
-          <a href="#">Github</a>
+          <a href="https://github.com/madris112" target="_blank" >Github</a>
         </li>
 
         <li>
-          <a href="#">Email</a>
+          <a href="mailto:madhur.nilu@gmail.com">Email</a>
         </li>
       </ul>
     </li>
@@ -88,7 +88,7 @@ const Foot = () => (
   </ul>
 
   <div class="legal">
-    <p>Amazon Hackathon 2.0</p>
+    
 
     <div class="legal__links">
       <span>Made with <span class="heart">♥</span> by Bit Predators</span>

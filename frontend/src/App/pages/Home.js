@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import './Home.css';
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -11,7 +11,6 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
-import { useEffect } from 'react';
 
 function Home(props) {
 
@@ -21,6 +20,10 @@ function Home(props) {
   const [navselected, setNavSelected] = useState(null);
   const [ngo, setngo] = useState("false");
   const [coins, setcoins] = useState(null);
+  // const [finalval, setfinalval] = useState("");
+
+  // setfinalval("Hi "+ {nameofuser});
+
   let history = useHistory();
   let initSearchName = ""
   let initCategory = "All"
@@ -112,15 +115,19 @@ function Home(props) {
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          //console.log(JSON.stringify(response.data.retuser));
-          //console.log(JSON.stringify(response.data.retuser.Type));
-          //console.log(JSON.stringify(response.data.retuser.CoinAmt));
+            localStorage.setItem("ngo","false");
+            localStorage.setItem("coins","0");
+          console.log(JSON.stringify(response.data.retuser));
+          console.log(JSON.stringify(response.data.retuser.Type));
+          console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
+            localStorage.setItem("ngo","true");
             console.log("hello");
             var y=response.data.retuser.CoinAmt;
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
+            localStorage.setItem("coins",response.data.retuser.CoinAmt);
           }
 
           if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
@@ -189,8 +196,12 @@ var nameofuser = localStorage.getItem('curUser');
 if(!nameofuser)nameofuser="hi";
 // console.log(ngo);
 if(ngo==="false"){
+
    return (
-    <div width="100%">
+
+
+
+   <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -247,7 +258,7 @@ if(ngo==="false"){
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link> */}
       <ReactBootStrap.NavDropdown
-      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      title= {nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
@@ -264,15 +275,18 @@ if(ngo==="false"){
 </ReactBootStrap.Navbar>
 
 
-
+     <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
-      <Foot />
+
+        <Foot/>
+      </div>
     </div>
   )
 
 }else{
   return (
-    <div width="100%">
+
+    <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -328,7 +342,7 @@ if(ngo==="false"){
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
       <ReactBootStrap.NavDropdown
-      title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
+      title={nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item href="/profile" >My Profile</ReactBootStrap.NavDropdown.Item>
@@ -336,29 +350,23 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <Link to= "/cart" style={{backgroundColor: "white"}}>
-      <img
-      src    = {cart}
-      alt    = ""
-      width  = "30"
-      height = "30" /></Link>
+
+           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+
+
+
+
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-
-
-   <div className = "back_home">
-   <h1>Hello</h1>
-
-   </div>
+      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
+
         <Foot/>
+      </div>
     </div>
   )
-
-
-
 }
 }
 
