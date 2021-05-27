@@ -31,47 +31,19 @@ function ProductList(props){
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
             console.log("hello");
-            // var y=response.data.retuser.CoinAmt;
-            // console.log(parseInt(y));
-            // setcoins(response.data.retuser.CoinAmt);
           }
 
-          // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
-          //   history.push('/completeForm');
-          // }
         }
         }
     );
 
-    } else {
-      // const header = {
-      //   'Content-Type'                    : 'Application/json',
-      //   'Access-Control-Allow-Credentials': true,
-      // };
-      // axios
-      //   .get('http://localhost:4000/check', { header, withCredentials: true })
-      //   .then((response) => {
-      //     console.log(JSON.stringify(response.data.user));
-      //     console.log(JSON.stringify(response.data.message));
-      //     if(response.data.user.IsAuthorized === '0'){
-      //       history.push('/completeForm');
-      //     }
-      //     redirectLink = response.data.redirect;
-      //     if(response.data.message === "Unauthorized Access!"){
-      //         history.push('/');
-
-      //     }
-      //   });
-
-      // if(redirectLink!=='')
-      //   history.push(redirectLink)
     }
   }, []);
 
   //console.log(props.arr);
   let history = useHistory();
 
-  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval}) => {
+  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry}) => {
     var currRating;
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
@@ -99,6 +71,7 @@ function ProductList(props){
       "price": price,
       "instock": instock,
       "coinval": coinval,
+      "nearexpiry": nearexpiry
     }
 
     function handleClick(){
@@ -140,7 +113,9 @@ function ProductList(props){
           <Card.Footer>
 
           <div>
-            <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+            {nearexpiry?   
+              <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+            : <p className="text-muted">₹ <strong> {price} </strong></p>}
             <small className="text-right">    x {instock} units</small>
             </div>
             <div className="smiley">
@@ -172,7 +147,9 @@ function ProductList(props){
           <Card.Footer>
 
           <div>
-            <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+            {nearexpiry?   
+              <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+            : <p className="text-muted">₹ <strong> {price} </strong></p>}
             <small className="text-right">    x {instock} units</small>
             </div>
           </Card.Footer>
@@ -197,41 +174,12 @@ function ProductList(props){
     )
   }
 
-  var tempexpiryarray = [];
-  var tempnonexpiryarray = [];
-
-  var expfinalarray = [];
-
-  for(let key in props.arr){
-    const curDate = new Date().toLocaleDateString();
-    const expdate = new Date(props.arr[key].expiryDate).toLocaleDateString();
-
-    var initial = curDate.split(/\//);
-    var s1=[ initial[1], initial[0], initial[2] ].join('/');
-
-    var last = expdate.split(/\//);
-    var s2=[ last[1], last[0], last[2] ].join('/');
-
-    const a=new Date(s1);
-    const b=new Date(s2);
-    const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
-
-    console.log(c);
-    if(c<5){
-      tempexpiryarray.push(props.arr[key]);
-    }else{
-      tempnonexpiryarray.push(props.arr[key]);
-    }
-  }
-
-  expfinalarray = ([...tempexpiryarray,...tempnonexpiryarray]);
-
   return (
     <div>
     <Container>
       <Row>
         {
-          expfinalarray.map((data, key) => {
+          props.arr.map((data, key) => {
           return (
               <Prod
                 prod_id = {data._id}
@@ -244,6 +192,7 @@ function ProductList(props){
                 instock={data.Quantity}
                 coinval={data.CoinValue}
                 key={key}
+                nearexpiry={data.nearexpiry}
               />
           );
         })}

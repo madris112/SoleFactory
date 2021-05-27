@@ -194,7 +194,7 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -301,7 +301,7 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-      <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>

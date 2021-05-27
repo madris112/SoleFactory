@@ -9,6 +9,8 @@ import OrderHistory from "./pages/OrderHistory"
 import Cart from "./pages/Cart"
 import InfoCompleteForm from "./pages/infoCompleteForm"
 import Profile from "./pages/profile"
+import NearExpiry from "./pages/NearExpiry"
+
 function App() {
   return (
     <Switch>
@@ -21,6 +23,7 @@ function App() {
         <Route path="/orderhistory" component={OrderHistory} />
         <Route path="/cart" component={Cart} />
         <Route path="/completeForm" component={InfoCompleteForm} />
+        <Route path="/nearexpiry" component={NearExpiry} />
     </Switch>
   )
 }
