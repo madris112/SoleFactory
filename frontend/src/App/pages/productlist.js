@@ -5,6 +5,7 @@ import './productlist.css'
 import { Link, useHistory } from 'react-router-dom';
 import smile from './smile.png'
 import axios from 'axios'
+import Emptyimg from './finalnotfound.png'
 
 function ProductList(props){
   const [ngo, setngo] = useState("false");
@@ -171,7 +172,9 @@ function ProductList(props){
         <Card.Body>
           <Card.Title>No results</Card.Title>
           <Card.Text>
-          Oops nothing mathces your search query !
+          
+             <img src={Emptyimg} style={{marginLeft:"40%",height:"15%",width:"20%"}}/>
+             <p  style={{marginLeft:"40%"}}>Oops nothing mathces your search query !</p>
           </Card.Text>
         </Card.Body>
       </Card>

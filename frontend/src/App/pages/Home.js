@@ -206,7 +206,7 @@ if(ngo==="false"){
 
    
     
-    <div width="100%">
+   <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -281,16 +281,18 @@ if(ngo==="false"){
 </ReactBootStrap.Navbar>
 
 
-
+     <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
-      <Foot />
+      
+        <Foot/>
+      </div>
     </div>
   )
 
 }else{
   return (
 
-    <div width="100%" style={{overflowX: 'hidden'}}>
+    <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -366,9 +368,11 @@ if(ngo==="false"){
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-
+      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
+      
         <Foot/>
+      </div>
     </div>
   )
 }
