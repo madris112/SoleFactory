@@ -6,7 +6,7 @@ import {Button,Card, Container, FormControl, Form, Col, Row} from 'react-bootstr
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import { FaCartPlus } from "react-icons/fa";
 import ProductList from "./productlist"
 import "./OrderHistory.css"
 import axios from 'axios'
@@ -212,20 +212,16 @@ function Profile() {
   variant = "outline-info"
   onClick = {handleClick}>Search</Button>
 </Form>
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
         <ReactBootStrap.NavDropdown
   title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
   id="collasible-nav-dropdown"
   onSelect={(key) => setCategory(key)}>
-    <ReactBootStrap.NavDropdown.Item onCLick="profileclick" href= "/profile"eventKey="All">My Profile</ReactBootStrap.NavDropdown.Item>
+    <ReactBootStrap.NavDropdown.Item onCLick="profileclick" href= "/profile">My Profile</ReactBootStrap.NavDropdown.Item>
     <ReactBootStrap.NavDropdown.Divider />
     <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
   </ReactBootStrap.NavDropdown>
-  <Link to= "/cart" style={{backgroundColor: "white"}}>
-  <img
-  src    = {cart}
-  alt    = ""
-  width  = "30"
-  height = "30" /></Link>
+     <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
 </ReactBootStrap.Nav>
 </ReactBootStrap.Navbar.Collapse>
@@ -266,8 +262,8 @@ function Profile() {
                                   <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Other Details</h6>
                                   <div class="row">
                                       <div class="col-sm-6">
-                                          <p class="m-b-10 f-w-600">GST No.</p>
-                                          <h6 class="text-muted f-w-400">{userdetails.gstno}</h6>
+                                          <p class="m-b-10 f-w-600">{userdetails.Type == '1'? ("Ngo id") :("Gst NO.")}</p>
+                                          <h6 class="text-muted f-w-400">{userdetails.Type == '1'? userdetails.ngoid : userdetails.gstno}</h6>
                                       </div>
                                       {
                                         userdetails.Type =='1' ? (

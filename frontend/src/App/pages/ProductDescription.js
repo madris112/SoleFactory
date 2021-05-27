@@ -11,7 +11,7 @@ import test from "./test.jpeg"
 import gucci from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
 import coin from "./coin.png"
-
+import Hrating from "./rating.js"
 function ProductDescription(props) {
   let history = useHistory();
   let initQuantity = 0;
@@ -55,7 +55,7 @@ function ProductDescription(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-          
+
           // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
           //   history.push('/completeForm');
           // }
@@ -294,6 +294,9 @@ function ProductDescription(props) {
                  </div>
                 <br/><br/>
                 <div className="mb-2">
+                  <Hrating {...props} />
+                </div>
+                <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
                 </div>
                 <h6 style={{color:"green"}}>{msg}</h6>
@@ -309,10 +312,10 @@ function ProductDescription(props) {
 
    return (
     <div >
-      
+
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -323,9 +326,9 @@ function ProductDescription(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -335,12 +338,12 @@ function ProductDescription(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -354,14 +357,14 @@ function ProductDescription(props) {
     </Form>
 
     <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      
-//       
+
+//
 
 
 
@@ -369,20 +372,15 @@ function ProductDescription(props) {
         title={nameofuser}
         id="collasible-nav-dropdown"
         onSelect={(key) => setCategory(key)}>
-          <ReactBootStrap.NavDropdown.Item eventKey="All">My Profile</ReactBootStrap.NavDropdown.Item>
+          <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
           <ReactBootStrap.NavDropdown.Divider />
           <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
         </ReactBootStrap.NavDropdown>
       <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
-
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-
-
-
       <Container className="prod">
-
           <Row>
               <Col style={{padding: "0px"}}>
                 <img
@@ -399,17 +397,13 @@ function ProductDescription(props) {
                 <h5>About the Product</h5>
                 <h6>{props.location.state.description}</h6>
                 <br/>
-
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*props.location.state.price}</span></h6>
-
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
-
-
                  <Row inline>
                 <Col xs={1}>
                 <Button variant="dark" size="lg" onClick={decrement}>
@@ -437,15 +431,15 @@ function ProductDescription(props) {
                  </div>
                 <br/><br/>
                 <div className="mb-2">
+                  <Hrating {...props} />
+                </div>
+                <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
                 </div>
                 <h6 style={{color:"green"}}>{msg}</h6>
               </Col>
             </Row>
-
       </Container>
-
-
     </div>
   )
 

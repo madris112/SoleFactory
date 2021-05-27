@@ -8,45 +8,11 @@ const User       = require('../models/user');
 const requestIp = require('request-ip');
 const productCount = require('../models/productCount');
 const productCountIpDetails = require('../models/productCountIpDetails');
+const productRating = require('../models/productRating');
+const productRatingIpDetails = require('../models/productRatingIpDetails');
 
 
 console.log("hi");
-
-// router.post('/product/counter', function(req, res) {
-// //   try{
-// // productCountIpDetails.create({prodid: "hii", ip: "goo"});
-// // } catch(e){
-// //   console.log(e)
-// // }
-//   //console.log("heythere");
-//   prodid = req.body.prodid
-//   console.log(prodid)
-//   const ip = requestIp.getClientIp(req);
-//
-//   productCountIpDetails.findOne({prodid: prodid, ip: ip}, function(err, result) {
-//     //console.log(result)
-//     if (err) throw err;
-//     else {
-//       if(!result){
-//         console.log("not result: " + prodid)
-//         productCountIpDetails.create({prodid: prodid, ip: ip});
-//         productCount.findOne({prodid: prodid},function(e,rest){
-//           if(e) throw e;
-//           else {
-//             if(rest){
-//               rest.cnt++;
-//             } else {
-//               productCount.create({prodid: prodid, cnt: 1})
-//             }
-//           }
-//         })
-//         return res.status(200).json(1);
-//       } else {
-//         return res.status(200).json(0);
-//       }
-//     }
-//   })
-// })
 
 router.post('/product/counter', function(req, res) {
   prodid = req.body.prodid
@@ -84,6 +50,87 @@ router.post('/product/counter', function(req, res) {
     }
   })
 })
+router.post('/product/rating', function(req, res) {
+  prodid = req.body.prodid
+  rate = req.body.rate
+  console.log(prodid)
+  console.log(rate)
+  const ip = requestIp.getClientIp(req);
+
+  productRatingIpDetails.findOne({prodid: prodid, ip: ip}, function(err, result) {
+    if (err) throw err;
+    else {
+      if(!result){
+        productRatingIpDetails.create({prodid: prodid, ip: ip, rating: rate});
+        productRating.findOne({prodid: prodid},function(e,rest){
+          if(e) throw e;
+          else {
+            if(rest){
+              console.log("hiiiiiiiii")
+              console.log(rate)
+              var x = rest.cnt;
+              var y= rest.rating;
+              y = (y*x);
+              y = y + rate;
+              x = x+1;
+              y = y/x;
+
+              console.log(x)
+              console.log(y)
+              productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+                  if (err){
+                    console.log(err)
+                  }
+                  else{
+                    console.log("Updated Docs : ", docs);
+                  }
+                });
+            } else {
+              productRating.create({prodid: prodid,rating: rate,cnt: 1})
+            }
+          }
+        })
+        return res.status(200).json(1);
+      } else {
+        productRating.findOne({prodid: prodid},function(e,rest){
+          if(e) throw e;
+          else {
+            if(rest){
+              // console.log("hiiiiiiiii")
+              // console.log(rate)
+              var x = rest.cnt;
+              var y= rest.rating;
+              y = (y*x);
+              y = y + rate - result.rating;
+              y = y/x;
+
+              console.log(x)
+              console.log(y)
+              productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+                  if (err){
+                    console.log(err)
+                  }
+                  else{
+                    console.log("Updated Docs : ", docs);
+                  }
+                });
+            } else {
+              productRating.create({prodid: prodid,rating: rate,cnt: 1})
+            }
+          }
+        })
+        productRatingIpDetails.updateOne({prodid: prodid, ip: ip}, {rating: rate},function(err,docs){
+          if(err){
+            console.log(err)
+          } else {
+            console.log("Updated docs: ", docs);
+          }
+        });
+        return res.status(200).json(0);
+      }
+    }
+  })
+})
 
 // product search route
 router.get('/product/search', async (req, res) => {
@@ -100,8 +147,16 @@ router.get('/product/search', async (req, res) => {
     let products = null
     if(req.query.category && req.query.searchname!=='All')
         products = await product.find({categoryTag:search}).sort({_id:-1})
-    else
-        products = await product.find({brand:search}).sort({_id:-1})
+    else{
+      myarr1 = await product.find({brand:search}).sort({_id:-1})
+      // myarr2 = await product.find({Title:search}).sort({_id:-1})
+      // Array.prototype.push.apply(myarr1,myarr2);
+      // myarr1= [...new Set(myarr1.map((obj) => obj.prop_id))]
+      products = myarr1
+      console.log("hiiiihihihihi")
+      console.log(myarr1)
+    }
+
     // console.log(products)
     return res.status(200).json(products)
   } catch(error) {
@@ -255,7 +310,7 @@ router.post('/order',(req,res) =>{
 
     ProdArray = JSON.parse(req.body.inventory);
     holder    = req.body.userordered;
-    
+
     User.findOne({
         username: req.body.userordered,
     }).then((doc) => {
@@ -268,7 +323,7 @@ router.post('/order',(req,res) =>{
             console.log(req.body.coinsUsed);
             changedamt = remainingCnt.toString();
             console.log(req.body);
-              User.updateOne({ 
+              User.updateOne({
                 username: req.body.userordered
             }, {
                 CoinAmt: changedamt
@@ -278,11 +333,11 @@ router.post('/order',(req,res) =>{
                         console.log(`Error: ` + err)
                     }
             });
-            
+
         }
     });
 
-  
+
 
     for(const item in ProdArray){
 

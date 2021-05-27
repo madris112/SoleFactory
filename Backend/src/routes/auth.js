@@ -2,8 +2,29 @@ const express  = require('express');
 const passport = require('passport');
 const router   = new express.Router();
 const user     = require('../models/user');
+const productRating = require('../models/productRating');
+const productRatingIpDetails = require('../models/productRatingIpDetails');
 
+router.post('/product/getrating', function(req,res){
+  console.log(req.body.prodid);
+  console.log("hiiiiiiii");
+   productRating.findOne({ prodid: req.body.prodid},function(err,doc){
+     if(err) throw err;
+     if (!doc) {
+         res.status(200).send({
+             message:"user not found!"
 
+         })
+     } else{
+        console.log("findingratinggg")
+         res.status(200).send({
+             prodrate: doc.rating
+         })
+
+     }
+   })
+
+});
 router.get('/auth/failure',(req,res)=>{
      res.status(200).send({
          message: " wrong Credentials!"
@@ -12,11 +33,11 @@ router.get('/auth/failure',(req,res)=>{
 
 
 //local passport
-router.post('/auth/signin', 
+router.post('/auth/signin',
   passport.authenticate('local', { failureRedirect: '/auth/failure',}),
   function(req, res,next) {
 
-       
+
 
       if(req.user) {
           res.status(200).send({
@@ -26,10 +47,10 @@ router.post('/auth/signin',
               user       : req.user,
               cookies    : req.cookies
           });
-          
+
       }
 
-      
+
   });
 
 
@@ -40,7 +61,7 @@ router.get('/auth/google', passport.authenticate('google',{scope: ['email', 'pro
 router.get('/auth/google/callback', passport.authenticate('google'), (req, res) =>{
 
     res.redirect('http://localhost:3000/home');
-  
+
 
 });
 
@@ -77,7 +98,7 @@ router.get('/getuser', function(req,res){
              res.status(200).send({
                  retuser: doc
              })
-             
+
          }
      });
 
@@ -89,7 +110,7 @@ router.post("/update",(req, res)=>{
   console.log("inside update");
   try {
 
-    user.updateOne({ 
+    user.updateOne({
         username: req.body.username,
     }, {
         firstname: req.body.firstname,
@@ -111,9 +132,9 @@ router.post("/update",(req, res)=>{
       message:"Information updated successfully",
       redirect:"/home"
     })
-    
+
   } catch (error) {
-    
+
   }
 })
 

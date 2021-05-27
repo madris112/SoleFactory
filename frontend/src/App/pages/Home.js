@@ -62,7 +62,7 @@ function Home(props) {
 
 
   useEffect(async() => {
-    
+
 
     console.log(category);
 
@@ -196,11 +196,11 @@ var nameofuser = localStorage.getItem('curUser');
 if(!nameofuser)nameofuser="hi";
 // console.log(ngo);
 if(ngo==="false"){
-  
+
    return (
 
-   
-    
+
+
    <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -260,8 +260,8 @@ if(ngo==="false"){
       <ReactBootStrap.NavDropdown
       title= {nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+      >
+        <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
@@ -277,7 +277,7 @@ if(ngo==="false"){
 
      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
-      
+
         <Foot/>
       </div>
     </div>
@@ -345,7 +345,7 @@ if(ngo==="false"){
       title={nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile" >My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
@@ -354,7 +354,7 @@ if(ngo==="false"){
            <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
 
-      
+
 
 
     </ReactBootStrap.Nav>
@@ -362,7 +362,7 @@ if(ngo==="false"){
 </ReactBootStrap.Navbar>
       <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
-      
+
         <Foot/>
       </div>
     </div>

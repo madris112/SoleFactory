@@ -23,7 +23,7 @@ function Cart(props) {
 
   const [ngo, setngo] = useState("false");
   const [coins, setcoins] = useState(null);
-  
+
 
 
   const [popup, setPopUp] = useState(0);
@@ -66,7 +66,7 @@ function Cart(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-          
+
           // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
           //   history.push('/completeForm');
           // }
@@ -98,7 +98,7 @@ function Cart(props) {
       //   history.push(redirectLink)
     }
   }, []);
-  
+
 
 
 
@@ -171,7 +171,7 @@ function Cart(props) {
 
       if(redirectLink!=='')
         history.push(redirectLink)
- 
+
     }
   }, []);
 
@@ -183,7 +183,7 @@ function Cart(props) {
        userordered: localStorage.getItem("curUser"),
        coinsUsed: payWithCoin?numberOfCoins:0
      }
-     
+
      console.log(requestoptions);
      const header = {
       "Content-Type": "application/json"
@@ -195,6 +195,7 @@ function Cart(props) {
     });
     setCurrentCart({})
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
+    // window.location.reload(true);
 
   }
   var nameofuser = localStorage.getItem('curUser');
@@ -298,7 +299,7 @@ function Cart(props) {
       )
     })
   }
-    
+
     <h1>Your total is: {totalAmount}</h1>
     <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
@@ -312,7 +313,7 @@ function Cart(props) {
           </div>
         :
           <div>
-            {localStorage.getItem("ngo") ? 
+            {localStorage.getItem("ngo") ?
             <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
             : null
             }
@@ -323,7 +324,7 @@ function Cart(props) {
       </Portal>
     ) : null
       }
-  </div> 
+  </div>
 </div>
 
     )
@@ -376,15 +377,15 @@ function Cart(props) {
     </Form>
 
     <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
 
 
-      
+
        {/* <ReactBootStrap.Nav>
         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
       </ReactBootStrap.Nav> */}
@@ -393,13 +394,14 @@ function Cart(props) {
       title={nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
            <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
+          <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
@@ -438,7 +440,7 @@ function Cart(props) {
       )
     })
   }
-    
+
     <h1>Your total is: {totalAmount}</h1>
     <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<=0}>Buy All</Button>
     </Container>
@@ -452,7 +454,7 @@ function Cart(props) {
           </div>
         :
           <div>
-            {localStorage.getItem("ngo") ? 
+            {localStorage.getItem("ngo") ?
             <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
             : null
             }
@@ -463,7 +465,7 @@ function Cart(props) {
       </Portal>
     ) : null
       }
-  </div> 
+  </div>
 </div>
 
     )

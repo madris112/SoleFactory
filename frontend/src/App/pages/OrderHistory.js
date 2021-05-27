@@ -56,7 +56,7 @@ function Cart(props) {
             console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
-          
+
           // if(response.data.retuser &&response.data.retuser.IsActivated === "0"){
           //   history.push('/completeForm');
           // }
@@ -213,7 +213,7 @@ function Cart(props) {
 
 
        {/* <ReactBootStrap.Nav>
-      
+
        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
        </ReactBootStrap.Nav> */}
 
@@ -249,8 +249,8 @@ function Cart(props) {
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
             <img className="img_row"
-            fluid 
-            src={'http://localhost:4000/upload/' + data.product.imgURL} alt="" 
+            fluid
+            src={'http://localhost:4000/upload/' + data.product.imgURL} alt=""
             width="150"
             height="120"/>
           </Col>
@@ -270,14 +270,14 @@ function Cart(props) {
     </Container>
   </div>
 </div>
-        
+
     )
     }else{
       return (
         <div>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
-      <img 
+      <img
         alt          = ""
         src          = {sole}
         width        = "30"
@@ -288,9 +288,9 @@ function Cart(props) {
   <ReactBootStrap.Navbar.Toggle   aria-controls = "responsive-navbar-nav" />
   <ReactBootStrap.Navbar.Collapse id            = "responsive-navbar-nav">
   <ReactBootStrap.Nav             className     = "mr-auto">
-      
-      <ReactBootStrap.NavDropdown 
-      title="Categories" 
+
+      <ReactBootStrap.NavDropdown
+      title="Categories"
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
         <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
@@ -300,12 +300,12 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-      
+
       <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
-        
+
       <Form inline div = "search_bar">
       <FormControl
       type        = "text"
@@ -319,14 +319,14 @@ function Cart(props) {
     </Form>
 
        {/* <ReactBootStrap.Nav>
-      
+
        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
        </ReactBootStrap.Nav> */}
 
            <div className="coin_display">
-     
+
         <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-        
+
         {coins}</div>
 
         <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
@@ -335,7 +335,7 @@ function Cart(props) {
       title={nameofuser}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile">My profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
