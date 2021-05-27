@@ -6,8 +6,7 @@ const productRating = require('../models/productRating');
 const productRatingIpDetails = require('../models/productRatingIpDetails');
 
 router.post('/product/getrating', function(req,res){
-  console.log(req.body.prodid);
-  console.log("hiiiiiiii");
+ 
    productRating.findOne({ prodid: req.body.prodid},function(err,doc){
      if(err) throw err;
      if (!doc) {
@@ -110,6 +109,11 @@ router.post("/update",(req, res)=>{
   console.log("inside update");
   try {
 
+    var coinval = "0";
+    if(req.body.isngo){
+      coinval = "1000";
+    }
+
     user.updateOne({
         username: req.body.username,
     }, {
@@ -118,6 +122,8 @@ router.post("/update",(req, res)=>{
         mobile   : req.body.mobile,
         gstno    : req.body.gstno,
         ngoid    : req.body.ngoid,
+        Type     : req.body.isngo,
+        CoinAmt  : coinval,
         IsActivated: "1"
     }
     , (err) => {
