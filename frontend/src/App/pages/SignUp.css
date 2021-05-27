@@ -1,0 +1,22 @@
+.fixed-bg{
+    display: fixed;
+    background-color: #c7c8c9;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .container-bg{
+    background-color: white;
+    border-radius: 10px;
+  }
+  
+  .full-button{
+    display:block;
+    width: 100%;
+  }
+  
+  .form-elem{
+    margin: 10%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }

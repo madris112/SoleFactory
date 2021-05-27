@@ -1,0 +1,145 @@
+/* .fixed-bg{
+  display: fixed;
+  background-color: #c7c8c9;
+  height: 100%;
+  width: 100%;
+  background-size: contain;
+}
+
+.container-bg{
+  background-color: white;
+  border-radius: 10px;
+}
+
+.full-button{
+  display:block;
+  width: 100%;
+}
+
+.form-elem{
+  margin-top: 10%;
+
+} */
+
+.logindiv{
+  background-color: white;
+  position:relative;
+  height: 100vh;
+  width:100vw;
+  overflow-x: hidden;
+  float:left;
+  overflow-y:hidden;
+}
+
+.login-img-col{
+  
+  height:100%;
+  width:100%;
+
+}
+
+.container{
+  max-width: 100%;
+}
+
+#overall-container{
+  height:100%;
+  position:relative;
+  padding:0;
+}
+
+.top-div{
+  height:30%;
+}
+
+#left-container{
+
+  height: 100%;
+  width:80%;
+  background-color:black;
+  border-bottom-right-radius: 500px;
+  text-align: center;
+  padding-top:30%;
+
+}
+#row{
+  height:100%;
+}
+
+#lorem-button{
+  background-color: black;
+  border-radius:10px 10px 10px 10px;
+  border: 2px solid white;
+}
+
+#right-container{
+
+  height: 100%;
+
+}
+
+.wave{
+  height:100%;
+  width:100%;
+  transform: rotate(90deg);
+}
+
+#username{
+  width:70%;
+  margin-left:10%;
+  height:100%;
+  background-color:#c7c8c9;
+  border-radius:10px 10px 10px 10px;
+  
+}
+
+#button{
+  width:40%;
+  margin-left:30%;
+  background-color:black;
+  border-radius:10px 10px 10px 10px;
+  
+}
+
+#button:hover{
+  border:4px solid blueviolet;
+}
+
+#inputgrp{
+  width:62%;
+  margin-left:19%;
+  background-color:#c7c8c9;
+  border-radius:10px 10px 10px 10px;
+
+
+}
+
+#solefactory{
+  animation-name:factory;
+  animation-duration:0.8s ;
+  animation-direction: forwards;
+
+}
+
+@keyframes factory{
+   
+   from{top:-40%;}
+   to{top:0;}
+   
+}
+
+.ani-bike{
+  animation-name:bike;
+  animation-duration:2.0s ;
+  animation-direction: forwards;
+
+}
+
+@keyframes bike{
+  from{right:70%;opacity:1;}
+  to{right:-20%;opacity:1;}
+}
+
+.main-form{
+  
+}
