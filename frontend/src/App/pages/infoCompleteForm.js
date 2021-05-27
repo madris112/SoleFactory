@@ -23,7 +23,7 @@ let redirectLink = '';
   let history = useHistory();
 
   useEffect(() => {
-    
+
       const header = {
         'Content-Type'                    : 'Application/json',
         'Access-Control-Allow-Credentials': true,
@@ -31,19 +31,19 @@ let redirectLink = '';
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.user));
-          console.log(JSON.stringify(response.data.message));
+          // console.log(JSON.stringify(response.data.user));
+          // console.log(JSON.stringify(response.data.message));
           setUserName(response.data.user.username);
           setFirstName(response.data.user.firstname);
           setLastName(response.data.user.lastname);
-        
+
         });
 
       if(redirectLink!=='')
         history.push(redirectLink)
-    
+
   }, []);
-  
+
 
   function handleClick(e) {
     e.preventDefault();
@@ -58,24 +58,24 @@ let redirectLink = '';
       gstno: gstno,
       ngoid: NGOId,
     };
-    console.log(userInput);
+    // console.log(userInput);
     const header = {
       'Content-Type': 'application/json',
     };
-    console.log("input" + userInput);
+    // console.log("input" + userInput);
     axios
       .post('http://localhost:4000/update', userInput, { header })
       .then((response) => {
-        console.log(JSON.stringify(response.data.message));
-        console.log(response.data.user);
+        // console.log(JSON.stringify(response.data.message));
+        // console.log(response.data.user);
         redirectLink = response.data.redirect;
 
           if(redirectLink==='')
-      console.log("ok called")
+      // console.log("ok called")
     if (redirectLink !== '') history.push(redirectLink);
       });
 
-    
+
   }
 
 
@@ -92,16 +92,16 @@ let redirectLink = '';
             <br/>
               <Row>
                 <Col xs={6}>
-                  <Form.Control 
-                  type="text" 
+                  <Form.Control
+                  type="text"
                   placeholder="Firstname"
                   value={firstName}
                   onChange={e=>setFirstName(e.target.value)}
                   ></Form.Control>
                 </Col>
                 <Col xs={6}>
-                  <Form.Control 
-                  type="text" 
+                  <Form.Control
+                  type="text"
                   placeholder="Lastname"
                   value={lastName}
                   onChange={e=>setLastName(e.target.value)}
@@ -109,8 +109,8 @@ let redirectLink = '';
                 </Col>
               </Row>
               <Form.Group className="form-elem">
-                <Form.Control 
-                type="number" 
+                <Form.Control
+                type="number"
                 placeholder="Mobile Number"
                 value={mobile}
                 onChange={e=>setMobile(e.target.value)}
@@ -118,7 +118,7 @@ let redirectLink = '';
               </Form.Group>
               <Row>
                 <Col xs={6}>
-                  <Form.Check 
+                  <Form.Check
                   type="radio"
                   label="Wholeseller"
                   checked={!isNGO}
@@ -126,7 +126,7 @@ let redirectLink = '';
                   />
                 </Col>
                 <Col xs={6}>
-                <Form.Check 
+                <Form.Check
                   type="radio"
                   label="NGO"
                   checked={isNGO}
@@ -136,8 +136,8 @@ let redirectLink = '';
               </Row>
               <Row>
                 <Col xs={6}>
-                  <Form.Control 
-                  type="number" 
+                  <Form.Control
+                  type="number"
                   placeholder="GST Number"
                   value={gstno}
                   onChange={e=>setGSTNo(e.target.value)}
@@ -145,8 +145,8 @@ let redirectLink = '';
                   ></Form.Control>
                 </Col>
                 <Col xs={6}>
-                  <Form.Control 
-                  type="text" 
+                  <Form.Control
+                  type="text"
                   placeholder="NGO Id"
                   value={NGOId}
                   onChange={e=>setNGOId(e.target.value)}

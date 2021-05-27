@@ -44,7 +44,7 @@ function NearExpiry(props) {
 
 
   try{
-    console.log(typeof(props.location.state.searchname));
+    // console.log(typeof(props.location.state.searchname));
     if(props.location.state.searchname!=undefined){
       initSearchName = props.location.state.searchname
       FirstQuery= props.location.state.searchname
@@ -53,7 +53,7 @@ function NearExpiry(props) {
     }
   }catch{}
   try{
-    console.log("ye wala " + props.location.state.category)
+    // console.log("ye wala " + props.location.state.category)
     if(props.location.state.category!=undefined){
 
       ThirdQuery = props.location.state.category
@@ -64,7 +64,7 @@ function NearExpiry(props) {
   useEffect(async() => {
 
 
-    console.log(category);
+    // console.log(category);
 
     if(category!==null || ThirdQuery){
     let query = null;
@@ -82,12 +82,12 @@ function NearExpiry(props) {
 
   useEffect(async () => {
 
-    console.log(searchname)
-    console.log("clicked + FirstQuery")
+    // console.log(searchname)
+    // console.log("clicked + FirstQuery")
     const userInput = {
       searchname: searchname
     }
-    console.log("searchinf first query" + FirstQuery);
+    // console.log("searchinf first query" + FirstQuery);
     const header = {
       "Content-Type":"application/json"
     };
@@ -99,18 +99,18 @@ function NearExpiry(props) {
           for(let key in response.data){
             const curDate = new Date().toLocaleDateString();
             const expdate = new Date(response.data[key].expiryDate).toLocaleDateString();
-          
+
             var initial = curDate.split(/\//);
             var s1=[ initial[1], initial[0], initial[2] ].join('/');
-          
+
             var last = expdate.split(/\//);
             var s2=[ last[1], last[0], last[2] ].join('/');
-          
+
             const a=new Date(s1);
             const b=new Date(s2);
             const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
-          
-            console.log(c);
+
+            // console.log(c);
             response.data[key]["nearexpiry"] = 1;
             if(c<15){
               tempexpiryarray.push(response.data[key]);
@@ -119,14 +119,14 @@ function NearExpiry(props) {
           setProdArray(tempexpiryarray)
         } );
 
-    console.log('searching search bar done')
+    // console.log('searching search bar done')
   },[FirstQuery])
 
   let redirectLink = '';
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -134,22 +134,22 @@ function NearExpiry(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      // console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
             localStorage.setItem("ngo","false");
             localStorage.setItem("coins","0");
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
             localStorage.setItem("ngo","true");
-            console.log("hello");
+            // console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            // console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
             localStorage.setItem("coins",response.data.retuser.CoinAmt);
           }

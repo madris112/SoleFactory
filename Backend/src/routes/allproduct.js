@@ -66,17 +66,17 @@ router.post('/product/rating', function(req, res) {
           if(e) throw e;
           else {
             if(rest){
-              console.log("hiiiiiiiii")
-              console.log(rate)
+              // console.log("hiiiiiiiii")
+              // console.log(rate)
               var x = rest.cnt;
               var y= rest.rating;
               y = (y*x);
               y = y + rate;
               x = x+1;
               y = y/x;
-
-              console.log(x)
-              console.log(y)
+              //
+              // console.log(x)
+              // console.log(y)
               productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
                   if (err){
                     console.log(err)
@@ -153,8 +153,8 @@ router.get('/product/search', async (req, res) => {
       // Array.prototype.push.apply(myarr1,myarr2);
       // myarr1= [...new Set(myarr1.map((obj) => obj.prop_id))]
       products = myarr1
-      console.log("hiiiihihihihi")
-      console.log(myarr1)
+      // console.log("hiiiihihihihi")
+      // console.log(myarr1)
     }
 
     // console.log(products)
@@ -446,7 +446,7 @@ function compare(a,b){
     if(a.Sort<b.Sort)
        return 1;
     else
-       return 0;      
+       return 0;
 }
 
 router.get('/bestSeller',async(req,res)=>{
@@ -457,7 +457,7 @@ router.get('/bestSeller',async(req,res)=>{
         const productList = await product.find({});
         var bestseller = [];
         for(const item in productList){
-            
+
             try {
                 visitdetails = await productCount.findOne({
                     prodid: productList[item]._id,
@@ -476,11 +476,11 @@ router.get('/bestSeller',async(req,res)=>{
             var b = 1;
             var c = 1;
 
-            
-            
+
+
             if(visitdetails){
                 a = parseInt(visitdetails.cnt);
-                
+
             }
 
             if(ratingDetails){
@@ -502,7 +502,7 @@ router.get('/bestSeller',async(req,res)=>{
 
         }
         bestseller.sort(compare);
-        
+
         res.status(200).send({
             message:"best seller received",
             bestsell: bestseller

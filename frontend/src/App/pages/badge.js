@@ -15,7 +15,8 @@ const StyledBadge = withStyles((theme) => ({
 
 export default function Badges() {
   var badge=JSON.parse(localStorage.getItem(localStorage.getItem("curUser")));
-  console.log(badge);
+  //console.log(badge);
+  if(badge)
   var len=Object.keys(badge).length;
   return (
     <IconButton aria-label="cart">

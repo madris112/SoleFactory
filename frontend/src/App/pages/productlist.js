@@ -12,7 +12,7 @@ function ProductList(props){
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -20,17 +20,17 @@ function ProductList(props){
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      // console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            console.log("hello");
+            // console.log("hello");
           }
 
         }
@@ -47,7 +47,7 @@ function ProductList(props){
     var currRating;
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
-    console.log("rating starts")
+    // console.log("rating starts")
     const userInput = {
     prodid: prod_id
   }
@@ -56,10 +56,10 @@ function ProductList(props){
     };
     axios.post('http://localhost:4000/product/getrating', userInput, { header } )
        .then(response => {
-         console.log(JSON.stringify(response.data.prodrate));
+         // console.log(JSON.stringify(response.data.prodrate));
 
          currRating=response.data.prodrate;
-         console.log(currRating);
+         // console.log(currRating);
        });
     let data = {
       "prod_id": prod_id,
@@ -86,7 +86,7 @@ function ProductList(props){
      axios.post('http://localhost:4000/product/counter',userInput, { header } )
         .then(response => {var newcnt =  response.data} );
 
-    console.log('countcheck done')
+    // console.log('countcheck done')
 
       history.push({
         pathname: "/productdescription",
@@ -113,7 +113,7 @@ function ProductList(props){
           <Card.Footer>
 
           <div>
-            {nearexpiry?   
+            {nearexpiry?
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             : <p className="text-muted">₹ <strong> {price} </strong></p>}
             <small className="text-right">    x {instock} units</small>
@@ -147,7 +147,7 @@ function ProductList(props){
           <Card.Footer>
 
           <div>
-            {nearexpiry?   
+            {nearexpiry?
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             : <p className="text-muted">₹ <strong> {price} </strong></p>}
             <small className="text-right">    x {instock} units</small>
@@ -165,7 +165,7 @@ function ProductList(props){
         <Card.Body>
           <Card.Title>No results</Card.Title>
           <Card.Text>
-          
+
              <img src={Emptyimg} style={{marginLeft:"40%",height:"15%",width:"20%"}}/>
              <p  style={{marginLeft:"40%"}}>Oops nothing mathces your search query !</p>
           </Card.Text>

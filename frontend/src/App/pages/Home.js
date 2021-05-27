@@ -44,7 +44,7 @@ function Home(props) {
 
 
   try{
-    console.log(typeof(props.location.state.searchname));
+    //console.log(typeof(props.location.state.searchname));
     if(props.location.state.searchname!=undefined){
       initSearchName = props.location.state.searchname
       FirstQuery= props.location.state.searchname
@@ -53,7 +53,7 @@ function Home(props) {
     }
   }catch{}
   try{
-    console.log("ye wala " + props.location.state.category)
+    //console.log("ye wala " + props.location.state.category)
     if(props.location.state.category!=undefined){
 
       ThirdQuery = props.location.state.category
@@ -64,7 +64,7 @@ function Home(props) {
   useEffect(async() => {
 
 
-    console.log(category);
+    //console.log(category);
 
     if(category!==null || ThirdQuery){
     let query = null;
@@ -82,12 +82,12 @@ function Home(props) {
 
   useEffect(async () => {
 
-    console.log(searchname)
-    console.log("clicked + FirstQuery")
+    //console.log(searchname)
+    //console.log("clicked + FirstQuery")
     const userInput = {
       searchname: searchname
     }
-    console.log("searchinf first query" + FirstQuery);
+    //console.log("searchinf first query" + FirstQuery);
     const header = {
       "Content-Type":"application/json"
     };
@@ -95,14 +95,14 @@ function Home(props) {
     await axios.get('http://localhost:4000/product/search', {params:{searchname:FirstQuery,category:SecondQuery},header})
         .then(response => setProdArray(response.data) );
 
-    console.log('searching search bar done')
+    //console.log('searching search bar done')
   },[FirstQuery])
 
   let redirectLink = '';
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      //console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -110,22 +110,22 @@ function Home(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      //console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
             localStorage.setItem("ngo","false");
             localStorage.setItem("coins","0");
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
             localStorage.setItem("ngo","true");
-            console.log("hello");
+            // console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            // console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
             localStorage.setItem("coins",response.data.retuser.CoinAmt);
           }
@@ -145,8 +145,8 @@ function Home(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.user));
-          console.log(JSON.stringify(response.data.message));
+          // console.log(JSON.stringify(response.data.user));
+          // console.log(JSON.stringify(response.data.message));
           if(response.data.user && response.data.user.IsActivated === '0'){
             history.push('/completeForm');
           }

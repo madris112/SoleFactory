@@ -43,7 +43,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      //console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -51,19 +51,19 @@ function Cart(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      //console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            console.log("hello");
+            //console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            //console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
         }
@@ -109,7 +109,7 @@ function Cart(props) {
     if(searchname!="")
     query = "?searchname="+searchname;
 
-    console.log("cart" + data);
+    //console.log("cart" + data);
 
     history.push({
         pathname: "/home",
@@ -124,7 +124,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      //console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
     } else {
       const header = {
@@ -134,7 +134,7 @@ function Cart(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.message));
+          //console.log(JSON.stringify(response.data.message));
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
@@ -165,13 +165,13 @@ function Cart(props) {
        coinsUsed: payWithCoin?numberOfCoins:0
      }
 
-     console.log(requestoptions);
+     //console.log(requestoptions);
      const header = {
       "Content-Type": "application/json"
     };
      axios.post("http://localhost:4000/order",requestoptions,{header})
      .then(response => {
-       console.log(response.data.message)
+       //console.log(response.data.message)
        setMessage(response.data.message);
     });
     setCurrentCart({})
@@ -257,7 +257,7 @@ function Cart(props) {
         return;
       totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
-      console.log("items")
+      //console.log("items")
       return(
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
@@ -398,7 +398,7 @@ function Cart(props) {
         return;
       totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
-      console.log("items")
+      //console.log("items")
       return(
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>

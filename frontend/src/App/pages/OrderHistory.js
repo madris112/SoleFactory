@@ -33,7 +33,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -41,19 +41,19 @@ function Cart(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      // console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            console.log("hello");
+            // console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            // console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
 
@@ -102,7 +102,7 @@ function Cart(props) {
 
   function logoutClick(e){
 
-    console.log("clicked");
+    // console.log("clicked");
 
     localStorage.clear();
     const header = {
@@ -139,7 +139,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
     } else {
       const header = {
@@ -149,7 +149,7 @@ function Cart(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.message));
+          // console.log(JSON.stringify(response.data.message));
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
