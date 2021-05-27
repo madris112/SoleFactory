@@ -59,7 +59,7 @@ function Home(props) {
 
 
   useEffect(async() => {
-    
+
 
     console.log(category);
 
@@ -112,9 +112,9 @@ function Home(props) {
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          //console.log(JSON.stringify(response.data.retuser));
+          //console.log(JSON.stringify(response.data.retuser.Type));
+          //console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
             console.log("hello");
@@ -250,7 +250,7 @@ if(ngo==="false"){
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
@@ -331,7 +331,7 @@ if(ngo==="false"){
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item href="/profile" eventKey="">My Profile</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile" >My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>

@@ -6,7 +6,7 @@ import {Button,Card, Container, FormControl, Form, Col, Row} from 'react-bootstr
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import { FaCartPlus } from "react-icons/fa";
 import ProductList from "./productlist"
 import "./OrderHistory.css"
 import axios from 'axios'
@@ -212,20 +212,16 @@ function Profile() {
   variant = "outline-info"
   onClick = {handleClick}>Search</Button>
 </Form>
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
         <ReactBootStrap.NavDropdown
   title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
   id="collasible-nav-dropdown"
   onSelect={(key) => setCategory(key)}>
-    <ReactBootStrap.NavDropdown.Item onCLick="profileclick" href= "/profile"eventKey="All">My Profile</ReactBootStrap.NavDropdown.Item>
+    <ReactBootStrap.NavDropdown.Item onCLick="profileclick" href= "/profile">My Profile</ReactBootStrap.NavDropdown.Item>
     <ReactBootStrap.NavDropdown.Divider />
     <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
   </ReactBootStrap.NavDropdown>
-  <Link to= "/cart" style={{backgroundColor: "white"}}>
-  <img
-  src    = {cart}
-  alt    = ""
-  width  = "30"
-  height = "30" /></Link>
+     <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
 </ReactBootStrap.Nav>
 </ReactBootStrap.Navbar.Collapse>

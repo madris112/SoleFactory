@@ -142,12 +142,12 @@ function Cart(props) {
       variant = "outline-info"
       onClick = {handleClick}>Search</Button>
     </Form>
-
+      <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
             <ReactBootStrap.NavDropdown
       title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
       id="collasible-nav-dropdown"
       onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+        <ReactBootStrap.NavDropdown.Item href="/profile">My profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>

@@ -69,9 +69,25 @@ function ProductList(props){
 
   //console.log(props.arr);
   let history = useHistory();
+
   const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval}) => {
+    var currRating;
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
+    console.log("rating starts")
+    const userInput = {
+    prodid: prod_id
+  }
+    const header = {
+      'Content-Type': 'Application/json'
+    };
+    axios.post('http://localhost:4000/product/getrating', userInput, { header } )
+       .then(response => {
+         console.log(JSON.stringify(response.data.prodrate));
+
+         currRating=response.data.prodrate;
+         console.log(currRating);
+       });
     let data = {
       "prod_id": prod_id,
       "discount": discount,
@@ -124,7 +140,8 @@ function ProductList(props){
 
           <div>
             <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            <small className="text-right">    x {instock} units</small></div>
+            <small className="text-right">    x {instock} units</small>
+            </div>
             <div className="smiley">
             <h4>{coinval} </h4>
             <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
@@ -155,9 +172,8 @@ function ProductList(props){
 
           <div>
             <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            <small className="text-right">    x {instock} units</small></div>
-
-
+            <small className="text-right">    x {instock} units</small>
+            </div>
           </Card.Footer>
         </Card>
       </Col>
