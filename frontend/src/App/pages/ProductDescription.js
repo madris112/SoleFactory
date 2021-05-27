@@ -12,6 +12,7 @@ import gucci from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
 import coin from "./coin.png"
 import Hrating from "./rating.js"
+import Badges from "./badge.js"
 function ProductDescription(props) {
   let history = useHistory();
   let initQuantity = 0;
@@ -230,7 +231,7 @@ function ProductDescription(props) {
           <ReactBootStrap.NavDropdown.Divider />
           <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
         </ReactBootStrap.NavDropdown>
-      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
@@ -376,7 +377,7 @@ function ProductDescription(props) {
           <ReactBootStrap.NavDropdown.Divider />
           <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
         </ReactBootStrap.NavDropdown>
-      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
@@ -436,6 +437,7 @@ function ProductDescription(props) {
                 <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
                 </div>
+
                 <h6 style={{color:"green"}}>{msg}</h6>
               </Col>
             </Row>

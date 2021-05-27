@@ -13,7 +13,7 @@ import cart from "./cart.svg"
 import coin from "./coin.png"
 import guccibelt from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
-
+import Badges from "./badge.js"
 function Cart(props) {
   const [currentCart, setCurrentCart] = useState({})
   const [message , setMessage] = useState(null)
@@ -195,7 +195,7 @@ function Cart(props) {
     });
     setCurrentCart({})
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
-    // window.location.reload(true);
+    window.location.reload(true);
 
   }
   var nameofuser = localStorage.getItem('curUser');
@@ -253,12 +253,12 @@ function Cart(props) {
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="All">My Profile</ReactBootStrap.NavDropdown.Item>
+      >
+        <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} >Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+           <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
@@ -393,15 +393,14 @@ function Cart(props) {
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
+      >
         <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+           <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
-          <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >

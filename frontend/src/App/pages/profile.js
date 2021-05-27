@@ -14,6 +14,7 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import guccibelt from "./guccibelt.jpeg"
+import Badges from "./badge.js"
 function Profile() {
   let history = useHistory();
 
@@ -216,12 +217,12 @@ function Profile() {
         <ReactBootStrap.NavDropdown
   title={nameofuser.charAt(0).toUpperCase() +nameofuser.slice(1)}
   id="collasible-nav-dropdown"
-  onSelect={(key) => setCategory(key)}>
-    <ReactBootStrap.NavDropdown.Item onCLick="profileclick" href= "/profile">My Profile</ReactBootStrap.NavDropdown.Item>
+  >
+    <ReactBootStrap.NavDropdown.Item href= "/profile">My Profile</ReactBootStrap.NavDropdown.Item>
     <ReactBootStrap.NavDropdown.Divider />
     <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
   </ReactBootStrap.NavDropdown>
-     <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+     <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
 </ReactBootStrap.Nav>
 </ReactBootStrap.Navbar.Collapse>

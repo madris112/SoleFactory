@@ -11,7 +11,7 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
-
+import Badges from "./badge.js"
 function Home(props) {
 
   const [searchname, setSearchName] = useState(null);
@@ -267,7 +267,7 @@ if(ngo==="false"){
       </ReactBootStrap.NavDropdown>
 
 
-     <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+     <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
 
     </ReactBootStrap.Nav>
@@ -351,7 +351,7 @@ if(ngo==="false"){
       </ReactBootStrap.NavDropdown>
 
 
-           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="/cart"><Badges /></ReactBootStrap.Nav.Link>
 
 
 
