@@ -130,9 +130,13 @@
 
 .ani-bike{
   animation-name:bike;
+<<<<<<< HEAD
+  animation-duration:2.0s ;
+=======
 
   animation-duration:2.0s ;
 
+>>>>>>> 2cdf7213b3160aad144417eae5025e4ea92c3c55
   animation-direction: forwards;
 
 }

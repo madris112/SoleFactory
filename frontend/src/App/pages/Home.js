@@ -148,11 +148,7 @@ function Home(props) {
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
-
-
           if(response.data.user && response.data.user.IsActivated === '0'){
-
-
             history.push('/completeForm');
           }
           redirectLink = response.data.redirect;
@@ -207,7 +203,6 @@ if(ngo==="false"){
    
     
     <div width="100%">
-
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -289,9 +284,7 @@ if(ngo==="false"){
 
 }else{
   return (
-
     <div width="100%" style={{overflowX: 'hidden'}}>
-
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -354,7 +347,6 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-
 
 
            <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
