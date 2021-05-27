@@ -147,11 +147,7 @@ function Home(props) {
         .then((response) => {
           console.log(JSON.stringify(response.data.user));
           console.log(JSON.stringify(response.data.message));
-
-
           if(response.data.user && response.data.user.IsActivated === '0'){
-
-
             history.push('/completeForm');
           }
           redirectLink = response.data.redirect;
@@ -205,8 +201,7 @@ if(ngo==="false"){
 
    
     
-    <div width="100%">
-
+   <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -280,17 +275,18 @@ if(ngo==="false"){
 </ReactBootStrap.Navbar>
 
 
-
+     <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
-      <Foot />
+      
+        <Foot/>
+      </div>
     </div>
   )
 
 }else{
   return (
 
-    <div width="100%" style={{overflowX: 'hidden'}}>
-
+    <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
@@ -355,7 +351,6 @@ if(ngo==="false"){
       </ReactBootStrap.NavDropdown>
 
 
-
            <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
 
 
@@ -365,9 +360,11 @@ if(ngo==="false"){
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-
+      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
       <ProductList arr={prodarray} />
+      
         <Foot/>
+      </div>
     </div>
   )
 }
