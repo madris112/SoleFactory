@@ -340,12 +340,6 @@ router.post('/order',(req,res) =>{
 
 
     for(const item in ProdArray){
-
-        var NewQuantity = ProdArray[item].quantity;
-
-
-
-
         try {
             product.findOne({
                 _id: item,
@@ -353,16 +347,10 @@ router.post('/order',(req,res) =>{
                 if (!doc) {
                     console.log("No such Product exist");
                 } else{
-
-                    let order           = doc;
-                        reducedQuantity = NewQuantity;
-                        NewQuantity     = order.Quantity - NewQuantity;
-
-
                         product.updateOne({
                             _id: item
                         }, {
-                         Quantity: NewQuantity
+                         Quantity: doc.Quantity - ProdArray[item].quantity
                         }
                         , (err) => {
                                if(err){
@@ -375,7 +363,7 @@ router.post('/order',(req,res) =>{
                             orderModel.create({
                                 productId: item,
                                 user     : req.body.userordered,
-                                Quantity : reducedQuantity,
+                                Quantity : ProdArray[item].quantity,
                                 price    : ProdArray[item].price
 
 
