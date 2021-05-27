@@ -105,7 +105,7 @@ function ProductList(props){
     }
 
     if(ngo==="true"){
-        if(instock == 0){
+        if(instock <= 0){
           return null
         }
          return (

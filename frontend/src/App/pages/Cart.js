@@ -28,7 +28,6 @@ function Cart(props) {
 
   const [popup, setPopUp] = useState(0);
   const [payWithCoin, setPayWithCoin] = useState(0);
-  const [paymentConfirmed, setPaymentConfirmed] = useState(0)
   let totalAmount = 0;
   let numberOfCoins = 0;
 
@@ -181,11 +180,10 @@ function Cart(props) {
     let inventory = localStorage.getItem(localStorage.getItem("curUser"));
      let requestoptions = {
        inventory: inventory,
-       userordered: localStorage.getItem("curUser")
+       userordered: localStorage.getItem("curUser"),
+       coinsUsed: payWithCoin?numberOfCoins:0
      }
-     if(paymentConfirmed){
-       requestoptions = {...requestoptions, coinsUsed: payWithCoin?numberOfCoins:0}
-     }
+     
      console.log(requestoptions);
      const header = {
       "Content-Type": "application/json"
@@ -324,7 +322,7 @@ function Cart(props) {
             }
             <h1>You need to pay: {totalAmount}Rupees</h1>
           </div>}
-        <Button onClick={() => {setPopUp(0);setPaymentConfirmed(1);confirmBuy();}}>Pay</Button>
+        <Button onClick={() => {setPopUp(0);confirmBuy();}}>Pay</Button>
         <Button onClick={() => setPopUp(0)}>Cancel</Button>
       </Portal>
     ) : null
@@ -464,7 +462,7 @@ function Cart(props) {
             }
             <h1>You need to pay: {totalAmount}Rupees</h1>
           </div>}
-        <Button onClick={() => {setPopUp(0);setPaymentConfirmed(1);confirmBuy();}}>Pay</Button>
+        <Button onClick={() => {setPopUp(0);confirmBuy();}}>Pay</Button>
         <Button onClick={() => setPopUp(0)}>Cancel</Button>
       </Portal>
     ) : null
