@@ -16,6 +16,8 @@ import { FaCartPlus } from "react-icons/fa";
 
 
 
+
+
 import { useEffect } from 'react';
 
 
@@ -165,7 +167,7 @@ function Cart(props) {
   if(!nameofuser)nameofuser="hi";
     if(ngo==="false"){
     return (
-        <div style={{overflowX: 'hidden'}}>
+        <div>
             <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">
       <img
@@ -338,6 +340,7 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
                 <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+
 
 
 

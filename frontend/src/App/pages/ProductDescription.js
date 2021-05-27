@@ -174,9 +174,7 @@ function ProductDescription(props) {
   if(!nameofuser)nameofuser="hi"
   if(ngo==="false"){
   return (
-
     <div style={{overflowX: 'hidden'}}>
-
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
       <ReactBootStrap.Navbar.Brand href                    = "/home">

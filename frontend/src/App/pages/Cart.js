@@ -248,13 +248,9 @@ function Cart(props) {
     </Form>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-
        {/* <ReactBootStrap.Nav>
          <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
        </ReactBootStrap.Nav> */}
-
-       
-
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
