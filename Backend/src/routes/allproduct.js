@@ -451,4 +451,81 @@ router.get('/gethistory',async(req,res)=>{
     }
 
 })
+
+function compare(a,b){
+    if(a.Sort> b.Sort)
+       return -1;
+    if(a.Sort<b.Sort)
+       return 1;
+    else
+       return 0;      
+}
+
+router.get('/bestSeller',async(req,res)=>{
+
+    console.log("inside bestseller")
+
+    try {
+        const productList = await product.find({});
+        var bestseller = [];
+        for(const item in productList){
+            
+            try {
+                visitdetails = await productCount.findOne({
+                    prodid: productList[item]._id,
+                });
+            } catch (error) {
+                console.error(error)
+            }
+            try {
+                ratingDetails = await productRating.findOne({
+                    prodid: productList[item]._id,
+                });
+            } catch (error) {
+                console.error(error)
+            }
+            var a = 1;
+            var b = 1;
+            var c = 1;
+
+            
+            
+            if(visitdetails){
+                a = parseInt(visitdetails.cnt);
+                
+            }
+
+            if(ratingDetails){
+                b = parseInt(ratingDetails.rating);
+            }
+
+            if(ratingDetails){
+                c = parseInt(ratingDetails.cnt);
+            }
+
+            SortDetails =  a+ b*c;
+
+            current = {
+                product: productList[item],
+                Sort: SortDetails
+            }
+
+            bestseller.push(current);
+
+        }
+        bestseller.sort(compare);
+        
+        res.status(200).send({
+            message:"best seller received",
+            bestsell: bestseller
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            message:"something went wrong",
+        })
+    }
+
+});
+
 module.exports = router;
