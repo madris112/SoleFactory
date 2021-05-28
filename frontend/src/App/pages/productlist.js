@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import smile from './smile.png'
 import axios from 'axios'
 import Emptyimg from './finalnotfound.png'
+import { FaBoxes } from "react-icons/fa";
 
 function ProductList(props){
   const [ngo, setngo] = useState("false");
@@ -99,29 +100,35 @@ function ProductList(props){
           return null
         }
          return (
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
         <Card onClick={handleClick}
-            className="cardHover">
+            className="cardHover"
+            id ="cardcss">
           <Card.Body>
-            <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
+            <Card.Img variant="top" src= {sc} id="cardImg"/>
             <Card.Title
-            className="cardHover">
+            className="cardHover"
+            style={{overflow: "hidden",height:"50px"}}>
             {title}
             </Card.Title>
-            <Card.Text>{brand}</Card.Text>
+            <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
 
-          <div>
+          <div style = {{height: "100%"}}>
             {nearexpiry?   
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            : <p className="text-muted">₹ <strong> {price} </strong></p>}
-            <small className="text-right">    x {instock} units</small>
+            : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price}</strong></p>}
+              <div style={{display:"inline-block",width:"100%"}}>
+              <large className="text-right">  <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/>  {instock} </large>
+              <div className="smiley"  style={{top:"0",position:"relative",float:"right"}}>
+              <h4>{coinval} </h4>
+              <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
+              </div>
+              </div>
+            
             </div>
-            <div className="smiley">
-            <h4>{coinval} </h4>
-            <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
-            </div>
+            
 
           </Card.Footer>
         </Card>
@@ -146,15 +153,15 @@ function ProductList(props){
             {title}
             </Card.Title>
             
-            <Card.Text  >{brand}</Card.Text>
+            <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
           </Card.Body>
-          <Card.Footer style = {{height: "90px",marginTop:"0"}}>
+          <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
 
           <div style = {{height: "100%"}}>
             {nearexpiry?   
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            : <p className="text-muted">₹ <strong> {price} </strong></p>}
-            <small className="text-right">    x {instock} units</small>
+            : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>}
+            <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
             </div>
           </Card.Footer>
         </Card>
