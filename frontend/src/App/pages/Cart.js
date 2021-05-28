@@ -211,6 +211,8 @@ function Cart(props) {
       </ReactBootStrap.NavDropdown>
 
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
+
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
@@ -413,6 +415,8 @@ function Cart(props) {
       </ReactBootStrap.NavDropdown>
 
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
+
 
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>

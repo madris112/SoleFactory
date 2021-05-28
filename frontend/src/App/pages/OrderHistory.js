@@ -228,7 +228,7 @@ function Cart(props) {
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
- <h2 className="your_orders"><strong>Your Orders</strong></h2>
+ <h2 className="your_orders"><strong>Order History</strong></h2>
  </div>
 
  <div className="whole_page">
@@ -341,7 +341,7 @@ function Cart(props) {
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
- <h2 className="your_orders"><strong>Your Orders</strong></h2>
+ <h2 className="your_orders"><strong>Order History</strong></h2>
  </div>
 
  <div className="whole_page">

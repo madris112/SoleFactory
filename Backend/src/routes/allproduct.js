@@ -155,38 +155,38 @@ router.get('/product/search', async (req, res) => {
           myarr2.push(data);
         }
       })
-      var myarr3 = [];
-      for(const item in myarr2){
-        var b=0;
-          try {
-              ratingDetails = await productRating.findOne({
-                  prodid: myarr2[item]._id,
-              });
-          } catch (error) {
-              console.error(error)
-          }
-          console.log("helloji")
+      // var myarr3 = [];
+      // for(const item in myarr2){
+      //   var b=0;
+      //     try {
+      //         ratingDetails = await productRating.findOne({
+      //             prodid: myarr2[item]._id,
+      //         });
+      //     } catch (error) {
+      //         console.error(error)
+      //     }
+      //     console.log("helloji")
 
-          if(ratingDetails){
-            console.log(ratingDetails.rating)
-              b = ratingDetails.rating;
-              console.log(b)
-          }
+      //     if(ratingDetails){
+      //       console.log(ratingDetails.rating)
+      //         b = ratingDetails.rating;
+      //         console.log(b)
+      //     }
 
-          current = {
-              product: myarr2[item],
-              curr: b
-          }
+      //     current = {
+      //         product: myarr2[item],
+      //         curr: b
+      //     }
 
-          myarr3.push(current);
+      //     myarr3.push(current);
 
-      }
-      // myarr2 = await product.find({Title:search}).sort({_id:-1})
-      // Array.prototype.push.apply(myarr1,myarr2);
-      // myarr1= [...new Set(myarr1.map((obj) => obj.prop_id))]
-      products = myarr3
-      // console.log("hiiiihihihihi")
-      // console.log(myarr1)
+      // }
+      //  myarr2 = await product.find({Title:search}).sort({_id:-1})
+      //  Array.prototype.push.apply(myarr1,myarr2);
+      //  myarr1= [...new Set(myarr1.map((obj) => obj.prop_id))]
+      products = myarr2
+      //  console.log("hiiiihihihihi")
+      //  console.log(myarr1)
     }
 
     // console.log(products)
