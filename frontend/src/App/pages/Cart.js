@@ -250,7 +250,10 @@ function Cart(props) {
   
     <Row fluid>
        <Col>
-        <div class="freeDel-div"><h5 style={{color:"#FF8C00"}}>GET ASSURED FREE DELIVERY</h5></div>
+        <div class="freeDel-div">
+          <h5 style={{color:"#FF8C00",textAlign:"center"}}>GET ASSURED FREE DELIVERY ON EVERY PURCHASE</h5>
+          <h6 style={{textAlign:"center"}}>With your every purchase SoleFactory gives certain profit to NGO ( samarpan )</h6>
+        </div>
         <br/>
           <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
           {
@@ -269,8 +272,8 @@ function Cart(props) {
               <div style={{height:"100%",width:"30%",float:"left"}}>
               <img src={'http://localhost:4000/upload/' + currentCart[data].img_url} style={{height:"100%",width:"100%"}}/>
               </div>
-              <div style={{height:"100%",width:"70%",float:"right"}}></div>
-              <Card.Title>{currentCart[data].title}</Card.Title>
+              <div style={{height:"100%",width:"70%",float:"right"}}>
+              <Card.Title style={{height:"50px",overflow:"hidden"}}>{currentCart[data].title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">By {currentCart[data].brand}</Card.Subtitle>
               <Card.Text>
                 <h5>Quantity: {currentCart[data].quantity}</h5>
@@ -283,6 +286,7 @@ function Cart(props) {
                  <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
                  </div>
               </div>
+              </div>
               
               
               </Card.Body>
@@ -293,51 +297,57 @@ function Cart(props) {
        
        </Col>
          
-       <Col></Col>
-    </Row>
-   
-  </Container>
-   
- {/* <h2 className="your_orders"><strong>YOUR CART</strong></h2>
- <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
- </div>
- <div className="whole_page">
-  {console.log(currentCart)}
-    <Container >
-  {
-    Object.keys(currentCart).map((data,key) => {
-      if(currentCart[data].quantity==0)
-        return;
-      totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
-      numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
-      //console.log("items")
-      return(
-        <Row className="row_orders">
-          <Col style={{padding: "0px"}}>
-            <img className="img_row"
-            fluid
-            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt=""
-            width="150"
-            height="120"/>
-          </Col>
-          <Col style={{padding: "5px"}}><br/>
-            <h4><strong>{currentCart[data].title}</strong></h4>
-            <p> </p>
-            <h5>Quantity: {currentCart[data].quantity}</h5>
-          </Col>
-          <Col className="row_price">
-            {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
-            <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
-          </Col>
-        </Row>
-      )
-    })
-  }
-
-    <h3 style={{float: "right" , paddingTop: "20px"}}>Your total is: {totalAmount}</h3>
-    <Button style={{marginTop: "20px"}}variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
-    </Container>
-    {popup ? (
+       <Col >
+          <Container id="summary-container">
+           <Row>
+             <Col>
+                <h4 style={{color:"white"}}>SUMMARY</h4>
+             </Col>
+           </Row>
+           <Row>
+              <Col>
+                <p style={{color:"white"}}>DO YOU HAVE A PROMO CODE?</p>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+              <div style={{display:"inline-block",width:"100%",height:"100%"}}>
+                <h6 style={{color:"white",float:"left"}}>SUBTOTAL</h6>
+                <p style={{color:"white",float:"right"}}>₹{totalAmount}</p>
+              </div>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+              <div style={{display:"inline-block",width:"100%",height:"100%"}}>
+                <h6 style={{color:"white",float:"left"}}>ESTIMATED SHIPPING CHARGES</h6>
+                <p style={{color:"white",float:"right"}}>₹0</p>
+              </div>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+              <div style={{display:"inline-block",width:"100%",height:"100%"}}>
+                <h6 style={{color:"white",float:"left"}}>TOTAL</h6>
+                <p style={{color:"white",float:"right"}}>₹{totalAmount}</p>
+              </div>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+                 <Button style={{backgroundColor:"#F28C28",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}}  onClick={()=>setPopUp(1)} disabled={totalAmount<10000}> CHECKOUT</Button>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid >
+                <p style={{color:"white",marginLeft:"50%",marginTop:"10px"}}>OR</p>
+              </Col>
+           </Row>
+           <Row>
+              <Col>
+                <Button style={{backgroundColor:"white",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}} onClick={()=>setPopUp(1)} disabled={totalAmount<10000}> <span style={{color:"black"}}>PAY WITH UPI</span></Button>
+                <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
+                {popup ? (
       <Portal >
         <h1>Your total is: {totalAmount}</h1>
         {payWithCoin ?
@@ -357,7 +367,16 @@ function Cart(props) {
         <Button onClick={() => setPopUp(0)}>Cancel</Button>
       </Portal>
     ) : null
-      } */}
+      }
+              </Col>
+           </Row>
+          </Container>
+          
+       </Col>
+    </Row>
+   
+  </Container>
+   
   </div>
 </div>
 
@@ -437,7 +456,145 @@ function Cart(props) {
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-  <div className="you_orders" >
+  <div style={{height:"100%",width:"100%"}}>
+  
+  <Container fluid>
+  
+    <Row fluid>
+       <Col>
+        <div class="freeDel-div">
+          <h5 style={{color:"#FF8C00",textAlign:"center"}}>GET ASSURED FREE DELIVERY ON EVERY PURCHASE</h5>
+          <h6 style={{textAlign:"center"}}>With your every purchase SoleFactory gives certain profit to NGO ( samarpan )</h6>
+        </div>
+        <br/>
+          <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
+          {
+   Object.keys(currentCart).map((data,key) => {
+     if(currentCart[data].quantity==0){
+        return(
+          <h3>Your Cart Is Empty</h3>
+        )
+     }
+        totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
+      numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
+        return(
+            <Card class="cart-card">
+              <Card.Body class="cart-body">
+              <div class="inside-cart">
+              <div style={{height:"100%",width:"30%",float:"left"}}>
+              <img src={'http://localhost:4000/upload/' + currentCart[data].img_url} style={{height:"100%",width:"100%"}}/>
+              </div>
+              <div style={{height:"100%",width:"70%",float:"right"}}>
+              <Card.Title style={{height:"50px",overflow:"hidden"}}>{currentCart[data].title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">By {currentCart[data].brand}</Card.Subtitle>
+              <Card.Text>
+                <h5>Quantity: {currentCart[data].quantity}</h5>
+                <div style={{display:"inline-block"}}>
+                  <Button style={{backgroundColor:"red",border:"0px"}}>remove</Button>
+                </div>
+              </Card.Text>
+              <div >
+                 {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
+                 <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
+                 </div>
+              </div>
+              </div>
+              
+              
+              </Card.Body>
+            </Card>
+               )
+            })
+  }
+       
+       </Col>
+         
+       <Col >
+          <Container id="summary-container">
+           <Row>
+             <Col>
+                <h4 style={{color:"white"}}>SUMMARY</h4>
+             </Col>
+           </Row>
+           <Row>
+              <Col>
+                <p style={{color:"white"}}>DO YOU HAVE A PROMO CODE?</p>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+              <div style={{display:"inline-block",width:"100%",height:"100%"}}>
+                <h6 style={{color:"white",float:"left"}}>SUBTOTAL</h6>
+                <p style={{color:"white",float:"right"}}>₹{totalAmount}</p>
+              </div>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+              <div style={{display:"inline-block",width:"100%",height:"100%"}}>
+                <h6 style={{color:"white",float:"left"}}>ESTIMATED SHIPPING CHARGES</h6>
+                <p style={{color:"white",float:"right"}}>₹0</p>
+              </div>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+              <div style={{display:"inline-block",width:"100%",height:"100%"}}>
+                <h6 style={{color:"white",float:"left"}}>TOTAL</h6>
+                <p style={{color:"white",float:"right"}}>₹{totalAmount}</p>
+              </div>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid>
+                 <Button style={{backgroundColor:"#F28C28",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}}  onClick={()=>setPopUp(1)} disabled={totalAmount<10000}> CHECKOUT</Button>
+              </Col>
+           </Row>
+           <Row fluid>
+              <Col fluid >
+                <p style={{color:"white",marginLeft:"50%",marginTop:"10px"}}>OR</p>
+              </Col>
+           </Row>
+           <Row>
+              <Col>
+                <Button style={{backgroundColor:"white",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}} onClick={()=>setPopUp(1)} disabled={totalAmount<10000}> <span style={{color:"black"}}>PAY WITH UPI</span></Button>
+                <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
+                {popup ? (
+      <Portal >
+        <h1>Your total is: {totalAmount}</h1>
+        {payWithCoin ?
+          <div>
+            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
+            <h1>You need to pay: {numberOfCoins}Coins and {Math.max(totalAmount-numberOfCoins*100,0)}Rupees</h1>
+          </div>
+        :
+          <div>
+            {localStorage.getItem("ngo") ?
+            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
+            : null
+            }
+            <h1>You need to pay: {totalAmount}Rupees</h1>
+          </div>}
+        <Button onClick={() => {setPopUp(0);confirmBuy();}}>Pay</Button>
+        <Button onClick={() => setPopUp(0)}>Cancel</Button>
+      </Portal>
+    ) : null
+      }
+              </Col>
+           </Row>
+          </Container>
+          
+       </Col>
+    </Row>
+   
+  </Container>
+   
+  </div>
+</div>
+ )
+  }
+}
+  {/* <div className="you_orders" >
  <h2 className="your_orders"><strong>YOUR CART</strong></h2>
  <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
  </div>
@@ -497,12 +654,9 @@ function Cart(props) {
         <Button onClick={() => setPopUp(0)}>Cancel</Button>
       </Portal>
     ) : null
-      }
-  </div>
-</div>
+      } */}
 
-    )
-  }
-}
+
+   
 
 export default Cart;
