@@ -67,3 +67,15 @@
     display: flex;
     float: right;
 }
+
+#cardcss {
+    background-color: transparent;
+    border-radius:10px 10px 10px 10px;
+}
+
+#cardImg{
+    height:300px;
+    border-radius:10px 10px 10px 10px;
+    border:"2px solid black";
+    margin-bottom:5px;
+}
