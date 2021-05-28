@@ -114,14 +114,14 @@ function ProductList(props){
             <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
           </Card.Body>
 
-          <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
+          
 
           <div style = {{height: "100%"}}>
 
             {nearexpiry?   
 
               <h5 style={{color:"red"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
-            : <p className="text-muted"> </p>}
+            :null}
             {nearexpiry?   
 
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
@@ -136,7 +136,7 @@ function ProductList(props){
             
             </div>
 
-          </Card.Footer>
+          
         </Card>
       </Col>
     );
@@ -163,20 +163,21 @@ function ProductList(props){
             </Card.Title>
             
             <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
-          </Card.Body>
-          <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
-
-          <div style = {{height: "100%"}}>
+            <div style = {{height: "100%"}}>
             {nearexpiry?   
 
               <h5 style={{color:"red"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
-            : <p className="text-muted"> </p>}
+            : null}
             {nearexpiry?   
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>}
             <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
             </div>
-          </Card.Footer>
+          </Card.Body>
+          
+
+          
+          
         </Card>
       </Col>
     );
