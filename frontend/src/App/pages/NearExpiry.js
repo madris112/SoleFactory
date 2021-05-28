@@ -95,23 +95,26 @@ function NearExpiry(props) {
     await axios.get('http://localhost:4000/product/search', {params:{searchname:FirstQuery,category:SecondQuery},header})
         .then(response => {
           var tempexpiryarray = [];
-
+           console.log(response.data);
           for(let key in response.data){
             const curDate = new Date().toLocaleDateString();
             const expdate = new Date(response.data[key].expiryDate).toLocaleDateString();
-
+            console.log(expdate);
             var initial = curDate.split(/\//);
             var s1=[ initial[1], initial[0], initial[2] ].join('/');
 
             var last = expdate.split(/\//);
             var s2=[ last[1], last[0], last[2] ].join('/');
+            console.log(s1);
+            console.log(s2);
 
             const a=new Date(s1);
             const b=new Date(s2);
             const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
 
-            // console.log(c);
+            console.log(c);
             response.data[key]["nearexpiry"] = 1;
+            response.data[key]["expiryin"] = c;
             if(c<15){
               tempexpiryarray.push(response.data[key]);
             }

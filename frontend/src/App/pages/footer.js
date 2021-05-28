@@ -5,7 +5,7 @@ const Foot = () => (
 
 <footer class="footer">
   <div class="footer__addr">
-    <h1 class="footer__logo">Sole Factory</h1>
+    <h1 class="footer__logo">SoleFactory</h1>
 
     <h2>Contact</h2>
 

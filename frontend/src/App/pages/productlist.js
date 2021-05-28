@@ -10,6 +10,7 @@ import { FaBoxes } from "react-icons/fa";
 
 function ProductList(props){
   const [ngo, setngo] = useState("false");
+  const [expiryin, setexpiryin] = useState(0);
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
@@ -47,7 +48,7 @@ function ProductList(props){
 
 
 
-  const Prod =({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry,curr}) => {
+  const Prod =({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry,expiryin}) => {
 
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
@@ -69,7 +70,8 @@ function ProductList(props){
       "price": price,
       "instock": instock,
       "coinval": coinval,
-      "nearexpiry": nearexpiry
+      "nearexpiry": nearexpiry,
+      "expiryin": expiryin
     }
 
      function handleClick(){
@@ -97,13 +99,11 @@ function ProductList(props){
           return null
         }
          return (
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "600px",overflow: "hidden"}}>
         <Card onClick={handleClick}
             className="cardHover"
             id ="cardcss">
-            {
-              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
-            }
+           
           <Card.Body>
             <Card.Img variant="top" src= {sc} id="cardImg"/>
             <Card.Title
@@ -117,6 +117,11 @@ function ProductList(props){
           <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
 
           <div style = {{height: "100%"}}>
+
+            {nearexpiry?   
+
+              <h5 style={{color:"red"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
+            : <p className="text-muted"> </p>}
             {nearexpiry?   
 
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
@@ -146,9 +151,7 @@ function ProductList(props){
         <Card onClick={handleClick}
             className="cardHover"
             id ="cardcss">
-             {
-              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
-            }
+             
 
           <Card.Body>
             <Card.Img variant="top" src= {sc} id="cardImg"/>
@@ -164,6 +167,10 @@ function ProductList(props){
           <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
 
           <div style = {{height: "100%"}}>
+            {nearexpiry?   
+
+              <h5 style={{color:"red"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
+            : <p className="text-muted"> </p>}
             {nearexpiry?   
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>}
@@ -199,18 +206,18 @@ function ProductList(props){
           props.arr.map((data, key) => {
           return (
               <Prod
-                prod_id = {data.product._id}
-                discount={data.product.DiscountedPrice}
-                img_url={data.product.imgURL}
-                title={data.product.Title}
-                brand={data.product.brand}
-                description={data.product.description}
-                price={data.product.price}
-                instock={data.product.Quantity}
-                coinval={data.product.CoinValue}
+                prod_id = {data._id}
+                discount={data.DiscountedPrice}
+                img_url={data.imgURL}
+                title={data.Title}
+                brand={data.brand}
+                description={data.description}
+                price={data.price}
+                instock={data.Quantity}
+                coinval={data.CoinValue}
                 key={key}
-                nearexpiry={data.product.nearexpiry}
-                curr = {data.curr}
+                nearexpiry={data.nearexpiry}
+                expiryin={data.expiryin}
               />
           );
         })}
