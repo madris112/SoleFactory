@@ -99,7 +99,11 @@ function NearExpiry(props) {
           for(let key in response.data){
             const curDate = new Date().toLocaleDateString();
             const expdate = new Date(response.data[key].expiryDate).toLocaleDateString();
+
             console.log(expdate);
+
+            console.log(response.data[key]);
+
             var initial = curDate.split(/\//);
             var s1=[ initial[1], initial[0], initial[2] ].join('/');
 

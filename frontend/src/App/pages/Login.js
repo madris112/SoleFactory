@@ -7,8 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios'
 import loginimage from './blackwave.png'
 import { useEffect } from 'react';
-import { FaUserAlt } from "react-icons/fa";
-import { FaGoogle ,FaKey} from "react-icons/fa";
+import { FaGoogle ,FaKey, FaUserAlt} from "react-icons/fa";
 import mainimg from'./wbgbike.png'
 
 
