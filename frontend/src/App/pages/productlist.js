@@ -133,20 +133,24 @@ function ProductList(props){
           return null
         }
          return (
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
         <Card onClick={handleClick}
-            className="cardHover">
+            className="cardHover"
+            id ="cardcss">
           <Card.Body>
-            <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
+            <Card.Img variant="top" src= {sc} id="cardImg"/>
+            
             <Card.Title
-            className="cardHover">
+            className="cardHover"
+            style={{overflow: "hidden",height:"50px"}}>
             {title}
             </Card.Title>
-            <Card.Text>{brand}</Card.Text>
+            
+            <Card.Text  >{brand}</Card.Text>
           </Card.Body>
-          <Card.Footer>
+          <Card.Footer style = {{height: "90px",marginTop:"0"}}>
 
-          <div>
+          <div style = {{height: "100%"}}>
             {nearexpiry?   
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
             : <p className="text-muted">₹ <strong> {price} </strong></p>}
