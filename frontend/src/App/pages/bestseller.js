@@ -3,7 +3,7 @@ import './Home.css';
 import {Button, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory , useLocation } from 'react-router-dom';
-import ProductList from "./productlist"
+import BestList from "./bestlist"
 import Foot from "./footer"
 import coin from "./coin.png"
 import axios from 'axios'
@@ -12,7 +12,7 @@ import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
 import Badges from "./badge.js"
-function NearExpiry(props) {
+function Bestseller(props) {
 
   const [searchname, setSearchName] = useState(null);
   const [category, setCategory] = useState(null);
@@ -92,32 +92,10 @@ function NearExpiry(props) {
       "Content-Type":"application/json"
     };
 
-    await axios.get('http://localhost:4000/product/search', {params:{searchname:FirstQuery,category:SecondQuery},header})
+    await axios.get('http://localhost:4000/bestseller', {params:{searchname:FirstQuery,category:SecondQuery},header})
         .then(response => {
-          var tempexpiryarray = [];
-
-          for(let key in response.data){
-            const curDate = new Date().toLocaleDateString();
-            const expdate = new Date(response.data[key].expiryDate).toLocaleDateString();
-
-            var initial = curDate.split(/\//);
-            var s1=[ initial[1], initial[0], initial[2] ].join('/');
-
-            var last = expdate.split(/\//);
-            var s2=[ last[1], last[0], last[2] ].join('/');
-
-            const a=new Date(s1);
-            const b=new Date(s2);
-            const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
-
-            // console.log(c);
-            response.data[key]["nearexpiry"] = 1;
-            if(c<15){
-              tempexpiryarray.push(response.data[key]);
-            }
-          }
-          setProdArray(tempexpiryarray)
-        } );
+          console.log(response.data.bestsell)
+          setProdArray(response.data.bestsell)} );
 
     // console.log('searching search bar done')
   },[FirstQuery])
@@ -222,8 +200,7 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
-
+            <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link> */}
 
     </ReactBootStrap.Nav>
@@ -271,7 +248,7 @@ if(ngo==="false"){
 
 
      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
-      <ProductList arr={prodarray} />
+      <BestList arr={prodarray} />
 
         <Foot/>
       </div>
@@ -309,8 +286,7 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
-      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
-
+            <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link> */}
 
     </ReactBootStrap.Nav>
@@ -347,13 +323,18 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-     <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
+
+           <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
+
+
+
+
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
       <div style={{bottom:"0px",height:"100%",width:"100%"}}>
-      <ProductList arr={prodarray} />
+      <BestList arr={prodarray} />
 
         <Foot/>
       </div>
@@ -363,4 +344,4 @@ if(ngo==="false"){
 }
 
 
-export default NearExpiry;
+export default Bestseller;

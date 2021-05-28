@@ -6,9 +6,8 @@ import { Link, useHistory } from 'react-router-dom';
 import smile from './smile.png'
 import axios from 'axios'
 import Emptyimg from './finalnotfound.png'
-import { FaBoxes } from "react-icons/fa";
 
-function ProductList(props){
+function BestList(props){
   const [ngo, setngo] = useState("false");
 
   useEffect(() => {
@@ -42,13 +41,10 @@ function ProductList(props){
   }, []);
 
   //console.log(props.arr);
-
   let history = useHistory();
-
-
-
-  const Prod =({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry,curr}) => {
-
+var currRating;
+  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval,displayrating}) => {
+    console.log(displayrating)
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
     // console.log("rating starts")
@@ -58,7 +54,13 @@ function ProductList(props){
     const header = {
       'Content-Type': 'Application/json'
     };
+    axios.post('http://localhost:4000/product/getrating', userInput, { header } )
+       .then(response => {
+         // console.log(JSON.stringify(response.data.prodrate));
 
+         currRating=response.data.prodrate;
+         // console.log(currRating);
+       });
     let data = {
       "prod_id": prod_id,
       "discount": discount,
@@ -68,11 +70,10 @@ function ProductList(props){
       "description": description,
       "price": price,
       "instock": instock,
-      "coinval": coinval,
-      "nearexpiry": nearexpiry
+      "coinval": coinval
     }
 
-     function handleClick(){
+    function handleClick(){
 
       const userInput = {
       prodid: prod_id
@@ -97,38 +98,27 @@ function ProductList(props){
           return null
         }
          return (
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card onClick={handleClick}
-            className="cardHover"
-            id ="cardcss">
-            {
-              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
-            }
+            className="cardHover">
           <Card.Body>
-            <Card.Img variant="top" src= {sc} id="cardImg"/>
+            <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
             <Card.Title
-            className="cardHover"
-            style={{overflow: "hidden",height:"50px"}}>
+            className="cardHover">
             {title}
             </Card.Title>
-            <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
+            <Card.Text>{brand}</Card.Text>
           </Card.Body>
+          <Card.Footer>
 
-          <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
-
-          <div style = {{height: "100%"}}>
-            {nearexpiry?   
-
-              <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price}</strong></p>}
-              <div style={{display:"inline-block",width:"100%"}}>
-              <large className="text-right">  <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/>  {instock} </large>
-              <div className="smiley"  style={{top:"0",position:"relative",float:"right"}}>
-              <h4>{coinval} </h4>
-              <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
-              </div>
-              </div>
-            
+          <div>
+            <p className="text-muted">₹ <strong> {price} </strong></p>
+            <small className="text-right">    x {instock} units</small>
+            <small className="text-right">   Current rating {displayrating.toFixed(2)} out of 5</small>
+            </div>
+            <div className="smiley">
+            <h4>{coinval} </h4>
+            <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
             </div>
 
           </Card.Footer>
@@ -141,33 +131,23 @@ function ProductList(props){
           return null
         }
          return (
-
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card onClick={handleClick}
-            className="cardHover"
-            id ="cardcss">
-             {
-              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
-            }
-
+            className="cardHover">
           <Card.Body>
-            <Card.Img variant="top" src= {sc} id="cardImg"/>
-            
+            <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
             <Card.Title
-            className="cardHover"
-            style={{overflow: "hidden",height:"50px"}}>
+            className="cardHover">
             {title}
             </Card.Title>
-            
-            <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
+            <Card.Text>{brand}</Card.Text>
           </Card.Body>
-          <Card.Footer style = {{height: "90px",marginTop:"0",backgroundColor:"transparent",border:"0px"}}>
+          <Card.Footer>
 
-          <div style = {{height: "100%"}}>
-            {nearexpiry?   
-              <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>}
-            <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
+          <div>
+          <p className="text-muted">₹ <strong> {price} </strong></p>
+            <small className="text-right">    x {instock} units</small>
+            <small style={{float: "right"}}>   Current rating <strong>{displayrating.toFixed(2)}</strong> out of 5</small>
             </div>
           </Card.Footer>
         </Card>
@@ -208,9 +188,8 @@ function ProductList(props){
                 price={data.product.price}
                 instock={data.product.Quantity}
                 coinval={data.product.CoinValue}
+                displayrating={data.curr}
                 key={key}
-                nearexpiry={data.product.nearexpiry}
-                curr = {data.curr}
               />
           );
         })}
@@ -219,4 +198,4 @@ function ProductList(props){
     </div>
   )
 }
-export default ProductList ;
+export default BestList ;

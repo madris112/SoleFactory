@@ -10,17 +10,10 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import guccibelt from "./guccibelt.jpeg"
-
+import Badges from "./badge.js"
 import coin from "./coin.png"
 import { FaCartPlus } from "react-icons/fa";
-
-
-
-
-
 import { useEffect } from 'react';
-
-
 function Cart(props) {
   let history = useHistory();
 
@@ -33,7 +26,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -41,19 +34,19 @@ function Cart(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      // console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            console.log("hello");
+            // console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            // console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
 
@@ -102,7 +95,7 @@ function Cart(props) {
 
   function logoutClick(e){
 
-    console.log("clicked");
+    // console.log("clicked");
 
     localStorage.clear();
     const header = {
@@ -139,7 +132,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
     } else {
       const header = {
@@ -149,7 +142,7 @@ function Cart(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.message));
+          // console.log(JSON.stringify(response.data.message));
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
@@ -195,7 +188,7 @@ function Cart(props) {
       </ReactBootStrap.NavDropdown>
 
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
-
+      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
 
@@ -222,13 +215,13 @@ function Cart(props) {
             <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="All">All</ReactBootStrap.NavDropdown.Item>
+      >
+        <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
 
-                 <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+                 <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
 
     </ReactBootStrap.Nav>
@@ -302,7 +295,7 @@ function Cart(props) {
       </ReactBootStrap.NavDropdown>
 
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
-
+      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
 
@@ -339,7 +332,7 @@ function Cart(props) {
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-                <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+                <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
 
 

@@ -12,6 +12,7 @@ import gucci from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
 import coin from "./coin.png"
 import Hrating from "./rating.js"
+import Badges from "./badge.js"
 function ProductDescription(props) {
   let history = useHistory();
   let initQuantity = 0;
@@ -32,7 +33,7 @@ function ProductDescription(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -40,19 +41,19 @@ function ProductDescription(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      // console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            console.log("hello");
+            // console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            // console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
         }
@@ -64,7 +65,7 @@ function ProductDescription(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession')) {
-      console.log("inside local storage");
+      // console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
     } else {
       const header = {
@@ -74,7 +75,7 @@ function ProductDescription(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.message));
+          // console.log(JSON.stringify(response.data.message));
           redirectLink = response.data.redirect;
         });
 
@@ -125,7 +126,7 @@ function ProductDescription(props) {
     if(searchname!="")
     query = "?searchname="+searchname;
 
-    console.log("cart" + data);
+    // console.log("cart" + data);
 
     history.push({
         pathname: "/home",
@@ -140,9 +141,9 @@ function ProductDescription(props) {
     let cartItems = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")))
     if(cartItems!=null)
       cartItems[props.location.state.prod_id] = {...props.location.state, quantity: Quantity, nearexpiry: (props.location.state.nearexpiry?1:0)}
-    
+
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify(cartItems));
-    console.log(localStorage);
+    // console.log(localStorage);
     setmsg("Item successfully added to cart")
   }
   var nameofuser = localStorage.getItem('curUser');
@@ -205,7 +206,7 @@ function ProductDescription(props) {
           <ReactBootStrap.NavDropdown.Divider />
           <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
         </ReactBootStrap.NavDropdown>
-      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
@@ -235,7 +236,7 @@ function ProductDescription(props) {
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
-                {props.location.state.nearexpiry ? 
+                {props.location.state.nearexpiry ?
                   <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 : null }
                 <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></h6>
@@ -348,7 +349,7 @@ function ProductDescription(props) {
           <ReactBootStrap.NavDropdown.Divider />
           <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
         </ReactBootStrap.NavDropdown>
-      <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
@@ -372,7 +373,7 @@ function ProductDescription(props) {
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
                 <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
-                {props.location.state.nearexpiry ? 
+                {props.location.state.nearexpiry ?
                   <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 : null }
                 <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></h6>
@@ -410,6 +411,7 @@ function ProductDescription(props) {
                 <div className="mb-2">
                   <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
                 </div>
+
                 <h6 style={{color:"green"}}>{msg}</h6>
               </Col>
             </Row>

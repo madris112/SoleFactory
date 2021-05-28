@@ -6,7 +6,7 @@ const productRating = require('../models/productRating');
 const productRatingIpDetails = require('../models/productRatingIpDetails');
 
 router.post('/product/getrating', function(req,res){
- 
+
    productRating.findOne({ prodid: req.body.prodid},function(err,doc){
      if(err) throw err;
      if (!doc) {
@@ -15,7 +15,7 @@ router.post('/product/getrating', function(req,res){
 
          })
      } else{
-        console.log("findingratinggg")
+        // console.log("findingratinggg")
          res.status(200).send({
              prodrate: doc.rating
          })

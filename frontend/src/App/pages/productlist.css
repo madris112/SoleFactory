@@ -1,3 +1,63 @@
+.cardHover{
+
+    position: relative;
+
+}
+.ribbon {
+       width: 150px;
+      height: 150px;
+      overflow: hidden;
+      position: absolute;
+        top: -10px;
+      right: -10px;
+  }
+  .ribbon__content {
+      left: -25px;
+      top: 30px;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+      position: absolute;
+      display: block;
+      width: 225px;
+      padding: 10px 0;
+      background-color: #ff0066;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.192);
+      color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.2);
+      text-transform: uppercase;
+      text-align: center;
+      border: 2px dotted ;
+      outline : 5px solid  #f5cd79;
+
+
+  }
+  .ribbon::before {
+      top: 0;
+      left: 0;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      position: absolute;
+      z-index: -1;
+      content: '';
+      display: block;
+      border: 5px solid #f19066;
+      box-sizing: content-box;
+
+  }
+  .ribbon::after {
+      bottom: 0;
+      right: 0;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      position: absolute;
+      z-index: -1;
+      content: '';
+      display: block;
+      border: 5px solid #f19066;
+
+  }
+
 .cardHover:hover{
     cursor: pointer;
     text-decoration: underline;

@@ -73,7 +73,7 @@ const Foot = () => (
 
       <ul class="nav__ul">
         <li>
-          <a href="https://linkedin/in/tanishqmalu">Linked In</a>
+          <a href="https://linkedin/in/tanishqmalu" target="_blank">Linked In</a>
         </li>
 
         <li>
@@ -88,7 +88,7 @@ const Foot = () => (
   </ul>
 
   <div class="legal">
-    
+
 
     <div class="legal__links">
       <span>Made with <span class="heart">♥</span> by Bit Predators</span>

@@ -13,7 +13,7 @@ import cart from "./cart.svg"
 import coin from "./coin.png"
 import guccibelt from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
-
+import Badges from "./badge.js"
 function Cart(props) {
   const [currentCart, setCurrentCart] = useState({})
   const [message , setMessage] = useState(null)
@@ -43,7 +43,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      //console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -51,19 +51,19 @@ function Cart(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      console.log(x);
+      //console.log(x);
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
-          console.log(JSON.stringify(response.data.retuser));
-          console.log(JSON.stringify(response.data.retuser.Type));
-          console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          // console.log(JSON.stringify(response.data.retuser));
+          // console.log(JSON.stringify(response.data.retuser.Type));
+          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            console.log("hello");
+            //console.log("hello");
             var y=response.data.retuser.CoinAmt;
-            console.log(parseInt(y));
+            //console.log(parseInt(y));
             setcoins(response.data.retuser.CoinAmt);
           }
         }
@@ -109,7 +109,7 @@ function Cart(props) {
     if(searchname!="")
     query = "?searchname="+searchname;
 
-    console.log("cart" + data);
+    //console.log("cart" + data);
 
     history.push({
         pathname: "/home",
@@ -124,7 +124,7 @@ function Cart(props) {
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      console.log("inside local storage");
+      //console.log("inside local storage");
       if (localStorage.getItem('localsession') !== '1') history.push('/');
     } else {
       const header = {
@@ -134,7 +134,7 @@ function Cart(props) {
       axios
         .get('http://localhost:4000/check', { header, withCredentials: true })
         .then((response) => {
-          console.log(JSON.stringify(response.data.message));
+          //console.log(JSON.stringify(response.data.message));
           redirectLink = response.data.redirect;
           if(response.data.message === "Unauthorized Access!"){
               history.push('/');
@@ -165,18 +165,18 @@ function Cart(props) {
        coinsUsed: payWithCoin?numberOfCoins:0
      }
 
-     console.log(requestoptions);
+     //console.log(requestoptions);
      const header = {
       "Content-Type": "application/json"
     };
      axios.post("http://localhost:4000/order",requestoptions,{header})
      .then(response => {
-       console.log(response.data.message)
+       //console.log(response.data.message)
        setMessage(response.data.message);
     });
     setCurrentCart({})
     localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify({}))
-    // window.location.reload(true);
+    window.location.reload(true);
 
   }
   var nameofuser = localStorage.getItem('curUser');
@@ -234,12 +234,12 @@ function Cart(props) {
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
-        <ReactBootStrap.NavDropdown.Item eventKey="All">My Profile</ReactBootStrap.NavDropdown.Item>
+      >
+        <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} >Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+           <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
@@ -257,7 +257,7 @@ function Cart(props) {
         return;
       totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
-      console.log("items")
+      //console.log("items")
       return(
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
@@ -274,16 +274,15 @@ function Cart(props) {
           </Col>
           <Col className="row_price">
             {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
-            <h3><strong>Your total for this item: {(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
-            <button lg color="secondary">Buy it Again</button>
+            <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
           </Col>
         </Row>
       )
     })
   }
 
-    <h1>Your total is: {totalAmount}</h1>
-    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
+    <h3 style={{float: "right" , paddingTop: "20px"}}>Your total is: {totalAmount}</h3>
+    <Button style={{marginTop: "20px"}}variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
     {popup ? (
       <Portal >
@@ -375,15 +374,14 @@ function Cart(props) {
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
-      onSelect={(key) => setCategory(key)}>
+      >
         <ReactBootStrap.NavDropdown.Item href="/profile">My Profile</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Divider />
         <ReactBootStrap.NavDropdown.Item onClick={logoutClick} eventKey="Signout">Signout</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+           <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
     </ReactBootStrap.Nav>
-          <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
@@ -399,7 +397,7 @@ function Cart(props) {
         return;
       totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
-      console.log("items")
+      //console.log("items")
       return(
         <Row className="row_orders">
           <Col style={{padding: "0px"}}>
@@ -416,15 +414,14 @@ function Cart(props) {
           </Col>
           <Col className="row_price">
           {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
-            <h3><strong>Your total for this item: {(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
-            <button lg color="secondary">Buy it Again</button>
+            <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
           </Col>
         </Row>
       )
     })
   }
 
-    <h1>Your total is: {totalAmount}</h1>
+    <h3>Your total is: {totalAmount}</h3>
     <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
     {popup ? (

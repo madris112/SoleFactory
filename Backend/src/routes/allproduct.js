@@ -66,17 +66,17 @@ router.post('/product/rating', function(req, res) {
           if(e) throw e;
           else {
             if(rest){
-              console.log("hiiiiiiiii")
-              console.log(rate)
+              // console.log("hiiiiiiiii")
+              // console.log(rate)
               var x = rest.cnt;
               var y= rest.rating;
               y = (y*x);
               y = y + rate;
               x = x+1;
               y = y/x;
-
-              console.log(x)
-              console.log(y)
+              //
+              // console.log(x)
+              // console.log(y)
               productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
                   if (err){
                     console.log(err)
@@ -149,12 +149,44 @@ router.get('/product/search', async (req, res) => {
         products = await product.find({categoryTag:search}).sort({_id:-1})
     else{
       myarr1 = await product.find({brand:search}).sort({_id:-1})
+      var myarr2=[];
+      myarr1.map((data,key)=>{
+        if(data.Quantity !== '0'){
+          myarr2.push(data);
+        }
+      })
+      var myarr3 = [];
+      for(const item in myarr2){
+        var b=0;
+          try {
+              ratingDetails = await productRating.findOne({
+                  prodid: myarr2[item]._id,
+              });
+          } catch (error) {
+              console.error(error)
+          }
+          console.log("helloji")
+
+          if(ratingDetails){
+            console.log(ratingDetails.rating)
+              b = ratingDetails.rating;
+              console.log(b)
+          }
+
+          current = {
+              product: myarr2[item],
+              curr: b
+          }
+
+          myarr3.push(current);
+
+      }
       // myarr2 = await product.find({Title:search}).sort({_id:-1})
       // Array.prototype.push.apply(myarr1,myarr2);
       // myarr1= [...new Set(myarr1.map((obj) => obj.prop_id))]
-      products = myarr1
-      console.log("hiiiihihihihi")
-      console.log(myarr1)
+      products = myarr3
+      // console.log("hiiiihihihihi")
+      // console.log(myarr1)
     }
 
     // console.log(products)
@@ -446,10 +478,10 @@ function compare(a,b){
     if(a.Sort<b.Sort)
        return 1;
     else
-       return 0;      
+       return 0;
 }
 
-router.get('/bestSeller',async(req,res)=>{
+router.get('/bestseller',async(req,res)=>{
 
     console.log("inside bestseller")
 
@@ -457,7 +489,7 @@ router.get('/bestSeller',async(req,res)=>{
         const productList = await product.find({});
         var bestseller = [];
         for(const item in productList){
-            
+
             try {
                 visitdetails = await productCount.findOne({
                     prodid: productList[item]._id,
@@ -476,11 +508,11 @@ router.get('/bestSeller',async(req,res)=>{
             var b = 1;
             var c = 1;
 
-            
-            
+
+
             if(visitdetails){
                 a = parseInt(visitdetails.cnt);
-                
+
             }
 
             if(ratingDetails){
@@ -491,18 +523,23 @@ router.get('/bestSeller',async(req,res)=>{
                 c = parseInt(ratingDetails.cnt);
             }
 
-            SortDetails =  a+ b*c;
+            SortDetails =  a + b*c;
+            var curr=0;
+            if(ratingDetails){
+                curr = ratingDetails.rating;
+            }
 
             current = {
                 product: productList[item],
-                Sort: SortDetails
+                Sort: SortDetails,
+                curr: curr
             }
 
             bestseller.push(current);
 
         }
         bestseller.sort(compare);
-        
+
         res.status(200).send({
             message:"best seller received",
             bestsell: bestseller

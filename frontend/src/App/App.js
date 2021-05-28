@@ -10,6 +10,7 @@ import Cart from "./pages/Cart"
 import InfoCompleteForm from "./pages/infoCompleteForm"
 import Profile from "./pages/profile"
 import NearExpiry from "./pages/NearExpiry"
+import Bestseller from "./pages/bestseller"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/cart" component={Cart} />
         <Route path="/completeForm" component={InfoCompleteForm} />
         <Route path="/nearexpiry" component={NearExpiry} />
+        <Route path="/bestseller" component={Bestseller} />
     </Switch>
   )
 }

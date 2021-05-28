@@ -33,32 +33,32 @@ export default function Hrating(props) {
   const [hover, setHover] = useState(-1);
   const [prodrating, setProdRating] = useState(initrate);
 
-  useEffect(() => {
-    console.log("rating starts")
+  useEffect(async() => {
+    //console.log("rating starts")
     const userInput = {
     prodid: props.location.state.prod_id
   }
     const header = {
       'Content-Type': 'Application/json'
     };
-    axios.post('http://localhost:4000/product/getrating', userInput, { header } )
+    await axios.post('http://localhost:4000/product/getrating', userInput, { header } )
        .then(response => {
-         console.log(JSON.stringify(response.data));
+         //console.log(JSON.stringify(response.data));
          setValue(response.data.prodrate);
          setProdRating(response.data.prodrate);
        });
 
   },[])
-  function findrating(){
+  async function findrating(){
     const userInput = {
     prodid: props.location.state.prod_id
   }
     const header = {
       'Content-Type': 'Application/json'
     };
-    axios.post('http://localhost:4000/product/getrating', userInput, { header } )
+    await axios.post('http://localhost:4000/product/getrating', userInput, { header } )
        .then(response => {
-         console.log(JSON.stringify(response.data));
+         //console.log(JSON.stringify(response.data));
           setProdRating(response.data.prodrate);
        });
   }
@@ -71,7 +71,7 @@ export default function Hrating(props) {
         name="hover-feedback"
         value={value}
         precision={0.5}
-        onChange={(event, newValue) => {
+        onChange={async (event, newValue) => {
 
           setValue(newValue);
           findrating();
@@ -85,7 +85,7 @@ export default function Hrating(props) {
           "Content-Type": "application/json"
         };
 
-         axios.post('http://localhost:4000/product/rating',userInput, { header } )
+         await axios.post('http://localhost:4000/product/rating',userInput, { header } )
             .then(response => {var newcnt =  response.data} );
             window.location.reload(true)
         }   }
