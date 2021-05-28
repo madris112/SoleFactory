@@ -42,9 +42,9 @@ function BestList(props){
 
   //console.log(props.arr);
   let history = useHistory();
-
-  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval}) => {
-    var currRating;
+var currRating;
+  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval,displayrating}) => {
+    console.log(displayrating)
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
     // console.log("rating starts")
@@ -114,6 +114,7 @@ function BestList(props){
           <div>
             <p className="text-muted">₹ <strong> {price} </strong></p>
             <small className="text-right">    x {instock} units</small>
+            <small className="text-right">   Current rating {displayrating.toFixed(2)} out of 5</small>
             </div>
             <div className="smiley">
             <h4>{coinval} </h4>
@@ -143,8 +144,10 @@ function BestList(props){
           </Card.Body>
           <Card.Footer>
 
-          <div><p className="text-muted">₹ <strong> {price} </strong></p>
+          <div>
+          <p className="text-muted">₹ <strong> {price} </strong></p>
             <small className="text-right">    x {instock} units</small>
+            <small style={{float: "right"}}>   Current rating <strong>{displayrating.toFixed(2)}</strong> out of 5</small>
             </div>
           </Card.Footer>
         </Card>
@@ -185,6 +188,7 @@ function BestList(props){
                 price={data.product.price}
                 instock={data.product.Quantity}
                 coinval={data.product.CoinValue}
+                displayrating={data.curr}
                 key={key}
               />
           );

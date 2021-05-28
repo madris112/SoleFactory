@@ -79,7 +79,7 @@ function Login() {
           localStorage.setItem("curUser",response.data.user.username);
         }
         if(redirectLink==='')
-          // console.log(redirectLink);
+         console.log(redirectLink);
         if (redirectLink !== '') history.push(redirectLink);
       });
   }

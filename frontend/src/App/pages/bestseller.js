@@ -11,7 +11,7 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import { FaCartPlus } from "react-icons/fa";
-
+import Badges from "./badge.js"
 function Bestseller(props) {
 
   const [searchname, setSearchName] = useState(null);
@@ -199,7 +199,8 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
+            <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link> */}
 
     </ReactBootStrap.Nav>
@@ -238,7 +239,7 @@ if(ngo==="false"){
       </ReactBootStrap.NavDropdown>
 
 
-     <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+     <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
 
     </ReactBootStrap.Nav>
@@ -284,7 +285,8 @@ if(ngo==="false"){
         <ReactBootStrap.NavDropdown.Item eventKey="Body Care">Body Care</ReactBootStrap.NavDropdown.Item>
         <ReactBootStrap.NavDropdown.Item eventKey="Miscellaneous">Miscellaneous</ReactBootStrap.NavDropdown.Item>
       </ReactBootStrap.NavDropdown>
-
+      <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
+            <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
       {/* <ReactBootStrap.Nav.Link href = "#features">About Us</ReactBootStrap.Nav.Link> */}
 
     </ReactBootStrap.Nav>
@@ -322,7 +324,7 @@ if(ngo==="false"){
       </ReactBootStrap.NavDropdown>
 
 
-           <ReactBootStrap.Nav.Link href="/cart"><FaCartPlus/></ReactBootStrap.Nav.Link>
+           <ReactBootStrap.Nav.Link href="/cart"><Badges/></ReactBootStrap.Nav.Link>
 
 
 

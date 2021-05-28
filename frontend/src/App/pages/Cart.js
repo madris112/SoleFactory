@@ -274,16 +274,15 @@ function Cart(props) {
           </Col>
           <Col className="row_price">
             {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
-            <h3><strong>Your total for this item: {(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
-            <button lg color="secondary">Buy it Again</button>
+            <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
           </Col>
         </Row>
       )
     })
   }
 
-    <h1>Your total is: {totalAmount}</h1>
-    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
+    <h3 style={{float: "right" , paddingTop: "20px"}}>Your total is: {totalAmount}</h3>
+    <Button style={{marginTop: "20px"}}variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
     {popup ? (
       <Portal >
@@ -415,15 +414,14 @@ function Cart(props) {
           </Col>
           <Col className="row_price">
           {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
-            <h3><strong>Your total for this item: {(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
-            <button lg color="secondary">Buy it Again</button>
+            <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
           </Col>
         </Row>
       )
     })
   }
 
-    <h1>Your total is: {totalAmount}</h1>
+    <h3>Your total is: {totalAmount}</h3>
     <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
     </Container>
     {popup ? (

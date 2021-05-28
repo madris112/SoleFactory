@@ -41,10 +41,13 @@ function ProductList(props){
   }, []);
 
   //console.log(props.arr);
+
   let history = useHistory();
 
-  const Prod = ({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry}) => {
-    var currRating;
+
+
+  const Prod =({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry,curr}) => {
+
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
     // console.log("rating starts")
@@ -54,13 +57,7 @@ function ProductList(props){
     const header = {
       'Content-Type': 'Application/json'
     };
-    axios.post('http://localhost:4000/product/getrating', userInput, { header } )
-       .then(response => {
-         // console.log(JSON.stringify(response.data.prodrate));
 
-         currRating=response.data.prodrate;
-         // console.log(currRating);
-       });
     let data = {
       "prod_id": prod_id,
       "discount": discount,
@@ -74,7 +71,7 @@ function ProductList(props){
       "nearexpiry": nearexpiry
     }
 
-    function handleClick(){
+     function handleClick(){
 
       const userInput = {
       prodid: prod_id
@@ -102,6 +99,9 @@ function ProductList(props){
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
         <Card onClick={handleClick}
             className="cardHover">
+            {
+              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
+            }
           <Card.Body>
             <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
             <Card.Title
@@ -111,7 +111,6 @@ function ProductList(props){
             <Card.Text>{brand}</Card.Text>
           </Card.Body>
           <Card.Footer>
-
           <div>
             {nearexpiry?
               <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
@@ -122,7 +121,6 @@ function ProductList(props){
             <h4>{coinval} </h4>
             <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
             </div>
-
           </Card.Footer>
         </Card>
       </Col>
@@ -133,9 +131,13 @@ function ProductList(props){
           return null
         }
          return (
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%" ,marginTop: "15px"}}>
         <Card onClick={handleClick}
             className="cardHover">
+            {
+              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
+            }
+
           <Card.Body>
             <Card.Img variant="top" src= {sc} style = {{height: "300px"}}/>
             <Card.Title
@@ -182,17 +184,18 @@ function ProductList(props){
           props.arr.map((data, key) => {
           return (
               <Prod
-                prod_id = {data._id}
-                discount={data.DiscountedPrice}
-                img_url={data.imgURL}
-                title={data.Title}
-                brand={data.brand}
-                description={data.description}
-                price={data.price}
-                instock={data.Quantity}
-                coinval={data.CoinValue}
+                prod_id = {data.product._id}
+                discount={data.product.DiscountedPrice}
+                img_url={data.product.imgURL}
+                title={data.product.Title}
+                brand={data.product.brand}
+                description={data.product.description}
+                price={data.product.price}
+                instock={data.product.Quantity}
+                coinval={data.product.CoinValue}
                 key={key}
-                nearexpiry={data.nearexpiry}
+                nearexpiry={data.product.nearexpiry}
+                curr = {data.curr}
               />
           );
         })}
