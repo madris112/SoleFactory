@@ -21,13 +21,13 @@
       display: block;
       width: 225px;
       padding: 10px 0;
-      background-color: #f5cd79;
+      background-color: #ff0066;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.192);
       color: #fff;
       text-shadow: 0 1px 1px rgba(0,0,0,.2);
       text-transform: uppercase;
       text-align: center;
-      border: 2px dotted #fff;
+      border: 2px dotted ;
       outline : 5px solid  #f5cd79;
 
 
