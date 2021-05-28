@@ -5,7 +5,7 @@ import {Button,Card, Container, FormControl, Form, Col, Row, ToggleButton} from 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import ProductList from "./productlist"
-import "./OrderHistory.css"
+import "./cart.css"
 import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
@@ -244,8 +244,61 @@ function Cart(props) {
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-  <div className="you_orders" >
- <h2 className="your_orders"><strong>CART Items</strong></h2>
+  <div style={{height:"100%",width:"100%"}}>
+  
+  <Container fluid>
+  
+    <Row fluid>
+       <Col>
+        <div class="freeDel-div"><h5 style={{color:"#FF8C00"}}>GET ASSURED FREE DELIVERY</h5></div>
+        <br/>
+          <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
+          {
+   Object.keys(currentCart).map((data,key) => {
+     if(currentCart[data].quantity==0){
+        return(
+          <h3>Your Cart Is Empty</h3>
+        )
+     }
+        totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
+        numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
+        return(
+            <Card class="cart-card">
+              <Card.Body class="cart-body">
+              <div class="inside-cart">
+              <div style={{height:"100%",width:"30%",float:"left"}}>
+              <img src={'http://localhost:4000/upload/' + currentCart[data].img_url} style={{height:"100%",width:"100%"}}/>
+              </div>
+              <div style={{height:"100%",width:"70%",float:"right"}}></div>
+              <Card.Title>{currentCart[data].title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">By {currentCart[data].brand}</Card.Subtitle>
+              <Card.Text>
+                <h5>Quantity: {currentCart[data].quantity}</h5>
+                <div style={{display:"inline-block"}}>
+                  <Button style={{backgroundColor:"red",border:"0px"}}>remove</Button>
+                </div>
+              </Card.Text>
+              <div >
+                 {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
+                 <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
+                 </div>
+              </div>
+              
+              
+              </Card.Body>
+            </Card>
+               )
+            })
+  }
+       
+       </Col>
+         
+       <Col></Col>
+    </Row>
+   
+  </Container>
+   
+ {/* <h2 className="your_orders"><strong>YOUR CART</strong></h2>
  <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
  </div>
  <div className="whole_page">
@@ -269,7 +322,7 @@ function Cart(props) {
           </Col>
           <Col style={{padding: "5px"}}><br/>
             <h4><strong>{currentCart[data].title}</strong></h4>
-            <p>By {currentCart[data].brand} </p>
+            <p> </p>
             <h5>Quantity: {currentCart[data].quantity}</h5>
           </Col>
           <Col className="row_price">
@@ -304,7 +357,7 @@ function Cart(props) {
         <Button onClick={() => setPopUp(0)}>Cancel</Button>
       </Portal>
     ) : null
-      }
+      } */}
   </div>
 </div>
 
@@ -385,7 +438,7 @@ function Cart(props) {
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
   <div className="you_orders" >
- <h2 className="your_orders"><strong>Cart Items</strong></h2>
+ <h2 className="your_orders"><strong>YOUR CART</strong></h2>
  <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
  </div>
  <div className="whole_page">

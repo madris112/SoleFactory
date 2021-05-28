@@ -159,7 +159,7 @@ let redirectLink = '';
                 <Col xs={6}>
                   <Form.Check 
                   type="radio"
-                  label="Wholeseller"
+                  label="GST No."
                   checked={!isNGO}
                   onChange={e=>setIsNGO(0)}
                   />
@@ -167,7 +167,7 @@ let redirectLink = '';
                 <Col xs={6}>
                 <Form.Check 
                   type="radio"
-                  label="NGO"
+                  label="NGO ID"
                   checked={isNGO}
                   onChange={e=>setIsNGO(1)}
                   />

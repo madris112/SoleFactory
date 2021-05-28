@@ -378,7 +378,7 @@ if(ngo==="false"){
     </ReactBootStrap.Nav>
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
-      <div style={{bottom:"0px",height:"100%",width:"100%"}}>
+      <div style={{bottom:"0px",height:"100%",width:"100%",paddingTop:"10px"}}>
       <ProductList arr={prodarray} />
 
         <Foot/>

@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import smile from './smile.png'
 import axios from 'axios'
 import Emptyimg from './finalnotfound.png'
-import { FaBoxes } from "react-icons/fa";
+import { FaBoxes,FaCoins } from "react-icons/fa";
 
 function ProductList(props){
   const [ngo, setngo] = useState("false");
@@ -124,8 +124,8 @@ function ProductList(props){
               <div style={{display:"inline-block",width:"100%"}}>
               <large className="text-right">  <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/>  {instock} </large>
               <div className="smiley"  style={{top:"0",position:"relative",float:"right"}}>
-              <h4>{coinval} </h4>
-              <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
+              <h4 style={{marginRight:"5px"}}>{coinval} </h4>
+              <FaCoins style={{fontSize:"24px"}}/>
               </div>
               </div>
             

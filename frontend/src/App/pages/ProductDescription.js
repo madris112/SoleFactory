@@ -227,7 +227,7 @@ function ProductDescription(props) {
               </Col>
               <Col style={{padding: "0px"}}>
                 <h1><strong>{props.location.state.title}</strong></h1>
-                <p>By {props.location.state.brand}</p>
+                <p style={{fontSize:"20px"}}>By {props.location.state.brand}</p>
                 <br/>
                 <h5>About the Product</h5>
                 <h6>{props.location.state.description}</h6>
@@ -235,11 +235,11 @@ function ProductDescription(props) {
 
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Price per unit: &#8377; {props.location.state.price}</span></h6>
                 {props.location.state.nearexpiry ?
                   <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 : null }
-                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: <span style={{fontSize:"18px",color:"green"}}> &#8377;{Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></span></h6>
 
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
@@ -255,11 +255,9 @@ function ProductDescription(props) {
                  <Col xs={2}>
                   <Form.Control
                   type="text"
-                  disabled
                   value={Quantity}
                   placeholder="0"
-                //   value={firstName}
-                //   onChange={e=>setFirstName(e.target.value)}
+                  onChange={e=>setQuantity(e.target.value)}
                   ></Form.Control>
                 </Col>
                 <Col xs={1}>
@@ -275,7 +273,7 @@ function ProductDescription(props) {
                   <Hrating {...props} />
                 </div>
                 <div className="mb-2">
-                  <Button variant="secondary" size="lg" onClick={addToCart}>Add to cart</Button>
+                  <Button style={{backgroundColor:"blue"}} size="lg" onClick={addToCart}><FaCartPlus style={{marginRight:"10px"}}/>Add to cart</Button>
                 </div>
                 <h6 style={{color:"green"}}>{msg}</h6>
               </Col>
@@ -365,18 +363,18 @@ function ProductDescription(props) {
               </Col>
               <Col style={{padding: "0px"}}>
                 <h1><strong>{props.location.state.title}</strong></h1>
-                <p>By {props.location.state.brand}</p>
+                <p style={{fontSize:"20px"}}>By {props.location.state.brand}</p>
                 <br/>
                 <h5>About the Product</h5>
                 <h6>{props.location.state.description}</h6>
                 <br/>
                 <br/>
                 <h6 style={{marginBottom:"10px"}}><span>Quantity in stock: {props.location.state.instock}</span></h6>
-                <h6 style={{marginBottom:"10px"}}><span>MRP per bundle: &#8377; {props.location.state.price}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Price per unit: &#8377; {props.location.state.price}</span></h6>
                 {props.location.state.nearexpiry ?
                   <h6 style={{marginBottom:"10px"}}><span>Our Price: {props.location.state.discount}</span></h6>
                 : null }
-                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item: &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></h6>
+                <h6 style={{marginBottom:"10px"}}><span>Your Total for this item:<span style={{fontSize:"16px"}}> &#8377; {Quantity*(props.location.state.nearexpiry?props.location.state.discount:props.location.state.price)}</span></span></h6>
                 {/* <CounterInput onChange={ ( value ) => { console.log( value ) } }  /> */}
                 <div >
                  <Row inline>
@@ -389,11 +387,9 @@ function ProductDescription(props) {
                  <Col xs={2}>
                   <Form.Control
                   type="text"
-                  disabled
                   value={Quantity}
                   placeholder="0"
-                //   value={firstName}
-                //   onChange={e=>setFirstName(e.target.value)}
+                  onChange={e=>setQuantity(e.target.value)}
                   ></Form.Control>
                 </Col>
                 <Col xs={1}>
