@@ -28,7 +28,7 @@
   width:100vw;
   overflow-x: hidden;
   float:left;
-  overflow-y:hidden;
+  /* overflow-y:hidden; */
 }
 
 .login-img-col{
@@ -109,6 +109,21 @@
   width:62%;
   margin-left:19%;
   background-color:#c7c8c9;
+  border-radius:10px 10px 10px 10px;
+}
+
+#inputgrp-multi{
+  padding: 0px;
+  width:61%;
+  margin:0% !important;
+  background-color:#c7c8c9;
+  border-radius:10px 10px 10px 10px;
+}
+
+#inputgrp-rad{
+  padding: 0px;
+  width:61%;
+  margin:0% !important;
   border-radius:10px 10px 10px 10px;
 
 
