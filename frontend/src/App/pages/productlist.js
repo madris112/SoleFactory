@@ -99,7 +99,7 @@ function ProductList(props){
           return null
         }
          return (
-      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "600px",overflow: "hidden"}}>
+      <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
         <Card onClick={handleClick}
             className="cardHover"
             id ="cardcss">
@@ -120,15 +120,15 @@ function ProductList(props){
 
             {nearexpiry?   
 
-              <h5 style={{color:"red"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
+              <h6 style={{color:"red",marginLeft:"10px"}} >Expiry in <strong> {expiryin} </strong> days !</h6>
             :null}
             {nearexpiry?   
 
-              <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
-            : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price}</strong></p>}
+              <p className="text-muted" style={{marginLeft:"10px"}}>₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+            : <p className="text-muted" style={{marginLeft:"10px"}}> <strong style={{color:"green",fontSize:"20px"}}>₹ {price}</strong></p>}
               <div style={{display:"inline-block",width:"100%"}}>
-              <large className="text-right">  <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/>  {instock} </large>
-              <div className="smiley"  style={{top:"0",position:"relative",float:"right"}}>
+              <large className="text-right" style={{marginLeft:"10px"}}>  <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/>  {instock} </large>
+              <div className="smiley"  style={{top:"0",position:"relative",float:"right",marginRight:"10px"}}>
               <h4 style={{marginRight:"5px"}}>{coinval} </h4>
               <FaCoins style={{fontSize:"24px"}}/>
               </div>

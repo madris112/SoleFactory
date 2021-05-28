@@ -254,7 +254,7 @@ function Cart(props) {
           </Col>
           <Col className="row_price">
             <h3><strong>Your total for this item was: {data.history.price * data.history.Quantity}</strong></h3><br/>
-            <button lg color="secondary">Buy it Again</button>
+            
           </Col>
         </Row>
       )
@@ -367,7 +367,7 @@ function Cart(props) {
           </Col>
           <Col className="row_price">
             <h3><strong>Your total for this item was: {data.history.price * data.history.Quantity}</strong></h3><br/>
-            <button lg color="secondary">Buy it Again</button>
+            
           </Col>
         </Row>
       )

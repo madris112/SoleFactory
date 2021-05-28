@@ -14,6 +14,7 @@ import coin from "./coin.png"
 import guccibelt from "./guccibelt.jpeg"
 import { FaCartPlus } from "react-icons/fa";
 import Badges from "./badge.js"
+import EmptyImg from "./Credit Card Payment-cuate.png"
 function Cart(props) {
   const [currentCart, setCurrentCart] = useState({})
   const [message , setMessage] = useState(null)
@@ -99,6 +100,15 @@ function Cart(props) {
 
     });
 
+  }
+
+  function removeItem (id){
+
+  var currentlocal = JSON.parse(localStorage.getItem(localStorage.getItem("curUser")));
+    delete currentlocal[id];
+    localStorage.setItem(localStorage.getItem("curUser"),JSON.stringify(currentlocal));
+    window.location.reload(true);
+    
   }
 
   function handleClick(e){
@@ -259,7 +269,7 @@ function Cart(props) {
         <br/>
           <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
           {
-   Object.keys(currentCart).map((data,key) => {
+   (Object.keys(currentCart).length == 0)?<div><img src={EmptyImg} style={{height:"350px",marginLeft:"30%"}}/> <h4 style={{textAlign:"center",color:"red"}}><b>Your Cart Is Empty</b></h4></div>:Object.keys(currentCart).map((data,key) => {
      if(currentCart[data].quantity==0){
         return(
           <h3>Your Cart Is Empty</h3>
@@ -280,7 +290,7 @@ function Cart(props) {
               <Card.Text>
                 <h5>Quantity: {currentCart[data].quantity}</h5>
                 <div style={{display:"inline-block"}}>
-                  <Button style={{backgroundColor:"red",border:"0px"}}>remove</Button>
+                  <Button style={{backgroundColor:"red",border:"0px" }} onClick={()=>removeItem(currentCart[data].prod_id)}>remove</Button>
                 </div>
               </Card.Text>
               <div >
@@ -472,12 +482,10 @@ function Cart(props) {
         </div>
         <br/>
           <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
-          {
-   Object.keys(currentCart).map((data,key) => {
+          { 
+   (Object.keys(currentCart).length == 0)?<div><img src={EmptyImg} style={{height:"350px",marginLeft:"30%"}}/> <h4 style={{textAlign:"center",color:"red"}}><b>Your Cart Is Empty</b></h4></div>:Object.keys(currentCart).map((data,key) => {
      if(currentCart[data].quantity==0){
-        return(
-          <h3>Your Cart Is Empty</h3>
-        )
+        return ;
      }
         totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
       numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
@@ -494,7 +502,7 @@ function Cart(props) {
               <Card.Text>
                 <h5>Quantity: {currentCart[data].quantity}</h5>
                 <div style={{display:"inline-block"}}>
-                  <Button style={{backgroundColor:"red",border:"0px"}}>remove</Button>
+                  <Button style={{backgroundColor:"red",border:"0px"}} onClick={()=>removeItem(currentCart[data].prod_id)}>remove</Button>
                 </div>
               </Card.Text>
               <div >
@@ -551,7 +559,7 @@ function Cart(props) {
            </Row>
            <Row fluid>
               <Col fluid>
-                 <Button style={{backgroundColor:"#F28C28",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}}  onClick={()=>setPopUp(1)} disabled={totalAmount<10000}> CHECKOUT</Button>
+                 <Button style={{backgroundColor:"#F28C28",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}}  onClick={()=>setPopUp(1)} disabled={totalAmount<=0}> CHECKOUT</Button>
               </Col>
            </Row>
            <Row fluid>
@@ -561,7 +569,7 @@ function Cart(props) {
            </Row>
            <Row>
               <Col>
-                <Button style={{backgroundColor:"white",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}} onClick={()=>setPopUp(1)} disabled={totalAmount<10000}> <span style={{color:"black"}}>PAY WITH UPI</span></Button>
+                <Button style={{backgroundColor:"white",border:"0px",width:"90%",borderRadius:"0px 0px 0px 0px",marginLeft:"5%"}} onClick={()=>setPopUp(1)} disabled={totalAmount<=0}> <span style={{color:"black"}}>PAY WITH UPI</span></Button>
                 <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
                 {popup ? (
       <Portal >
