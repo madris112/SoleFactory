@@ -6,16 +6,18 @@ import {Button,Card, Container, FormControl, Form, Col, Row} from 'react-bootstr
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaCoins } from "react-icons/fa";
 import ProductList from "./productlist"
 import "./OrderHistory.css"
 import axios from 'axios'
+import "./Home.css"
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import guccibelt from "./guccibelt.jpeg"
 import coin from "./coin.png"
 import Badges from "./badge.js"
+import Footer from "./footer"
 function Profile() {
   let history = useHistory();
 
@@ -297,7 +299,9 @@ function Profile() {
           </div>
       </div>
     </div>
+    <Footer />
     </div>
+    
   )
 }else{
    return (
@@ -348,7 +352,7 @@ function Profile() {
 
  <div className="coin_display">
 
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
+       <FaCoins style={{marginRight:"3px"}}/>
 
         {coins}</div>
 
@@ -430,7 +434,9 @@ function Profile() {
           </div>
       </div>
     </div>
+    <Footer />
     </div>
+  
   )
 
 }

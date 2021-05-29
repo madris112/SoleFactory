@@ -1,5 +1,6 @@
 import {React,useState} from 'react'
 import Home from './Home'
+import "./Home.css"
 import {Button,Card, Container, FormControl, Form, Col, Row} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Link, useHistory } from 'react-router-dom';
@@ -12,7 +13,7 @@ import cart from "./cart.svg"
 import guccibelt from "./guccibelt.jpeg"
 import Badges from "./badge.js"
 import coin from "./coin.png"
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaCoins } from "react-icons/fa";
 import { useEffect } from 'react';
 function Cart(props) {
   let history = useHistory();
@@ -316,9 +317,9 @@ function Cart(props) {
        <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
        </ReactBootStrap.Nav> */}
 
-           <div className="coin_display">
+        <div className="coin_display">
 
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
+       <FaCoins style={{marginRight:"3px"}}/>
 
         {coins}</div>
 

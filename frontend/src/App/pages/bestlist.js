@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import smile from './smile.png'
 import axios from 'axios'
 import Emptyimg from './finalnotfound.png'
+import { FaBoxes,FaCoins } from "react-icons/fa";
 
 function BestList(props){
   const [ngo, setngo] = useState("false");
@@ -107,21 +108,20 @@ var currRating;
             className="cardHover">
             {title}
             </Card.Title>
-            <Card.Text>{brand}</Card.Text>
-          </Card.Body>
-          <Card.Footer>
-
-          <div>
-            <p className="text-muted">₹ <strong> {price} </strong></p>
-            <small className="text-right">    x {instock} units</small>
-            <small className="text-right">   Current rating {displayrating.toFixed(2)} out of 5</small>
-            </div>
+             <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
+            <div style = {{height: "100%"}}>
+            
+            
+             <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>
+            <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
+         
             <div className="smiley">
             <h4>{coinval} </h4>
             <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
             </div>
+            </div>
 
-          </Card.Footer>
+           </Card.Body>
         </Card>
       </Col>
     );
@@ -140,20 +140,20 @@ var currRating;
             className="cardHover">
             {title}
             </Card.Title>
-            <Card.Text>{brand}</Card.Text>
-          </Card.Body>
-          <Card.Footer>
 
-          <div>
-          <p className="text-muted">₹ <strong> {price} </strong></p>
-            <small className="text-right">    x {instock} units</small>
-            <small style={{float: "right"}}>   Current rating <strong>{displayrating.toFixed(2)}</strong> out of 5</small>
+
+            <Card.Text style={{fontSize:"16px"}} >{brand}</Card.Text>
+            <div style = {{height: "100%"}}>
+            
+            
+             <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>
+            <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
             </div>
-          </Card.Footer>
+          </Card.Body>
         </Card>
       </Col>
     );
-    }
+  }
   };
 
   if(props.arr.length == 0){

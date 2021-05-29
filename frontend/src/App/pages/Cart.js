@@ -11,8 +11,9 @@ import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import coin from "./coin.png"
+import "./Home.css"
 import guccibelt from "./guccibelt.jpeg"
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaCoins } from "react-icons/fa";
 import Badges from "./badge.js"
 import EmptyImg from "./Credit Card Payment-cuate.png"
 function Cart(props) {
@@ -263,11 +264,11 @@ function Cart(props) {
     <Row fluid>
        <Col>
         <div class="freeDel-div">
-          <h5 style={{color:"#FF8C00",textAlign:"center"}}>GET ASSURED FREE DELIVERY ON EVERY PURCHASE</h5>
-          <h6 style={{textAlign:"center"}}>With your every purchase SoleFactory gives certain profit to NGO ( samarpan )</h6>
+          <h5 style={{color:"gold",textAlign:"center"}}>GET ASSURED FREE DELIVERY ON EVERY PURCHASE</h5>
+          <h6 style={{textAlign:"center"}}>With your every purchase SoleFactory gives certain profit to NGO ( SAMARPAN )</h6>
         </div>
         <br/>
-          <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
+          <h3 style={{backgroundColor:"gray",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
           {
    (Object.keys(currentCart).length == 0)?<div><img src={EmptyImg} style={{height:"350px",marginLeft:"30%"}}/> <h4 style={{textAlign:"center",color:"red"}}><b>Your Cart Is Empty</b></h4></div>:Object.keys(currentCart).map((data,key) => {
      if(currentCart[data].quantity==0){
@@ -445,7 +446,7 @@ function Cart(props) {
 
     <div className="coin_display">
 
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
+       <FaCoins style={{marginRight:"3px"}}/>
 
         {coins}</div>
 
@@ -477,11 +478,11 @@ function Cart(props) {
     <Row fluid>
        <Col>
         <div class="freeDel-div">
-          <h5 style={{color:"#FF8C00",textAlign:"center"}}>GET ASSURED FREE DELIVERY ON EVERY PURCHASE</h5>
-          <h6 style={{textAlign:"center"}}>With your every purchase SoleFactory gives certain profit to NGO ( samarpan )</h6>
+          <h5 style={{color:"gold",textAlign:"center"}}>GET ASSURED FREE DELIVERY ON EVERY PURCHASE</h5>
+          <h6 style={{textAlign:"center"}}>With your every purchase SoleFactory gives certain profit to NGO ( SAMARPAN )</h6>
         </div>
         <br/>
-          <h3 style={{backgroundColor:"grey",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
+          <h3 style={{backgroundColor:"gray",width:"100%",textAlign:"center"}}><b>YOUR CART</b></h3>
           { 
    (Object.keys(currentCart).length == 0)?<div><img src={EmptyImg} style={{height:"350px",marginLeft:"30%"}}/> <h4 style={{textAlign:"center",color:"red"}}><b>Your Cart Is Empty</b></h4></div>:Object.keys(currentCart).map((data,key) => {
      if(currentCart[data].quantity==0){

@@ -9,7 +9,7 @@ import sole from "./sole.jpg"
 import cart from "./cart.svg"
 import test from "./test.jpeg"
 import gucci from "./guccibelt.jpeg"
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaCoins } from "react-icons/fa";
 import coin from "./coin.png"
 import Hrating from "./rating.js"
 import Badges from "./badge.js"
@@ -334,7 +334,7 @@ function ProductDescription(props) {
 
     <div className="coin_display">
 
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
+       <FaCoins style={{marginRight:"3px"}}/>
 
         {coins}</div>
 

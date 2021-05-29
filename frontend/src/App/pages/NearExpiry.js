@@ -10,7 +10,7 @@ import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaCoins } from "react-icons/fa";
 import Badges from "./badge.js"
 function NearExpiry(props) {
 
@@ -338,7 +338,7 @@ if(ngo==="false"){
 
      <div className="coin_display">
 
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
+       <FaCoins style={{marginRight:"3px"}}/>
 
         {coins}</div>
 
