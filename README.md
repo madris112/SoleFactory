@@ -72,7 +72,7 @@ Make sure to report these issues on the github repository!
 
 ## The Team🤝
 Made with 💕 by **BitPredators**
-- Madhur Malpani Maheshwari
+- Madhur Malpani 
 - Srajan Khandelwal
 - Sushant Sinha
 - Tanishq Malu

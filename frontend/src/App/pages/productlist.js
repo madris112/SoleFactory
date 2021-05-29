@@ -14,7 +14,7 @@ function ProductList(props){
 
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      // console.log("inside local storage");
+      
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -22,7 +22,7 @@ function ProductList(props){
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      // console.log(x);
+      
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
@@ -32,7 +32,7 @@ function ProductList(props){
           // console.log(JSON.stringify(response.data.retuser.CoinAmt));
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
-            // console.log("hello");
+            
           }
 
         }
@@ -42,7 +42,7 @@ function ProductList(props){
     }
   }, []);
 
-  //console.log(props.arr);
+  
 
   let history = useHistory();
 
@@ -50,7 +50,7 @@ function ProductList(props){
 
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
-    // console.log("rating starts")
+    
     const userInput = {
     prodid: prod_id
   }
@@ -84,7 +84,7 @@ function ProductList(props){
      axios.post('http://localhost:4000/product/counter',userInput, { header } )
         .then(response => {var newcnt =  response.data} );
 
-    // console.log('countcheck done')
+    
 
       history.push({
         pathname: "/productdescription",
@@ -96,7 +96,7 @@ function ProductList(props){
         if(instock <= 0){
           return null
         }
-         return (
+    return (
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
         <Card onClick={handleClick}
             className="cardHover"
@@ -120,11 +120,11 @@ function ProductList(props){
 
             {nearexpiry?   
 
-              <h6 style={{color:"red",marginLeft:"10px"}} >Expiry in <strong> {expiryin} </strong> days !</h6>
+              <h5 style={{color:"red",marginLeft:"10px"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
             :null}
             {nearexpiry?   
 
-              <p className="text-muted" style={{marginLeft:"10px"}}>₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+              <p className="text-muted" style={{marginLeft:"10px"}}>₹ <strike>{price}</strike> <strong style={{color:"green",fontSize:"20px"}}> {discount} </strong></p>
             : <p className="text-muted" style={{marginLeft:"10px"}}> <strong style={{color:"green",fontSize:"20px"}}>₹ {price}</strong></p>}
               <div style={{display:"inline-block",width:"100%"}}>
               <large className="text-right" style={{marginLeft:"10px"}}>  <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/>  {instock} </large>
@@ -134,9 +134,7 @@ function ProductList(props){
               </div>
               </div>
             
-            </div>
-
-          
+          </div>
         </Card>
       </Col>
     );
@@ -145,13 +143,14 @@ function ProductList(props){
         if(instock <= 0){
           return null
         }
-         return (
+    return (
 
       <Col xs={12} sm={6} md={4} style={{marginBottom:"0.5%",height: "530px",overflow: "hidden"}}>
         <Card onClick={handleClick}
             className="cardHover"
             id ="cardcss">
-            {
+             
+             {
               curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
             }
 
@@ -171,15 +170,11 @@ function ProductList(props){
               <h5 style={{color:"red"}} >Expiry in <strong> {expiryin} </strong> days !</h5>
             : null}
             {nearexpiry?   
-              <p className="text-muted">₹ <strike>{price}</strike> <strong> {discount} </strong></p>
+              <p className="text-muted">₹ <strike>{price}</strike> <strong style={{color:"green",fontSize:"18px"}}> {discount} </strong></p>
             : <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>}
             <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
             </div>
-          </Card.Body>
-          
-
-          
-          
+          </Card.Body> 
         </Card>
       </Col>
     );

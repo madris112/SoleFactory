@@ -12,13 +12,13 @@
 }
 
 .coin_display {
-    size: 12px;
+    size: 17px;
    margin-right: 10px;
-  margin-top: 2px;
-    color: white;
+  margin-top: 8px;
+    color: gray;
     align-items: center;
     
-    margin-left: 10px;
+    margin-left: 14px;
 }
 .after_search {
     display: flex;

@@ -5,6 +5,8 @@ const user     = require('../models/user');
 const productRating = require('../models/productRating');
 const productRatingIpDetails = require('../models/productRatingIpDetails');
 const product    = require('../models/product');
+<<<<<<< HEAD
+=======
 
 // router.post('/product/getrating', function(req,res){
 
@@ -14,6 +16,31 @@ const product    = require('../models/product');
 //          res.status(200).send({
 //              message:"user not found!"
 
+//          })
+//      } else{
+//         // console.log("findingratinggg")
+//          res.status(200).send({
+//              prodrate: doc.rating
+//          })
+
+//      }
+//    })
+
+// });
+
+
+
+>>>>>>> 7594db098743354b99d7926f31fd5644ca353380
+
+// router.post('/product/getrating', function(req,res){
+
+//    productRating.findOne({ prodid: req.body.prodid},function(err,doc){
+//      if(err) throw err;
+//      if (!doc) {
+//          res.status(200).send({
+//              message:"user not found!"
+
+<<<<<<< HEAD
 //          })
 //      } else{
 //         // console.log("findingratinggg")
@@ -43,6 +70,24 @@ router.post('/product/getrating', function(req,res){
 
 });
 
+=======
+   product.findOne({ _id: req.body.prodid},function(err,doc){
+     if(err) throw err;
+     if (!doc) {
+         res.status(200).send({
+             message:"user not found!"
+         })
+     } else{
+         res.status(200).send({
+             prodrate: doc.Rating
+         })
+     }
+   })
+
+});
+
+
+>>>>>>> 7594db098743354b99d7926f31fd5644ca353380
 router.get('/auth/failure',(req,res)=>{
      res.status(200).send({
          message: " wrong Credentials!"

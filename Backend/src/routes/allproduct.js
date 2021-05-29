@@ -12,7 +12,6 @@ const productRating = require('../models/productRating');
 const productRatingIpDetails = require('../models/productRatingIpDetails');
 
 
-console.log("hi");
 
 router.post('/product/counter', function(req, res) {
   prodid = req.body.prodid

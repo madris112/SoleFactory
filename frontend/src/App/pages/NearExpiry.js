@@ -10,7 +10,7 @@ import axios from 'axios'
 import * as ReactBootStrap from 'react-bootstrap'
 import sole from "./sole.jpg"
 import cart from "./cart.svg"
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaCoins } from "react-icons/fa";
 import Badges from "./badge.js"
 function NearExpiry(props) {
 
@@ -114,12 +114,12 @@ function NearExpiry(props) {
 
             const a=new Date(s1);
             const b=new Date(s2);
-            const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
+            const c=(b-a)/(1000 * 60 * 60 * 24);
 
             console.log(c);
             response.data[key]["nearexpiry"] = 1;
             response.data[key]["expiryin"] = c;
-            if(c<15){
+            if(c<15 && c>0){
               tempexpiryarray.push(response.data[key]);
             }
           }
@@ -338,7 +338,7 @@ if(ngo==="false"){
 
      <div className="coin_display">
 
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
+       <FaCoins style={{marginRight:"3px"}}/>
 
         {coins}</div>
 
