@@ -47,6 +47,7 @@ var currRating;
     console.log(displayrating)
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
+    if (displayrating<3) return <div />;
     // console.log("rating starts")
     const userInput = {
     prodid: prod_id

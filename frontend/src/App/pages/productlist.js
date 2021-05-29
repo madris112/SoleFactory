@@ -46,9 +46,7 @@ function ProductList(props){
 
   let history = useHistory();
 
-
-
-  const Prod =({prod_id,discount,img_url,title, brand, description, price, instock,coinval,nearexpiry,expiryin}) => {
+  const Prod =({prod_id,discount,img_url,title, brand, description, price, instock,coinval, curr,nearexpiry,expiryin}) => {
 
     var sc = 'http://localhost:4000/upload/' + img_url;
     if (!title) return <div />;
@@ -103,7 +101,9 @@ function ProductList(props){
         <Card onClick={handleClick}
             className="cardHover"
             id ="cardcss">
-           
+            {
+              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
+            }
           <Card.Body>
             <Card.Img variant="top" src= {sc} id="cardImg"/>
             <Card.Title
@@ -151,7 +151,9 @@ function ProductList(props){
         <Card onClick={handleClick}
             className="cardHover"
             id ="cardcss">
-             
+            {
+              curr>3 && <div className="ribbon"><span className="ribbon__content">Best Seller</span></div>
+            }
 
           <Card.Body>
             <Card.Img variant="top" src= {sc} id="cardImg"/>
@@ -217,6 +219,7 @@ function ProductList(props){
                 instock={data.Quantity}
                 coinval={data.CoinValue}
                 key={key}
+                curr = {data.Rating}
                 nearexpiry={data.nearexpiry}
                 expiryin={data.expiryin}
               />
