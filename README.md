@@ -1,4 +1,4 @@
-# SoleFactory: A one stop solution to all your business needs 🛒
+# SoleFactory: A one stop solution for all Wholesale needs with a social cause 🛒
 ![sole](https://user-images.githubusercontent.com/54909147/120067871-75938c80-c09b-11eb-835d-0688b0b8c1f9.jpg)
 
 With the onset of a huge pandemic many people and small-scale businesses across the globe had to face various problems. Small scale shopkeepers were hit very badly by the pandemic due to **shortage of many products** and **uncontrolled spikes in prices** of various goods by local wholesale distributors and holders. The meagre profit generated was not enough to sustain such expensive business, which led many local businesses to come to a complete halt. 
