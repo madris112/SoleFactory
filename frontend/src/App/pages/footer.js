@@ -64,15 +64,15 @@ const Foot = () => (
 
           <ul class="nav__ul">
             <li>
-              <a href="#">Linked In</a>
+              <a href="https://www.linkedin.com/in/sushantsinha0828/">Linked In</a>
             </li>
 
             <li>
-              <a href="#">Github</a>
+              <a href="https://github.com/sushant52">Github</a>
             </li>
 
             <li>
-              <a href="#">Email</a>
+              <a href="mailto:sinhasushant52@gmail.com">Email</a>
             </li>
           </ul>
         </li>
