@@ -43,10 +43,10 @@
         "type":"string"
     },
     "Rating":{
-        "type": "string"
+        "type": "Number"
     },
     "NoOfUserRated":{
-        "type": "String"
+        "type": "Number"
     }
     
 }

@@ -4,26 +4,49 @@ const router   = new express.Router();
 const user     = require('../models/user');
 const productRating = require('../models/productRating');
 const productRatingIpDetails = require('../models/productRatingIpDetails');
+const product    = require('../models/product');
+
+// router.post('/product/getrating', function(req,res){
+
+//    productRating.findOne({ prodid: req.body.prodid},function(err,doc){
+//      if(err) throw err;
+//      if (!doc) {
+//          res.status(200).send({
+//              message:"user not found!"
+
+//          })
+//      } else{
+//         // console.log("findingratinggg")
+//          res.status(200).send({
+//              prodrate: doc.rating
+//          })
+
+//      }
+//    })
+
+// });
+
+
+
 
 router.post('/product/getrating', function(req,res){
 
-   productRating.findOne({ prodid: req.body.prodid},function(err,doc){
+   product.findOne({ _id: req.body.prodid},function(err,doc){
      if(err) throw err;
      if (!doc) {
          res.status(200).send({
              message:"user not found!"
-
          })
      } else{
-        // console.log("findingratinggg")
          res.status(200).send({
-             prodrate: doc.rating
+             prodrate: doc.Rating
          })
-
      }
    })
 
 });
+
+
 router.get('/auth/failure',(req,res)=>{
      res.status(200).send({
          message: " wrong Credentials!"

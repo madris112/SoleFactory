@@ -12,7 +12,6 @@ const productRating = require('../models/productRating');
 const productRatingIpDetails = require('../models/productRatingIpDetails');
 
 
-console.log("hi");
 
 router.post('/product/counter', function(req, res) {
   prodid = req.body.prodid
@@ -50,34 +49,112 @@ router.post('/product/counter', function(req, res) {
     }
   })
 })
+// router.post('/product/rating', function(req, res) {
+//   prodid = req.body.prodid
+//   rate = req.body.rate
+//   console.log(prodid)
+//   console.log(rate)
+//   const ip = requestIp.getClientIp(req);
+
+//   productRatingIpDetails.findOne({prodid: prodid, ip: ip}, function(err, result) {
+//     if (err) throw err;
+//     else {
+//       if(!result){
+//         productRatingIpDetails.create({prodid: prodid, ip: ip, rating: rate});
+//         productRating.findOne({prodid: prodid},function(e,rest){
+//           if(e) throw e;
+//           else {
+//             if(rest){
+//               // console.log("hiiiiiiiii")
+//               // console.log(rate)
+//               var x = rest.cnt;
+//               var y= rest.rating;
+//               y = (y*x);
+//               y = y + rate;
+//               x = x+1;
+//               y = y/x;
+//               //
+//               // console.log(x)
+//               // console.log(y)
+//               productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+//                   if (err){
+//                     console.log(err)
+//                   }
+//                   else{
+//                     console.log("Updated Docs : ", docs);
+//                   }
+//                 });
+//             } else {
+//               productRating.create({prodid: prodid,rating: rate,cnt: 1})
+//             }
+//           }
+//         })
+//         return res.status(200).json(1);
+//       } else {
+//         productRating.findOne({prodid: prodid},function(e,rest){
+//           if(e) throw e;
+//           else {
+//             if(rest){
+//               // console.log("hiiiiiiiii")
+//               // console.log(rate)
+//               var x = rest.cnt;
+//               var y= rest.rating;
+//               y = (y*x);
+//               y = y + rate - result.rating;
+//               y = y/x;
+
+//               console.log(x)
+//               console.log(y)
+//               productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+//                   if (err){
+//                     console.log(err)
+//                   }
+//                   else{
+//                     console.log("Updated Docs : ", docs);
+//                   }
+//                 });
+//             } else {
+//               productRating.create({prodid: prodid,rating: rate,cnt: 1})
+//             }
+//           }
+//         })
+//         productRatingIpDetails.updateOne({prodid: prodid, ip: ip}, {rating: rate},function(err,docs){
+//           if(err){
+//             console.log(err)
+//           } else {
+//             console.log("Updated docs: ", docs);
+//           }
+//         });
+//         return res.status(200).json(0);
+//       }
+//     }
+//   })
+// })
+
+
+
+
+
 router.post('/product/rating', function(req, res) {
   prodid = req.body.prodid
   rate = req.body.rate
-  console.log(prodid)
-  console.log(rate)
   const ip = requestIp.getClientIp(req);
-
   productRatingIpDetails.findOne({prodid: prodid, ip: ip}, function(err, result) {
     if (err) throw err;
     else {
       if(!result){
         productRatingIpDetails.create({prodid: prodid, ip: ip, rating: rate});
-        productRating.findOne({prodid: prodid},function(e,rest){
+        product.findOne({_id: prodid},function(e,rest){
           if(e) throw e;
           else {
-            if(rest){
-              // console.log("hiiiiiiiii")
-              // console.log(rate)
-              var x = rest.cnt;
-              var y= rest.rating;
+            if(rest.NoOfUserRated == 0){
+              var x = rest.NoOfUserRated;
+              var y= rest.Rating;
               y = (y*x);
               y = y + rate;
               x = x+1;
               y = y/x;
-              //
-              // console.log(x)
-              // console.log(y)
-              productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+              product.updateOne({_id: prodid},{NoOfUserRated: x, Rating: y}, function (err, docs) {
                   if (err){
                     console.log(err)
                   }
@@ -86,27 +163,23 @@ router.post('/product/rating', function(req, res) {
                   }
                 });
             } else {
-              productRating.create({prodid: prodid,rating: rate,cnt: 1})
+              product.updateOne({_id: prodid},{NoOfUserRated: 1, Rating: rate})
             }
           }
         })
         return res.status(200).json(1);
       } else {
-        productRating.findOne({prodid: prodid},function(e,rest){
+        product.findOne({_id: prodid},function(e,rest){
           if(e) throw e;
           else {
-            if(rest){
-              // console.log("hiiiiiiiii")
-              // console.log(rate)
-              var x = rest.cnt;
-              var y= rest.rating;
+            console.log(rest)
+            if(rest.Rating != 0){
+              var x = rest.NoOfUserRated;
+              var y= rest.Rating;
               y = (y*x);
               y = y + rate - result.rating;
               y = y/x;
-
-              console.log(x)
-              console.log(y)
-              productRating.updateOne({prodid: prodid},{cnt: x, rating: y}, function (err, docs) {
+              product.updateOne({_id: prodid},{NoOfUserRated: x, Rating: y}, function (err, docs) {
                   if (err){
                     console.log(err)
                   }
@@ -115,7 +188,14 @@ router.post('/product/rating', function(req, res) {
                   }
                 });
             } else {
-              productRating.create({prodid: prodid,rating: rate,cnt: 1})
+              product.updateOne({_id: prodid},{Rating: rate,NoOfUserRated: 1}, function (err, docs) {
+                  if (err){
+                    console.log(err)
+                  }
+                  else{
+                    console.log("Updated Docs : ", docs);
+                  }
+                });
             }
           }
         })
@@ -481,6 +561,80 @@ function compare(a,b){
        return 0;
 }
 
+// router.get('/bestseller',async(req,res)=>{
+
+//     console.log("inside bestseller")
+
+//     try {
+//         const productList = await product.find({});
+//         var bestseller = [];
+//         for(const item in productList){
+
+//             try {
+//                 visitdetails = await productCount.findOne({
+//                     prodid: productList[item]._id,
+//                 });
+//             } catch (error) {
+//                 console.error(error)
+//             }
+//             try {
+//                 ratingDetails = await productRating.findOne({
+//                     prodid: productList[item]._id,
+//                 });
+//             } catch (error) {
+//                 console.error(error)
+//             }
+//             var a = 1;
+//             var b = 1;
+//             var c = 1;
+
+
+
+//             if(visitdetails){
+//                 a = parseInt(visitdetails.cnt);
+
+//             }
+
+//             if(ratingDetails){
+//                 b = parseInt(ratingDetails.rating);
+//             }
+
+//             if(ratingDetails){
+//                 c = parseInt(ratingDetails.cnt);
+//             }
+
+//             SortDetails =  a + b*c;
+//             var curr=0;
+//             if(ratingDetails){
+//                 curr = ratingDetails.rating;
+//             }
+
+//             current = {
+//                 product: productList[item],
+//                 Sort: SortDetails,
+//                 curr: curr
+//             }
+
+//             bestseller.push(current);
+
+//         }
+//         bestseller.sort(compare);
+
+//         res.status(200).send({
+//             message:"best seller received",
+//             bestsell: bestseller
+//         })
+//     } catch (error) {
+//         console.log(error);
+//         res.status(400).send({
+//             message:"something went wrong",
+//         })
+//     }
+
+// });
+
+
+
 router.get('/bestseller',async(req,res)=>{
 
     console.log("inside bestseller")
@@ -498,8 +652,8 @@ router.get('/bestseller',async(req,res)=>{
                 console.error(error)
             }
             try {
-                ratingDetails = await productRating.findOne({
-                    prodid: productList[item]._id,
+                ratingDetails = await product.findOne({
+                    _id: productList[item]._id,
                 });
             } catch (error) {
                 console.error(error)
@@ -516,17 +670,17 @@ router.get('/bestseller',async(req,res)=>{
             }
 
             if(ratingDetails){
-                b = parseInt(ratingDetails.rating);
+                b = parseInt(ratingDetails.Rating);
             }
 
             if(ratingDetails){
-                c = parseInt(ratingDetails.cnt);
+                c = parseInt(ratingDetails.NoOfUserRated);
             }
 
             SortDetails =  a + b*c;
             var curr=0;
             if(ratingDetails){
-                curr = ratingDetails.rating;
+                curr = ratingDetails.Rating;
             }
 
             current = {
