@@ -63,9 +63,11 @@ function Login() {
         // console.log(JSON.stringify(response.data.user));
         setResMsg(response.data.message);
         redirectLink = response.data.redirect;
+        if(response.data.user){
         localStorage.setItem('username', response.data.user.username);
+        }
 
-        // console.log(redirectLink);
+        
         if (response.data.successcode === '1'){
           localStorage.setItem('localsession', '1');
           // console.log("lety see");

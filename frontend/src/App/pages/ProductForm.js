@@ -40,7 +40,7 @@ function ProductForm() {
      
 
      let formData = new FormData();
-     console.log(selectedfile);
+
      formData.append('file', selectedfile);
      formData.append('payload',JSON.stringify(userInput));
 

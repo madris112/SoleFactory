@@ -13,6 +13,7 @@ import { FaCartPlus, FaCoins } from "react-icons/fa";
 import coin from "./coin.png"
 import Hrating from "./rating.js"
 import Badges from "./badge.js"
+import Footer from "./footer"
 function ProductDescription(props) {
   let history = useHistory();
   let initQuantity = 0;
@@ -280,7 +281,7 @@ function ProductDescription(props) {
             </Row>
 
       </Container>
-
+     <Footer />
 
     </div>
   )
@@ -412,6 +413,7 @@ function ProductDescription(props) {
               </Col>
             </Row>
       </Container>
+      <Footer />
     </div>
   )
 

@@ -16,6 +16,7 @@ import guccibelt from "./guccibelt.jpeg"
 import { FaCartPlus, FaCoins } from "react-icons/fa";
 import Badges from "./badge.js"
 import EmptyImg from "./Credit Card Payment-cuate.png"
+import Footer from "./footer"
 function Cart(props) {
   const [currentCart, setCurrentCart] = useState({})
   const [message , setMessage] = useState(null)
@@ -176,13 +177,13 @@ function Cart(props) {
        coinsUsed: payWithCoin?numberOfCoins:0
      }
 
-     //console.log(requestoptions);
+     
      const header = {
       "Content-Type": "application/json"
     };
      axios.post("http://localhost:4000/order",requestoptions,{header})
      .then(response => {
-       //console.log(response.data.message)
+       
        setMessage(response.data.message);
     });
     setCurrentCart({})
@@ -241,9 +242,7 @@ function Cart(props) {
     </Form>
 
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-       {/* <ReactBootStrap.Nav>
-         <Button variant = "outline-info" onClick = {logoutClick}>SignOut</Button>
-       </ReactBootStrap.Nav> */}
+       
       <ReactBootStrap.NavDropdown
       title={nameofuser}
       id="collasible-nav-dropdown"
@@ -389,7 +388,6 @@ function Cart(props) {
     </Row>
    
   </Container>
-   
   </div>
 </div>
 
@@ -564,7 +562,7 @@ function Cart(props) {
               </Col>
            </Row>
            <Row fluid>
-              <Col fluid >
+              <Col fluid >SINCE LOCKDOWN, I HAVE BEEN BUYING FROM MY HOME, BUSINESS HAS BECAME SO EASY MY FRIEND
                 <p style={{color:"white",marginLeft:"50%",marginTop:"10px"}}>OR</p>
               </Col>
            </Row>
@@ -607,67 +605,7 @@ function Cart(props) {
  )
   }
 }
-  {/* <div className="you_orders" >
- <h2 className="your_orders"><strong>YOUR CART</strong></h2>
- <h3 style={{color:"green",marginLeft:"30%"}}>{message}</h3>
- </div>
- <div className="whole_page">
-  {console.log(currentCart)}
-    <Container >
-  {
-    Object.keys(currentCart).map((data,key) => {
-      if(currentCart[data].quantity==0)
-        return;
-      totalAmount += (currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity
-      numberOfCoins = Math.min(Math.ceil(totalAmount/100),localStorage.getItem('coins'))
-      //console.log("items")
-      return(
-        <Row className="row_orders">
-          <Col style={{padding: "0px"}}>
-            <img className="img_row"
-            fluid
-            src={'http://localhost:4000/upload/' + currentCart[data].img_url} alt=""
-            width="150"
-            height="120"/>
-          </Col>
-          <Col style={{padding: "5px"}}><br/>
-            <h4><strong>{currentCart[data].title}</strong></h4>
-            <p>By {currentCart[data].brand} </p>
-            <h5>Quantity: {currentCart[data].quantity}</h5>
-          </Col>
-          <Col className="row_price">
-          {currentCart[data].nearexpiry?<h6>Discount!</h6>:null}
-            <h3><strong>Checkout Price: ₹{(currentCart[data].nearexpiry?currentCart[data].discount:currentCart[data].price) * currentCart[data].quantity}</strong></h3><br/>
-          </Col>
-        </Row>
-      )
-    })
-  }
-
-    <h3>Your total is: {totalAmount}</h3>
-    <Button variant="primary" onClick={()=>setPopUp(1)} disabled={totalAmount<10000}>Buy All</Button>
-    </Container>
-    {popup ? (
-      <Portal >
-        <h1>Your total is: {totalAmount}</h1>
-        {payWithCoin ?
-          <div>
-            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
-            <h1>You need to pay: {numberOfCoins}Coins and {Math.max(totalAmount-numberOfCoins*100,0)}Rupees</h1>
-          </div>
-        :
-          <div>
-            {localStorage.getItem("ngo") ?
-            <ToggleButton type='checkbox' checked={payWithCoin} onChange={()=>setPayWithCoin(!payWithCoin)}>Pay with coins</ToggleButton>
-            : null
-            }
-            <h1>You need to pay: {totalAmount}Rupees</h1>
-          </div>}
-        <Button onClick={() => {setPopUp(0);confirmBuy();}}>Pay</Button>
-        <Button onClick={() => setPopUp(0)}>Cancel</Button>
-      </Portal>
-    ) : null
-      } */}
+  
 
 
    

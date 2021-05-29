@@ -14,15 +14,16 @@ import { FaCartPlus, FaCoins } from "react-icons/fa";
 import Badges from "./badge.js"
 function Home(props) {
 
+
+//define various required states
   const [searchname, setSearchName] = useState(null);
   const [category, setCategory] = useState(null);
   const [prodarray, setProdArray] = useState([]);
   const [navselected, setNavSelected] = useState(null);
   const [ngo, setngo] = useState("false");
   const [coins, setcoins] = useState(null);
-  // const [finalval, setfinalval] = useState("");
+ 
 
-  // setfinalval("Hi "+ {nameofuser});
 
   let history = useHistory();
   let initSearchName = ""
@@ -44,7 +45,7 @@ function Home(props) {
 
 
   try{
-    //console.log(typeof(props.location.state.searchname));
+   
     if(props.location.state.searchname!=undefined){
       initSearchName = props.location.state.searchname
       FirstQuery= props.location.state.searchname
@@ -53,7 +54,7 @@ function Home(props) {
     }
   }catch{}
   try{
-    //console.log("ye wala " + props.location.state.category)
+  
     if(props.location.state.category!=undefined){
 
       ThirdQuery = props.location.state.category
@@ -63,8 +64,6 @@ function Home(props) {
 
   useEffect(async() => {
 
-
-    //console.log(category);
 
     if(category!==null || ThirdQuery){
     let query = null;
@@ -82,12 +81,10 @@ function Home(props) {
 
   useEffect(async () => {
 
-    //console.log(searchname)
-    //console.log("clicked + FirstQuery")
     const userInput = {
       searchname: searchname
     }
-    //console.log("searchinf first query" + FirstQuery);
+    
     const header = {
       "Content-Type":"application/json"
     };
@@ -95,14 +92,17 @@ function Home(props) {
     await axios.get('http://localhost:4000/product/search', {params:{searchname:FirstQuery,category:SecondQuery},header})
         .then(response => setProdArray(response.data) );
 
-    //console.log('searching search bar done')
+    
   },[FirstQuery])
 
   let redirectLink = '';
 
+  
+  // check if a user is signed in or not using local storage
   useEffect(() => {
     if (localStorage.getItem('localsession') === "1") {
-      //console.log("inside local storage");
+      
+      //if no user is signed in redirect to the login page
       if (localStorage.getItem('localsession') !== '1') history.push('/');
 
       const header = {
@@ -110,22 +110,24 @@ function Home(props) {
         'Access-Control-Allow-Credentials': true,
       };
       let x=localStorage.getItem('username');
-      //console.log(x);
+      
+      //checking if the logged in user is ngo or not
       axios
         .get('http://localhost:4000/getuser', {params:{usrname: x}, header, withCredentials: true })
         .then((response) => {
           if(response.data.retuser){
             localStorage.setItem("ngo","false");
             localStorage.setItem("coins","0");
-          // console.log(JSON.stringify(response.data.retuser));
-          // console.log(JSON.stringify(response.data.retuser.Type));
-          // console.log(JSON.stringify(response.data.retuser.CoinAmt));
+          
+
+      //if the user is NGO, set the state of ngo as "true"
           if(response.data.retuser && response.data.retuser.Type==="1"){
             setngo("true");
             localStorage.setItem("ngo","true");
-            // console.log("hello");
+           
             var y=response.data.retuser.CoinAmt;
-            // console.log(parseInt(y));
+
+      //storing the available coins of ngo in local storage as well as in state variable
             setcoins(response.data.retuser.CoinAmt);
             localStorage.setItem("coins",response.data.retuser.CoinAmt);
           }
@@ -161,7 +163,9 @@ function Home(props) {
           if(response.data.user && response.data.user.IsActivated === '0'){
             history.push('/completeForm');
           }
+          if(response.data.user){
           localStorage.setItem('username',response.data.user.username);
+        }
           let userCart = localStorage.getItem(response.data.user.username)
           if(userCart===null){
             localStorage.setItem(response.data.user.username,JSON.stringify({}));
@@ -179,6 +183,8 @@ function Home(props) {
     }
   }, []);
 
+
+//on clicking the signout button, clearing the local storage
   function logoutClick(e){
     localStorage.clear();
     const header = {
@@ -204,20 +210,19 @@ function Home(props) {
 
     history.push(`/home${query}`)
 
-    //  axios.get('http://localhost:4000/product/search', {header} )
-    //     .then(response => setProdArray(response.data) );
-
-    // console.log('searching done')
   }
+
+
 var nameofuser = localStorage.getItem('curUser');
 if(!nameofuser)nameofuser="hi";
-// console.log(ngo);
+
+// check if user is ngo and display the UI according to NGO
 if(ngo==="false"){
 
    return (
 
 
-
+// navbar with it components
    <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
 
       <ReactBootStrap.Navbar       collapseOnSelect expand = "lg" bg = "dark" variant = "dark">
@@ -264,17 +269,8 @@ if(ngo==="false"){
       onClick = {handleClick}>Search</Button>
     </Form>
 
-
-     {/* <div className="coin_display">
-
-        <img src={coin} width="35" height="35" marginRight="20"  alt="" />
-
-        {coins}</div> */}
-
-
-
       <ReactBootStrap.Nav.Link href = "/orderhistory">Orders</ReactBootStrap.Nav.Link>
-      {/* <ReactBootStrap.Nav.Link onClick={logoutClick}>Signout</ReactBootStrap.Nav.Link> */}
+    
       <ReactBootStrap.NavDropdown
       title= {nameofuser}
       id="collasible-nav-dropdown"
@@ -292,6 +288,7 @@ if(ngo==="false"){
   </ReactBootStrap.Navbar.Collapse>
 </ReactBootStrap.Navbar>
 
+  {/* display all the products in the home page */}
 
      <div style={{bottom:"0px",height:"100%",width:"100%",paddingTop:"10px"}}>
       <ProductList arr={prodarray} />
@@ -302,6 +299,8 @@ if(ngo==="false"){
   )
 
 }else{
+
+  //displaying the UI for non-NGO user
   return (
 
     <div width="100%" style={{overflowX: 'hidden',height:"100%"}}>
@@ -333,7 +332,7 @@ if(ngo==="false"){
       </ReactBootStrap.NavDropdown>
 
       <ReactBootStrap.Nav.Link href = "http://localhost:3000/nearexpiry">Near Expiry Products</ReactBootStrap.Nav.Link>
-            <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
+      <ReactBootStrap.Nav.Link href = "/bestseller">BestSellers</ReactBootStrap.Nav.Link>
     </ReactBootStrap.Nav>
     <ReactBootStrap.Nav>
 
