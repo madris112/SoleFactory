@@ -25,7 +25,7 @@ We propose a solution to both the problems with our platform, **SoleFactory**!
 ... and many more frameworks!
 
 ## Run on your local machine️👨‍💻
-🔴**NOTE**: The project is developed and tested on *Ubuntu* and we recommend the same. Few areas of code might break on other operating systems.
+🔴**NOTE**: The project is developed and tested on *Ubuntu* and we recommend the same. Few areas of code may vary on other operating systems.
 
 ### Step 1 
 Clone this git repository using
