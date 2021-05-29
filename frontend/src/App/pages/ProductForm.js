@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactDOM from "react-dom";
+import "./Home.css"
 
 function ProductForm() {
   const [brand, setBrand] = useState("");
@@ -53,7 +54,7 @@ function ProductForm() {
   }
 
   return (
-    <div className="fixed-bg">
+    <div className="prodadd_bg">
       <Container fluid>
         <Row className="justify-content-center" style={{ paddingTop: "2%" }}>
           <Col xs={2} sm={5} md={3} className="container-bg">

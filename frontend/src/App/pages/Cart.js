@@ -374,9 +374,7 @@ function Cart(props) {
                                 </div>
                               </Card.Text>
                               <div>
-                                {currentCart[data].nearexpiry ? (
-                                  <h6>Discount!</h6>
-                                ) : null}
+                                
                                 <h3>
                                   <strong>
                                     Checkout Price: ₹
@@ -766,9 +764,7 @@ function Cart(props) {
                                 </div>
                               </Card.Text>
                               <div>
-                                {currentCart[data].nearexpiry ? (
-                                  <h6>Discount!</h6>
-                                ) : null}
+
                                 <h3>
                                   <strong>
                                     Checkout Price: ₹
