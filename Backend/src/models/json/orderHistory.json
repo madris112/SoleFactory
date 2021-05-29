@@ -1,21 +1,20 @@
 {
-    "productId":{
-        "type"    : "String",
-        "required": true,
-        "index"   : true
-    },
-    "user":{
-        "type":"String",
-        "required":true,
-        "index"   : true
-    },
-    "Quantity" : {
-        "type"    : "string",
-        "required": true
-    },
-    "price":{
-        "type"    : "String",
-        "required": true
-    }
-    
+  "productId": {
+    "type": "String",
+    "required": true,
+    "index": true
+  },
+  "user": {
+    "type": "String",
+    "required": true,
+    "index": true
+  },
+  "Quantity": {
+    "type": "string",
+    "required": true
+  },
+  "price": {
+    "type": "String",
+    "required": true
+  }
 }

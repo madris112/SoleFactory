@@ -1,52 +1,50 @@
 {
-    "Title":{
-        "type"    : "String",
-        "required": true,
-        "index"   : true
-    },
-    "description":{
-        "type"    : "String",
-        "required": true
-    },
-    "brand":{
-        "type"    : "string",
-        "required": true
-    },
-    "Quantity" : {
-        "type"    : "string",
-        "required": true
-    },
-    "price":{
-        "type"    : "String",
-        "required": true
-    },
-    "seller":{
-        "type"    : "String",
-        "required": true
-    },
-    "expiryDate":{
-        "type"    : "String",
-        "required": true
-
-    },
-    "DiscountedPrice":{
-        "type": "String"
-    },
-    "categoryTag":{
-        "type"   : "String",
-        "require": true
-    },
-    "CoinValue":{
-        "type": "String"
-    },
-    "imgURL":{
-        "type":"string"
-    },
-    "Rating":{
-        "type": "Number"
-    },
-    "NoOfUserRated":{
-        "type": "Number"
-    }
-    
+  "Title": {
+    "type": "String",
+    "required": true,
+    "index": true
+  },
+  "description": {
+    "type": "String",
+    "required": true
+  },
+  "brand": {
+    "type": "string",
+    "required": true
+  },
+  "Quantity": {
+    "type": "string",
+    "required": true
+  },
+  "price": {
+    "type": "String",
+    "required": true
+  },
+  "seller": {
+    "type": "String",
+    "required": true
+  },
+  "expiryDate": {
+    "type": "String",
+    "required": true
+  },
+  "DiscountedPrice": {
+    "type": "String"
+  },
+  "categoryTag": {
+    "type": "String",
+    "require": true
+  },
+  "CoinValue": {
+    "type": "String"
+  },
+  "imgURL": {
+    "type": "string"
+  },
+  "Rating": {
+    "type": "Number"
+  },
+  "NoOfUserRated": {
+    "type": "Number"
+  }
 }

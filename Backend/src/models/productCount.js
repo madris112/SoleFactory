@@ -1,10 +1,10 @@
-const mongoose    = require('mongoose');
-require('../database/database');
+const mongoose = require("mongoose");
+require("../database/database");
 
 var prodcntschema = new mongoose.Schema({
   prodid: String,
-  cnt: Number
+  cnt: Number,
 });
 
 //Export the model
-module.exports = mongoose.model('prodcnt', prodcntschema);
+module.exports = mongoose.model("prodcnt", prodcntschema);

@@ -1,10 +1,10 @@
 {
-    "prodid":{
-        "type"    : "String",
-        "required": true
-    },
-    "ip":{
-        "type"    : "String",
-        "required": true
-    }
+  "prodid": {
+    "type": "String",
+    "required": true
+  },
+  "ip": {
+    "type": "String",
+    "required": true
+  }
 }

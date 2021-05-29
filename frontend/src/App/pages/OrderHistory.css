@@ -1,31 +1,30 @@
 .row_orders {
-    background-color: #DFCAA0;
-    height: 150px;
-    margin-top: 20px;
-    width: 1200px;
-    border-radius: 16px;
+  background-color: #dfcaa0;
+  height: 150px;
+  margin-top: 20px;
+  width: 1200px;
+  border-radius: 16px;
 }
 
 .your_orders {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 60px;
-    /* background-color: darkgray; */
-    height: 10vh;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  /* background-color: darkgray; */
+  height: 10vh;
 }
 
 .row_price {
-    float: right;
-    text-align: right;
-    padding: 20px;
+  float: right;
+  text-align: right;
+  padding: 20px;
 }
 
 .img_row {
-    margin: 15px;
+  margin: 15px;
 }
 
 .whole_page {
-    /* background-color: darkgray; */
-    height: 100vh;
-   
+  /* background-color: darkgray; */
+  height: 100vh;
 }

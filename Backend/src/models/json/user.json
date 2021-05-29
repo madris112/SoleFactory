@@ -1,47 +1,47 @@
 {
-    "username":{
-        "type"    : "String",
-        "required": true,
-        "unique"  : true,
-        "index"   : true
-    },
-    "firstname":{
-        "type"    : "String",
-        "required": true
-    },
-    "lastname":{
-        "type"    : "String",
-        "required": true
-    },
-    "email":{
-        "type"    : "String",
-        "required": true
-    },
-    "mobile":{
-        "type"    : "String",
-        "required": true
-    },
-    "password":{
-        "type"    : "String",
-        "required": true
-    },
-    "gstno":{
-        "type"   : "String",
-        "require": true
-    },
-    "ngoid":{
-        "type":"string"
-    },
-    "IsActivated":{
-        "type": "string"
-    },
-    "IsOauth":{
-        "type": "string"
-    },
-    "Type":{
-        "type": "string"
-    },
-    "CoinAmt":{
-        "type": "string"
-    }
+  "username": {
+    "type": "String",
+    "required": true,
+    "unique": true,
+    "index": true
+  },
+  "firstname": {
+    "type": "String",
+    "required": true
+  },
+  "lastname": {
+    "type": "String",
+    "required": true
+  },
+  "email": {
+    "type": "String",
+    "required": true
+  },
+  "mobile": {
+    "type": "String",
+    "required": true
+  },
+  "password": {
+    "type": "String",
+    "required": true
+  },
+  "gstno": {
+    "type": "String",
+    "require": true
+  },
+  "ngoid": {
+    "type": "string"
+  },
+  "IsActivated": {
+    "type": "string"
+  },
+  "IsOauth": {
+    "type": "string"
+  },
+  "Type": {
+    "type": "string"
+  },
+  "CoinAmt": {
+    "type": "string"
+  }
 }
