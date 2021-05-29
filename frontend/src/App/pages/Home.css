@@ -22,3 +22,9 @@
 .after_search {
   display: flex;
 }
+
+.prodadd_bg {
+
+  background-size: cover;
+  background-color: grey;
+}

@@ -155,6 +155,7 @@ function Home(props) {
           if (response.data.user) {
             localStorage.setItem("username", response.data.user.username);
           }
+          if(response.data.user){
           let userCart = localStorage.getItem(response.data.user.username);
           if (userCart === null) {
             localStorage.setItem(
@@ -166,6 +167,7 @@ function Home(props) {
           redirectLink = response.data.redirect;
           if (response.data.message === "Unauthorized Access!") {
             history.push("/");
+          }
           }
         });
 

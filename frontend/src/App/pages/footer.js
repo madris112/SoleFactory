@@ -47,15 +47,15 @@ const Foot = () => (
 
           <ul class="nav__ul">
             <li>
-              <a href="#">Linked In</a>
+              <a href="https://www.linkedin.com/in/srajan-khandelwal-b32893194/">Linked In</a>
             </li>
 
             <li>
-              <a href="#">Github</a>
+              <a href="https://github.com/srajankhandelwal">Github</a>
             </li>
 
             <li>
-              <a href="#">Email</a>
+              <a href="mailto:srajankhandelwal@gmail.com">Email</a>
             </li>
           </ul>
         </li>
