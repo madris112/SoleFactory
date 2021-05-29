@@ -249,7 +249,7 @@ function Cart(props) {
             height="120"/>
           </Col>
           <Col style={{padding: "5px"}}><br/>
-            <h4><strong>{data.product.Title}</strong></h4>
+            <p style={{ fontSize:"22px", height:"28px", overflow:"hidden"}}><strong>{data.product.Title}</strong></p>
             <p>By {data.product.brand} </p>
             <h5>Quantity: {data.history.Quantity}</h5>
           </Col>

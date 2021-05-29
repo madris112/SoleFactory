@@ -114,12 +114,12 @@ function NearExpiry(props) {
 
             const a=new Date(s1);
             const b=new Date(s2);
-            const c=Math.abs(b-a)/(1000 * 60 * 60 * 24);
+            const c=(b-a)/(1000 * 60 * 60 * 24);
 
             console.log(c);
             response.data[key]["nearexpiry"] = 1;
             response.data[key]["expiryin"] = c;
-            if(c<15){
+            if(c<15 && c>0){
               tempexpiryarray.push(response.data[key]);
             }
           }

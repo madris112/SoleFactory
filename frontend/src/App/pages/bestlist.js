@@ -115,12 +115,11 @@ var currRating;
              <p className="text-muted"> <strong style={{color:"green",fontSize:"20px"}}>₹ {price} </strong></p>
             <large className="text-right">    <FaBoxes style={{fontSize:"20px",marginRight:"3px"}}/> {instock} </large>
          
-            <div className="smiley">
-            <h4>{coinval} </h4>
-            <img src={smile} height="24" width="24" marginTop="10" marginLeft="34px"/>
+<div className="smiley"  style={{top:"0",position:"relative",float:"right",marginRight:"10px"}}>
+              <h4 style={{marginRight:"5px"}}>{coinval} </h4>
+              <FaCoins style={{fontSize:"24px"}}/>
             </div>
-            </div>
-
+           </div>
            </Card.Body>
         </Card>
       </Col>
