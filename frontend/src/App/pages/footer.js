@@ -87,11 +87,11 @@ const Foot = () => (
             </li>
 
             <li>
-              <a href="#">Github</a>
+              <a href="https://github.com/Tanishqmalu">Github</a>
             </li>
 
             <li>
-              <a href="#">Email</a>
+              <a href="mailto:tanishq.malu.18@gmail.com">Email</a>
             </li>
           </ul>
         </li>
